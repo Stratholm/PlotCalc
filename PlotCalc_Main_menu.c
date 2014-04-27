@@ -17,7 +17,7 @@ void main()
 			case 72:          
 			{
 				system("cls");
-				printf("Rawr :3");
+				printf("Ra~wr :3");
 				continue;
 			}
 			case '2':       
