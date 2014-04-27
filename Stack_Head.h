@@ -4,49 +4,37 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-typedef struct _Stack Stack;
+/*Structures*/
 
-/*Main variables declaration*/
-extern int user_size;
-extern int user_increment;
-extern int default_size;
-extern Stack st;
-
-/*Functions*/
-
-/*Pointer*/
+//Pointer
 typedef void* point;
 
-/*Stack structure*/
 typedef struct _Stack 
 {
 	point* sk;
 	int len, size;    
 } Stack;
 
-/*Create empty stack*/
-void stack_create(Stack* st, int user_size);
+/*Main variables declaration*/
+extern int user_size;
+extern Stack st;
 
-/*Resize stacks*/
-int stack_resize(Stack* st, int user_size, int user_increment, int default_size);
+/*Functions*/
 
-/*Delete stack*/
-void stack_destroy(Stack* st);
-
-/*Show stack size*/
+//Show stack size
 void stack_size(Stack* st);
 
-/*Push elememnt*/
+//Push elememnt
 void stack_push(Stack *st, int user_size, int user_increment, int default_size);
 
-/*Pop element*/
+//Pop element
 void stack_pop(Stack *st, int user_size, int user_increment, int default_size);
 
-/*Peek element*/
+//Peek element
 void stack_peek(Stack* st);
 
-/*Show memory usage*/
+//Show memory usage
 void mem_size(Stack* st);
 
-/*Stack settings*/
+//Stack settings
 void stack_settings(char c, int* user_size, int* user_increment, int* e);

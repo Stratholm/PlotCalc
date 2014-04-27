@@ -3,22 +3,21 @@
 
 /*Main variables defenition*/
 int default_size = 4;
-int user_size = 4;
+int user_size = 16;
 int user_increment = 2;
 Stack st;
 
 /*Functions*/
 
-/*Create empty stack*/
+//Create empty stack
 void stack_create(Stack* st, int user_size)
 {
-
 	st->sk = (point*)malloc(user_size*sizeof(int));
 	st->len = 0;
 	st->size = user_size;
 }
 
-/*Resize stacks*/
+//Resize stacks
 int stack_resize(Stack *st, int user_size, int user_increment, int default_size)
 {
 	int a = 0, sz, i;
@@ -65,7 +64,7 @@ int stack_resize(Stack *st, int user_size, int user_increment, int default_size)
 	return 0;
 }
 
-/*Delete stack*/
+//Delete stack
 void stack_destroy(Stack* st)
 {
 	if (st->sk == NULL)
@@ -83,14 +82,14 @@ void stack_destroy(Stack* st)
 	}
 }
 
-/*Show stack size*/
+//Show stack size
 void stack_size(Stack *st)
 {
 	printf("Stack current size: %d\n", st->len);
 	getch();
 }
 
-/*Push elememnt*/
+//Push elememnt
 void stack_push(Stack *st, int user_size, int user_increment, int default_size)
 {
 	point val;
@@ -115,7 +114,7 @@ void stack_push(Stack *st, int user_size, int user_increment, int default_size)
 	}
 }
 
-/*Pop element*/
+//Pop element
 void stack_pop(Stack *st, int user_size, int user_increment, int default_size)
 {		
 	if (st->sk == NULL)
@@ -142,7 +141,7 @@ void stack_pop(Stack *st, int user_size, int user_increment, int default_size)
 	}
 }
 
-/*Peek element*/
+//Peek element
 void stack_peek(Stack *st)
 {
 	if (st->sk == NULL)
@@ -163,14 +162,14 @@ void stack_peek(Stack *st)
 	}
 }
 
-/*Show memory usage*/
+//Show memory usage
 void mem_size(Stack *st)
 {
 	printf("Memory used: %d\n", st->size);
 	getch();
 }
 
-/*Stack settings*/
+//Stack settings
 void stack_settings(char c, int* user_size, int* user_increment, int* e)
 {
 	int val = 0;
