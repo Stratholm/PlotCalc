@@ -61,6 +61,7 @@ void main()
 			{
 				e = 1;
 				system("cls");
+				printf("Good night, sweet prince.");
 				return;
 			}
 		}
