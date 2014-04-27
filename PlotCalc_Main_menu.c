@@ -61,7 +61,7 @@ void main()
 			{
 				e = 1;
 				system("cls");
-				printf("Good night, rachye.");
+				printf("Good night, rachye!");
 				return;
 			}
 		}
