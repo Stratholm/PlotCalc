@@ -1,14 +1,20 @@
 #include "Queue_Head.h"
-
+#include "PlotCalc_Head.h"
 _list List;
-/*
-List->head=NULL;
-List->tail=NULL;
-*/
+
 
 /*Functions*/
+
+//Create queue
+void Queue_Create(_list* queu)
+{
+	queu->head=NULL;
+	queu->tail=NULL;
+
+}
+
 //Создание элемента в конце очереди
-void Queue_Create(_list *queu, float val, char *eq)
+void Queue_Creat(_list *queu, Element el)
 {
     _note *note=(_note*)malloc(sizeof(_note));
     note->numb=val;

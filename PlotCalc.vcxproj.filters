@@ -21,7 +21,7 @@
     <ClCompile Include="PlotCalc_Main_menu.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stack_Functions.c">
+    <ClCompile Include="Queue_Func.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="PlotCalc_Head.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Stack_Head.h">
+    <ClInclude Include="Queue_Head.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,35 +1,36 @@
 #pragma once
 
-/*Includes*///
+/*Includes*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
 /*Structures*/
-//Элемент очереди
+
+//Single note
 typedef struct _note
 {
 	struct _note *prev, *next;
-	char equas[128];
-	float numb;
 } _note;
 
-//Очередь
+//Single queue
 typedef struct _list
 {
     _note *head, *tail;
 } _list;
 
 /*Main Variables*/
-extern int max_size;
-extern _list List;
 
 /*Functions*/
-//Создание элемента в конце очереди
-void Queue_Create(_list *queu, float val, char *eq);
 
-//Идти вперед по очереди
+//Create queue
+void Queue_Create(_list* queu);
+
+//Create element in the end
+void Queue_Creat(_list *queu, Element el);
+
+//Go forward
 void Queue_Go_Fwd(_list *queu, _note *Point);
 
-//Идти назад по очереди
+//Go backwards
 void Queue_Go_Back(_list *queu, _note *Point);

@@ -22,9 +22,16 @@ void main()
 			}
 			case '2':       
 			{
+				Stack stck;
+				Element el, *ol;
+				double hui;
+				el.data = 1.0;
 				system("cls");
-				printf("%c", c);
-				
+				stack_create(&stck, 16);
+				stack_push(&stck, &el);
+				hui = stck.sk[0].data;
+				printf("%f", hui);
+				getch();
 				continue;
 			}
 			case '3':         

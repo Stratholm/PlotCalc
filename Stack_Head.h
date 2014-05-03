@@ -3,12 +3,16 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "Queue_Head.h"
+#pragma once
+
 
 /*Structures*/
 
 //Pointer
 typedef void* point;
 
+//Stack
 typedef struct _Stack 
 {
 	point* sk;
@@ -16,25 +20,18 @@ typedef struct _Stack
 } Stack;
 
 /*Main variables declaration*/
-extern int user_size;
-extern Stack st;
 
 /*Functions*/
 
-//Show stack size
-void stack_size(Stack* st);
+//Create empty stack
+void stack_create(Stack* st, int size);
 
 //Push elememnt
-void stack_push(Stack *st, int user_size, int user_increment, int default_size);
+int stack_push(Stack* st, point* ph);
 
 //Pop element
-void stack_pop(Stack *st, int user_size, int user_increment, int default_size);
+point stack_pop(Stack* st);
 
 //Peek element
-void stack_peek(Stack* st);
+_list stack_peek(Stack* st);
 
-//Show memory usage
-void mem_size(Stack* st);
-
-//Stack settings
-void stack_settings(char c, int* user_size, int* user_increment, int* e);
