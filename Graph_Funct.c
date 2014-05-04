@@ -70,13 +70,3 @@ int graph_draw_asix(int right, int up)  //right(up) - number of times, that user
     return 0;
 
 }
-
-////////////////////////////
-int main()
-{
-    interface_main("",0);
-    _getch();
-    interface_main("",1);
-    _getch();
-    return 0;
-}
