@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="PlotCalc" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="PlotCalc" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+			</Target>
+			<Target title="Release Win32">
+				<Option output="PlotCalc" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+			</Target>
+		</Build>
+		<Unit filename="Graph_Funct.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Graph_Head.h" />
+		<Unit filename="PlotCalc_Functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="PlotCalc_Head.h" />
+		<Unit filename="PlotCalc_Main_menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Queue_Func.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Queue_Head.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,6 +1,6 @@
 /*Includes*/
 #include "PlotCalc_Head.h"
-#pragma once
+//#pragma once
 
 /*Main variables defenition*/
 int e = 0;

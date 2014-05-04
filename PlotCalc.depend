@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1399183375 source:d:\documents and settings\admin\Мои документы\github\plotcalc\graph_funct.c
+	"Graph_Head.h"
+
+1399183326 d:\documents and settings\admin\Мои документы\github\plotcalc\graph_head.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+

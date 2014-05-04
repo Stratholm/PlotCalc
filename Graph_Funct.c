@@ -5,6 +5,7 @@
 
 /*Includes*/
 #include "Graph_Head.h"
+#include "PlotCalc_Head.h"
 
 /*Functions*/
 int Graph_Init_Console(char *Str)   //Str - text, after ">"

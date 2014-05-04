@@ -2,7 +2,7 @@
 /*Programm calculates arithmetical equasions, bulds plots*/
 
 #include "PlotCalc_Head.h"
-#pragma once
+//#pragma once
 
 void main()
 {
@@ -14,13 +14,13 @@ void main()
 		printf(">");
 		switch(c = getche())
 		{
-			case 72:          
+			case 72:
 			{
 				system("cls");
 				printf("Ra~wr :3");
 				continue;
 			}
-			case '2':       
+			case '2':
 			{
 				Stack stck;
 				Element el, *ol;
@@ -34,32 +34,32 @@ void main()
 				getch();
 				continue;
 			}
-			case '3':         
+			case '3':
 			{
 				system("cls");
 				continue;
 			}
-			case '4':       
+			case '4':
 			{
 				system("cls");
 				continue;
 			}
-			case '5':         
+			case '5':
 			{
 				system("cls");
 				continue;
 			}
-			case '6':        
+			case '6':
 			{
 				system("cls");
 				continue;
 			}
-			case '7':         
+			case '7':
 			{
 				system("cls");
 				continue;
 			}
-			case '8':          
+			case '8':
 			{
 				system("cls");
 				continue;
