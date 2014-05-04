@@ -60,11 +60,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Graph_Funct.c" />
     <ClCompile Include="PlotCalc_Functions.c" />
     <ClCompile Include="PlotCalc_Main_menu.c" />
     <ClCompile Include="Queue_Func.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Graph_Head.h" />
     <ClInclude Include="PlotCalc_Head.h" />
     <ClInclude Include="Queue_Head.h" />
   </ItemGroup>

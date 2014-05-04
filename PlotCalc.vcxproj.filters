@@ -24,12 +24,18 @@
     <ClCompile Include="Queue_Func.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graph_Funct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlotCalc_Head.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Queue_Head.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph_Head.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
