@@ -8,8 +8,6 @@ void main()
 {
 	while (e == 0)
 	{
-		int c = 0;
-
 		system("cls");
 		printf(">");
 		switch(c = getche())

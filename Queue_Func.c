@@ -1,42 +1,64 @@
+/*Includes*/
 #include "Queue_Head.h"
 #include "PlotCalc_Head.h"
-_list List;
-
 
 /*Functions*/
-
 //Create queue
-void Queue_Create(_list* queu)
+void queue_create(List* queu)
 {
-	queu->head=NULL;
-	queu->tail=NULL;
-
+	queu->head = NULL;
+	queu->tail = NULL;
+	queu->amount = 0; 
 }
 
-//Создание элемента в конце очереди
-void Queue_Creat(_list *queu, Element el)
+//Add element in the end
+void queue_add_end(List *queu, Point el)
 {
-    _note *note=(_note*)malloc(sizeof(_note));
-    note->numb=val;
+    Note *note = (_note*)malloc(sizeof(_note));
     note->next=NULL;
-    note->prev=queu->tail;
-    *note->equas=*eq;
-    if (queu->head==NULL) queu->head=note;
-    if (queu->tail!=NULL)
-    queu->tail->next=note;
-    queu->tail=note;
+    note->prev = queu->tail;
+    note->data = el;
+	note->num = note->prev->num++;
+    if (queu->head == NULL) 
+		queu->head = note;
+    if (queu->tail != NULL)
+		queu->tail->next = note;
+    queu->tail = note;
 }
 
-//Идти вперед по очереди
-void Queue_Go_Fwd(_list *queu, _note *Point)
+//Delete element
+int queue_el_del(List *queu, int num)
 {
-    if (Point->next!=NULL)
-    *Point=*Point->next;
+	if (queu->head != NULL)
+	{
+		Note *point = (Note*)malloc(sizeof(Note));
+		if (num != queu->head->next->num)
+		{
+			point = point->next;
+			if (point != NULL)
+			{
+				queue_el_del(queu, num);
+			}
+			else
+				return 0;
+		}
+		point->prev->next = point->next;
+		return 1;
+	}
+	else 
+		return 0;
 }
 
-//Идти назад по очереди
-void Queue_Go_Back(_list *queu, _note *Point)
+//Go forward
+void queue_qo_fwd (List *queu, Note *point)
 {
-    if (Point->prev!=NULL)
-    Point=Point->prev;
+    if (point->next != NULL)
+		point = point->next;
+}
+
+//Go back
+void queue_go_back(List *queu, Note *point)
+{
+    if (point->prev != NULL)
+		point = point->prev;
 }

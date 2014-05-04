@@ -6,31 +6,38 @@
 #include <math.h>
 
 /*Structures*/
+//Pointer
+typedef void* Point;
 
 //Single note
 typedef struct _note
 {
 	struct _note *prev, *next;
-} _note;
+	point data;
+	int num;
+} Note;
 
 //Single queue
 typedef struct _list
 {
     _note *head, *tail;
-} _list;
+	int amount;
+} List;
 
 /*Main Variables*/
 
 /*Functions*/
-
 //Create queue
-void Queue_Create(_list* queu);
+void queue_create(List* queu);
 
-//Create element in the end
-void Queue_Creat(_list *queu, Element el);
+//Add element in the end
+void queue_add_end(List *queu, Point el);
+
+//Delete element
+int queue_el_del(List *queu, int num);
 
 //Go forward
-void Queue_Go_Fwd(_list *queu, _note *Point);
+void queue_qo_fwd(List *queu, note *Point);
 
-//Go backwards
-void Queue_Go_Back(_list *queu, _note *Point);
+//Go back
+void queue_go_back(List *queu, note *Point);
