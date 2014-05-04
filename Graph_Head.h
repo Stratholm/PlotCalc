@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <wincon.h>
 #pragma once
 
 /*Structures*/
@@ -18,7 +19,7 @@ extern HDC hdc; //console
 
 /*Functions*/
 //Main console initialization
-int Graph_Init_Console(char *Str);
+int interface_main(char *Str, double m);
 
 //Drawing asix
 int Graph_Draw_Asix(int right, int up);

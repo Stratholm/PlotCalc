@@ -5,15 +5,13 @@
 
 /*Includes*/
 #include "Graph_Head.h"
-#include "PlotCalc_Head.h"
 
 /*Functions*/
-int Graph_Init_Console(char *Str)   //Str - text, after ">"
+int interface_main(char *Str,double m)   //Str - text, after ">"
 {
     const int NotUsed = system( "color F0" );
     HWND hWnd = GetConsoleWindow();
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    HDC hdc=GetDC(GetConsoleWindow());
     COORD sz=GetLargestConsoleWindowSize(hStdOut);
     sz.X=100;
     sz.Y=50;
@@ -25,16 +23,26 @@ int Graph_Init_Console(char *Str)   //Str - text, after ">"
     if(!SetConsoleScreenBufferSize(hStdOut,sz)) return 1;
     if(!MoveWindow(hWnd,283,54,800,600,TRUE)) return 2;
     if(!SetConsoleWindowInfo(hStdOut,TRUE,&DisplayArea)) return 3;
+    HDC hdc=GetDC(GetConsoleWindow());
+    system("cls");
     printf(">%s",Str);
+    //SetConsoleTextAttribute(hStdOut,BACKGROUND_BLUE|BACKGROUND_GREEN|BACKGROUND_RED|BACKGROUND_INTENSITY);
+    TextOutA(hdc,10,577,"Tab - variables",15);
+    TextOutA(hdc,730,577,"F1 - Help",9);
+    SetBkMode(hdc,TRANSPARENT);
+    if (!m) SetTextColor(hdc,RGB(192,192,192));
+    TextOutA(hdc,396,577,"M",1);
+    SetPixel(hdc,-1,-1,0);
     return 0;
 }
 
-int Graph_Draw_Asix(int right, int up)  //right(up) - number of times, that user presses Right-Left/Up-Down
+int graph_draw_asix(int right, int up)  //right(up) - number of times, that user presses Right-Left/Up-Down
 {
     int i;
-    HDC hdc=GetDC(GetConsoleWindow());
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    HDC hdc=GetDC(GetConsoleWindow());
     HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
+    CONSOLE_FONT_INFO fontInfo;
     RECT RectClear;
     RectClear.top=0;
     RectClear.left=0;
@@ -44,12 +52,12 @@ int Graph_Draw_Asix(int right, int up)  //right(up) - number of times, that user
     system("cls");
     HPEN PenAsix=CreatePen(0,3,RGB(0,0,0)), PenAsiA=CreatePen(0,1,RGB(200,200,200));
     SelectObject(hdc,PenAsiA);
-    for (i=0;i<17;i++)
+    for (i=0; i<17; i++)
     {
         MoveToEx(hdc,50*i,0,NULL);
         LineTo(hdc,50*i,600);
     }
-    for (i=0;i<13;i++)
+    for (i=0; i<13; i++)
     {
         MoveToEx(hdc,0,50*i,NULL);
         LineTo(hdc,800,50*i);
@@ -61,4 +69,14 @@ int Graph_Draw_Asix(int right, int up)  //right(up) - number of times, that user
     LineTo(hdc,800,300-50*up);
     return 0;
 
+}
+
+////////////////////////////
+int main()
+{
+    interface_main("",0);
+    _getch();
+    interface_main("",1);
+    _getch();
+    return 0;
 }

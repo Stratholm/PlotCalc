@@ -1,9 +1,24 @@
 # depslib dependency file v1.0
-1399183375 source:d:\documents and settings\admin\Мои документы\github\plotcalc\graph_funct.c
+1399207525 source:d:\documents and settings\admin\Мои документы\github\plotcalc\graph_funct.c
 	"Graph_Head.h"
 
-1399183326 d:\documents and settings\admin\Мои документы\github\plotcalc\graph_head.h
+1399207525 d:\documents and settings\admin\Мои документы\github\plotcalc\graph_head.h
 	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
+1399199550 d:\documents and settings\admin\Мои документы\github\plotcalc\plotcalc_head.h
+	<stdlib.h>
+	<stdio.h>
+	<conio.h>
+	<math.h>
+	<ctype.h>
+	<assert.h>
+	<Windows.h>
+	"Queue_Head.h"
+
+1399200236 d:\documents and settings\admin\Мои документы\github\plotcalc\queue_head.h
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
