@@ -2,10 +2,17 @@
 #include "PlotCalc_Head.h"
 
 /*Main variables defenition*/
-int e = 0;
+int exit = 0;
 double m = 0;
 char c = ' ';
-char key[2] = {'\0'};
+char string[awruk_size] = "";
+int i = 0;
+List plots;
+List ariph;
+List vars;
+Note* Pointer_plots;
+Note* Pointer_ariph;
+Note* Pointer_vars;
 
 /*Functions*/
 //Input string to infix notation
@@ -51,20 +58,11 @@ int session_close(List* ariph, List* var)
 }
 
 //Exit screen
-int interface_exit(int* e)
+void interface_exit()
 {
 	/*
 	Print "Are u sure you want to exit? Press Enter to exit.
-	{case 27 continue, case 13 e = 1, return 0;}
 	*/
-	switch(getche())
-	{
-		case 13:
-		{
-			*e = 1;
-			return 1;
-		}
-	}
 }
 
 //(Main/ariph count) screen  help

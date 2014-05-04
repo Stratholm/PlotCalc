@@ -15,10 +15,17 @@
 #define height 600
 
 /*Main variables declaration*/
-extern int e;
+extern int exit;
 extern double m;
 extern char c;
-extern char key[2];
+extern char string[awruk_size];
+extern int i;
+extern List plots;
+extern List ariph;
+extern List vars;
+extern Note* Pointer_plots;
+extern Note* Pointer_ariph;
+extern Note* Pointer_vars;
 
 /*Structures*/
 //Universal element
@@ -88,7 +95,7 @@ int plot_save(Note* point);
 int session_close(List* ariph, List* var);
 
 //Exit screen
-int interface_exit(int* e);
+void interface_exit();
 
 //Main screen help
 void interface_help_main();

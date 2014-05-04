@@ -13,7 +13,7 @@ typedef void* Point;
 typedef struct _note
 {
 	struct _note *prev, *next;
-	point data;
+	Point data;
 	int num;
 } Note;
 
