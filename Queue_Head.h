@@ -29,10 +29,7 @@ typedef struct List
 /*Functions*/
 //Create queue
 void queue_create(List* queu);
-/*
-//Create Note
-void note_create(Note* note);
-*/
+
 //Add element in the end
 void queue_add_end(List *queu, Point el);
 

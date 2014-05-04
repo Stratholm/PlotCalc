@@ -8,9 +8,6 @@ int main()
 	queue_create(&ariph);
 	queue_create(&vars);
 	queue_create(&plots);
-	/*note_create(Pointer_ariph);
-	note_create(Pointer_vars);
-	note_create(Pointer_plots);*/
 	while (e == 0)
 	{
 ///////////////////////////////////////////////////////////
@@ -18,8 +15,6 @@ int main()
 		{
 			while (i<=awruk_size)     //Input
 			{
-				system("cls");
-				printf("Lol%f", M);
 				switch(c = getche())
 				{
 					case enter:          //Enter
@@ -52,7 +47,8 @@ int main()
 						string[i] = 'M';
 						continue;
 					}
-
+					string[i] = c;
+					i++;
 				}
 			}
 		}

@@ -12,16 +12,7 @@ void queue_create(List* queu)
 	queu->tail = NULL;
 	queu->amount = 0; 
 }
-/*
-//Create Note
-void note_create(Note* note)
-{
-	Note note = (Note)malloc(sizeof(Note));
-    note->next = NULL;
-    note->prev = NULL;
-	note->data = NULL;
-}
-*/
+
 //Add element in the end
 void queue_add_end(List *queu, Point el)
 {
