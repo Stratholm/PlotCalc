@@ -8,7 +8,7 @@
 #include <Windows.h>
 #include "Queue_Head.h"
 
-#define awruk_size 128
+#define awruk_size 99
 #define plot_amount 16
 #define var_amount 16
 #define width 800
@@ -77,3 +77,18 @@ double post_calc(List* post);
 
 //Transferes answer to the rational form
 Rat_num ans_to_rat(double ans);
+
+//Open sessinon to save
+int session_open();
+
+//Save plot
+int plot_save(Note* point);
+
+//Close session of storage
+int session_close(List* ariph, List* var);
+
+//Exit screen
+int interface_exit(int* e);
+
+//Main screen help
+void interface_help_main();
