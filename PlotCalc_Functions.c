@@ -1,9 +1,11 @@
+#pragma once
+
 /*Includes*/
 #include "PlotCalc_Head.h"
 
 /*Main variables defenition*/
-int exit = 0;
-double m = 0;
+int e = 0;
+double M = 0;
 char c = ' ';
 char string[awruk_size] = "";
 int i = 0;
@@ -11,7 +13,7 @@ List plots;
 List ariph;
 List vars;
 Note* Pointer_plots;
-Note* Pointer_ariph;
+Note* Pointer_ariph = NULL;
 Note* Pointer_vars;
 
 /*Functions*/
@@ -92,4 +94,10 @@ void interface_help_main()
 	}
 	getch
 	*/
+}
+
+//Analyse string and calculate/save/build
+int string_analyse(char* str, Note* point)
+{
+
 }

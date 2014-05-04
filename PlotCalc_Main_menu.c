@@ -5,44 +5,52 @@
 
 int main()
 {
-	queue_create(&plots);
 	queue_create(&ariph);
 	queue_create(&vars);
-	while (exit == 0)
+	queue_create(&plots);
+	/*note_create(Pointer_ariph);
+	note_create(Pointer_vars);
+	note_create(Pointer_plots);*/
+	while (e == 0)
 	{
 ///////////////////////////////////////////////////////////
-		if (&Pointer_ariph == NULL)
+		if (Pointer_ariph == NULL)
 		{
 			while (i<=awruk_size)     //Input
 			{
+				system("cls");
+				printf("Lol%f", M);
 				switch(c = getche())
 				{
-					case 13:          //Enter
+					case enter:          //Enter
 					{
-						str_to_inf(string);
+						//string_analyse(string, Pointer_ariph);
+						M = 1.0;
+						continue;
 					}
-					case 8:           //Backspace
+					case backspace:           //Backspace
 					{
 						string[i] = '\0';
 						i--;
-						interface_main(string, m);
+						continue;
 					}
-					case 27:          //Esc
+					case esc:          //Esc
 					{
 						interface_exit();
 						switch(getche())  //Check
 						{
-							case 13:
+							case enter:
 							{
-						
-								exit = 1;
+								e = 1;
 								return 1;
 							}
 						}
+						continue;
 					}
-					case 32:		  //Space
+					case space:		  //Space
 					{
-
+						string[i] = 'M';
+						continue;
 					}
 
 				}
@@ -52,44 +60,53 @@ int main()
 		{
 			switch(c = getche())
 			{
-				case 13:          //Enter
+				case up:            //Arrow up - previous
 				{
-					Pointer_plots = NULL;
+					Pointer_ariph = Pointer_ariph->prev;
 					continue;
 				}
-				case 27:          //Esc
+				case down:           //Arrow down - next
 				{
-					interface_exit();
+					Pointer_ariph = Pointer_ariph->next;
+					continue;
+				}
+				case enter:          //Enter
+				{
+					Pointer_ariph = NULL;
+					continue;
+				}
+				case esc:          //Esc
+				{
+					//interface_exit();
 					switch(getche())  //Check
 					{
-						case 13:
+						case enter:
 						{
-						
-							exit = 1;
+							e = 1;
 							return 1;
 						}
 					}
-				}
-				case 112:         //F1
-				{
-					interface_help_main();
 					continue;
 				}
-				case 32:          //Space
+				case F1:         //F1
 				{
-
+					//interface_help_main();
+					continue;
 				}
-				case 18:          //Alt
+				case alt:          //Alt
 				{
-
+					M = ((Ariph*)(Pointer_ariph->data))->ans;
+					continue;
 				}
-				case 46:          //Del
+				case del:          //Del
 				{
-
+					M = 0;
+					continue;
 				}
-				case 9:           //Tab
+				case tab:           //Tab
 				{
-
+					//interface_vars();
+					continue;
 				}
 			}
 		}

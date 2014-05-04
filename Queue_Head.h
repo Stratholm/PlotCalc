@@ -10,17 +10,17 @@
 typedef void* Point;
 
 //Single note
-typedef struct _note
+typedef struct Note
 {
-	struct _note *prev, *next;
+	struct Note *prev, *next;
 	Point data;
 	int num;
 } Note;
 
 //Single queue
-typedef struct _list
+typedef struct List
 {
-    _note *head, *tail;
+    Note *head, *tail;
 	int amount;
 } List;
 
@@ -29,7 +29,10 @@ typedef struct _list
 /*Functions*/
 //Create queue
 void queue_create(List* queu);
-
+/*
+//Create Note
+void note_create(Note* note);
+*/
 //Add element in the end
 void queue_add_end(List *queu, Point el);
 
@@ -37,7 +40,7 @@ void queue_add_end(List *queu, Point el);
 int queue_el_del(List *queu, int num);
 
 //Go forward
-void queue_qo_fwd(List *queu, note *Point);
+void queue_qo_fwd(List *queu, Note *Point);
 
 //Go back
-void queue_go_back(List *queu, note *Point);
+void queue_go_back(List *queu, Note *Point);

@@ -1,3 +1,5 @@
+#pragma once
+
 /*Includes*/
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,9 +16,20 @@
 #define width 800
 #define height 600
 
+#define enter 13
+#define backspace 8
+#define esc 27
+#define space 32
+#define F1 112
+#define alt 18
+#define del 46
+#define tab 9
+#define up 38
+#define down 40
+
 /*Main variables declaration*/
-extern int exit;
-extern double m;
+extern int e;
+extern double M;
 extern char c;
 extern char string[awruk_size];
 extern int i;
@@ -29,14 +42,14 @@ extern Note* Pointer_vars;
 
 /*Structures*/
 //Universal element
-typedef struct _element
+typedef struct Element
 {
 	char key;
 	double data;
 } Element;
 
 //Single plot
-typedef struct _plot
+typedef struct Plot
 {
 	char string[awruk_size];
 	List postfix;
@@ -45,28 +58,28 @@ typedef struct _plot
 } Plot;
 
 //Ariphmetical equasions
-typedef struct _ariph
+typedef struct Ariph
 {
 	char string[awruk_size];
 	double ans;
 } Ariph;
 
 //Functions database
-typedef struct _func
+typedef struct Func
 {
 	char name[8];
 	int prior;
 } Func;
 
 //Constants database
-typedef struct _const
+typedef struct Const
 {
 	char name[4];
 	double val;
 } Const;
 
 //Rational form
-typedef struct _rat_num
+typedef struct Rat_num
 {
 	double val;
 	int pow;
@@ -97,5 +110,8 @@ int session_close(List* ariph, List* var);
 //Exit screen
 void interface_exit();
 
-//Main screen help
+//(Main/ariph count) screen  help
 void interface_help_main();
+
+//Analyse string and calculate/save/build
+int string_analyse(char* str, Note* point);

@@ -1,3 +1,5 @@
+#pragma once
+
 /*Includes*/
 #include "Queue_Head.h"
 #include "PlotCalc_Head.h"
@@ -10,14 +12,23 @@ void queue_create(List* queu)
 	queu->tail = NULL;
 	queu->amount = 0; 
 }
-
+/*
+//Create Note
+void note_create(Note* note)
+{
+	Note note = (Note)malloc(sizeof(Note));
+    note->next = NULL;
+    note->prev = NULL;
+	note->data = NULL;
+}
+*/
 //Add element in the end
 void queue_add_end(List *queu, Point el)
 {
-    Note *note = (_note*)malloc(sizeof(_note));
-    note->next=NULL;
+    Note *note = (Note*)malloc(sizeof(Note));
+    note->next = NULL;
     note->prev = queu->tail;
-    note->data = el;
+	note->data = el;
 	note->num = note->prev->num++;
     if (queu->head == NULL) 
 		queu->head = note;
