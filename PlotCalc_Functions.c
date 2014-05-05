@@ -1,5 +1,3 @@
-#pragma once
-
 /*Includes*/
 #include "PlotCalc_Head.h"
 
@@ -62,38 +60,56 @@ int session_close(List* ariph, List* var)
 //Exit screen
 void interface_exit()
 {
-	/*
-	Print "Are u sure you want to exit? Press Enter to exit.
-	*/
+    system("cls");
+    HDC hdc=GetDC(GetConsoleWindow());
+    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
+    RECT RectClear;
+    RectClear.top=0;
+    RectClear.left=0;
+    RectClear.bottom=600;
+    RectClear.right=800;
+    FillRect(hdc,&RectClear, BrushClear);
+    TextOutA(hdc,250,250,"Are you sure you want to exit the program?",42);
+    TextOutA(hdc,320,266,"Press 'Enter' to exit.",22);
+    SetPixel(hdc,-1,-1,0);
 }
 
 //(Main/ariph count) screen  help
 void interface_help_main()
 {
-	/*
-	cls
-	print:
-	{
-	Calculator, plots builder.
-	--------------------------------
-	Insert ariphmetical expression you want to calculate,
-	or plot formula you want to visualise.
-	You can save %d (var_amount) constants, build %d (plot_amount) plots at the same time.
-	To save constant, print: "constant_name" = "value". 
-	"constant_name" should take one latin latter.
-	Keys:
-	Enter - Calculate/Build
-	Esc   - Exit
-	F1    - Watch help
-	Tab   - Watch variables
-	Alt   - Push value in memory
-	Space - Recall memory
-	Del   - Clean memory
-	/^/   - Previous ariphmetical expression
-	/v/   - Next ariphmetical expression
-	}
-	getch
-	*/
+    system("cls");
+    HDC hdc=GetDC(GetConsoleWindow());
+    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
+    RECT RectClear;
+    RectClear.top=0;
+    RectClear.left=0;
+    RectClear.bottom=600;
+    RectClear.right=800;
+    FillRect(hdc,&RectClear, BrushClear);
+    TextOutA(hdc,250,100,"Calculator, plots builder.",26);
+    TextOutA(hdc,250,116,"----------------------------------------------------------------------------------",55);
+    TextOutA(hdc,250,132,"Insert ariphmetical expression you want to calculate,",53);
+    TextOutA(hdc,250,148,"or plot formula you want to visualise.",38);
+    char *gig;
+    gig=(char*)malloc(127*sizeof(char));
+    sprintf(gig,"You can save %d constants, build %d plots at the same time.",var_amount,plot_amount);
+    TextOutA(hdc,250,164,gig,strlen(gig));
+    TextOutA(hdc,250,180,"To save constant, print: \"constant_name\" = \"value\".",51);
+    TextOutA(hdc,250,196,"\"constant_name\" should take one latin latter.",45);
+    TextOutA(hdc,250,212,"Keys:",5);
+    TextOutA(hdc,250,228,"Enter - Calculate/Build",23);
+    TextOutA(hdc,250,244,"Esc   - Exit",12);
+    TextOutA(hdc,250,260,"F1    - Watch help",18);
+    TextOutA(hdc,250,276,"Tab   - Watch variables",23);
+    TextOutA(hdc,250,292,"Alt   - Push value in memory",28);
+    TextOutA(hdc,250,308,"Space - Recall memory",21);
+    TextOutA(hdc,250,324,"Del   - Clean memory",20);
+    TextOutA(hdc,250,340,"Up    - Previous ariphmetical expression",30);
+    TextOutA(hdc,250,356,"Down  - Next ariphmetical expression",30);
+    SetPixel(hdc,-1,-1,0);
+    _getch();
+    interface_main("",0);
+
 }
 
 //Analyse string and calculate/save/build

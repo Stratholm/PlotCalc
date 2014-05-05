@@ -24,14 +24,22 @@ int interface_main(char *Str,double m)   //Str - text, after ">"
     if(!MoveWindow(hWnd,283,54,800,600,TRUE)) return 2;
     if(!SetConsoleWindowInfo(hStdOut,TRUE,&DisplayArea)) return 3;
     HDC hdc=GetDC(GetConsoleWindow());
+    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
+    RECT RectClear;
+    RectClear.top=0;
+    RectClear.left=0;
+    RectClear.bottom=600;
+    RectClear.right=800;
+    FillRect(hdc,&RectClear, BrushClear);
     system("cls");
+    SetPixel(hdc,-1,-1,0);
     printf(">%s",Str);
     //SetConsoleTextAttribute(hStdOut,BACKGROUND_BLUE|BACKGROUND_GREEN|BACKGROUND_RED|BACKGROUND_INTENSITY);
     TextOutA(hdc,10,577,"Tab - variables",15);
     TextOutA(hdc,730,577,"F1 - Help",9);
     SetBkMode(hdc,TRANSPARENT);
-    if (!m) SetTextColor(hdc,RGB(192,192,192));
-    TextOutA(hdc,396,577,"M",1);
+   // if (m==0) SetTextColor(hdc,RGB(192,192,192));
+    if (m!=0) TextOutA(hdc,396,577,"M",1);
     SetPixel(hdc,-1,-1,0);
     return 0;
 }
@@ -42,7 +50,6 @@ int graph_draw_asix(int right, int up)  //right(up) - number of times, that user
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
     HDC hdc=GetDC(GetConsoleWindow());
     HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
-    CONSOLE_FONT_INFO fontInfo;
     RECT RectClear;
     RectClear.top=0;
     RectClear.left=0;
@@ -68,5 +75,4 @@ int graph_draw_asix(int right, int up)  //right(up) - number of times, that user
     MoveToEx(hdc,0,300-50*up,NULL);
     LineTo(hdc,800,300-50*up);
     return 0;
-
 }
