@@ -60,10 +60,10 @@ int session_close(List* ariph, List* var)
 //Exit screen
 void interface_exit()
 {
-    system("cls");
     HDC hdc=GetDC(GetConsoleWindow());
     HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
     RECT RectClear;
+    system("cls");
     RectClear.top=0;
     RectClear.left=0;
     RectClear.bottom=600;
@@ -77,10 +77,11 @@ void interface_exit()
 //(Main/ariph count) screen  help
 void interface_help_main()
 {
-    system("cls");
     HDC hdc=GetDC(GetConsoleWindow());
     HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
     RECT RectClear;
+    char *gig;
+    system("cls");
     RectClear.top=0;
     RectClear.left=0;
     RectClear.bottom=600;
@@ -90,7 +91,6 @@ void interface_help_main()
     TextOutA(hdc,250,116,"----------------------------------------------------------------------------------",55);
     TextOutA(hdc,250,132,"Insert ariphmetical expression you want to calculate,",53);
     TextOutA(hdc,250,148,"or plot formula you want to visualise.",38);
-    char *gig;
     gig=(char*)malloc(127*sizeof(char));
     sprintf(gig,"You can save %d constants, build %d plots at the same time.",var_amount,plot_amount);
     TextOutA(hdc,250,164,gig,strlen(gig));

@@ -13,9 +13,12 @@ int interface_main(char *Str,double m)   //Str - text, after ">"
     HWND hWnd = GetConsoleWindow();
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD sz=GetLargestConsoleWindowSize(hStdOut);
+    SMALL_RECT  DisplayArea;
+    HDC hdc=GetDC(GetConsoleWindow());
+    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
+    RECT RectClear;
     sz.X=100;
     sz.Y=50;
-    SMALL_RECT  DisplayArea;
     DisplayArea.Left=0;
     DisplayArea.Top=0;
     DisplayArea.Right=sz.X-1;
@@ -23,9 +26,6 @@ int interface_main(char *Str,double m)   //Str - text, after ">"
     if(!SetConsoleScreenBufferSize(hStdOut,sz)) return 1;
     if(!MoveWindow(hWnd,283,54,800,600,TRUE)) return 2;
     if(!SetConsoleWindowInfo(hStdOut,TRUE,&DisplayArea)) return 3;
-    HDC hdc=GetDC(GetConsoleWindow());
-    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
-    RECT RectClear;
     RectClear.top=0;
     RectClear.left=0;
     RectClear.bottom=600;
@@ -51,13 +51,13 @@ int graph_draw_asix(int right, int up)  //right(up) - number of times, that user
     HDC hdc=GetDC(GetConsoleWindow());
     HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
     RECT RectClear;
+    HPEN PenAsix=CreatePen(0,3,RGB(0,0,0)), PenAsiA=CreatePen(0,1,RGB(200,200,200));
     RectClear.top=0;
     RectClear.left=0;
     RectClear.bottom=600;
     RectClear.right=800;
     FillRect(hdc,&RectClear, BrushClear);
     system("cls");
-    HPEN PenAsix=CreatePen(0,3,RGB(0,0,0)), PenAsiA=CreatePen(0,1,RGB(200,200,200));
     SelectObject(hdc,PenAsiA);
     for (i=0; i<17; i++)
     {
