@@ -18,31 +18,31 @@ Note* Pointer_vars;
 //Input string to infix notation
 List* str_to_inf(char* in)
 {
-
+	/*Used inside string_analyse*/
 }
 
 //Queue to postfix
 List* inf_to_post(List* inf)
 {
-
+	/*Used inside string_analyse*/
 }
 
 //Calculate postfix
 double post_calc(List* post)
 {
-
+	/*Used inside string_analyse by ariph and plots (in cycle)*/
 }
 
 //Transferes answer to the rational form
 Rat_num ans_to_rat(double ans)
 {
-
+	/*Used inside string_analyse by ariph*/
 }
 
 //Open sessinon to save
 int session_open()
 {
-
+	/*opens files*/
 }
 
 //Save plot
@@ -54,7 +54,7 @@ int plot_save(Note* point)
 //Close session of storage
 int session_close(List* ariph, List* var)
 {
-
+	/*saves the rest*/
 }
 
 //Exit screen
@@ -108,8 +108,25 @@ void interface_help_main()
     TextOutA(hdc,250,356,"Down------- Next ariphmetical expression",40);
     SetPixel(hdc,-1,-1,0);
     _getch();
-    interface_main("",0);
+}
 
+//Plots screen help
+void interface_help_plots()
+{
+	/*
+	Plots builder help:
+	-------------------------
+	Keys:
+	Esc - exit
+	Tab - plots list
+	F1 - help
+	"+" - enlarge scale
+	"-" - decrease scale
+	Up - move asixs higher
+	Down - move asixs lower
+	Right - move asixs right
+	Left - move asixs left
+	*/
 }
 
 //Analyse string and calculate/save/build

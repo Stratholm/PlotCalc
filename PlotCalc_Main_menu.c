@@ -19,8 +19,7 @@ int main()
 				{
 					case enter:          //Enter
 					{
-						//string_analyse(string, Pointer_ariph);
-						M = 1.0;
+						string_analyse(string, Pointer_ariph);
 						continue;
 					}
 					case backspace:           //Backspace
@@ -44,6 +43,7 @@ int main()
 					}
 					case space:		  //Space
 					{
+						if (M !=0)
 						string[i] = 'M';
 						continue;
 					}
@@ -73,7 +73,7 @@ int main()
 				}
 				case esc:          //Esc
 				{
-					//interface_exit();
+					interface_exit();
 					switch(getche())  //Check
 					{
 						case enter:
@@ -86,7 +86,7 @@ int main()
 				}
 				case F1:         //F1
 				{
-					//interface_help_main();
+					interface_help_main();
 					continue;
 				}
 				case alt:          //Alt
@@ -101,7 +101,7 @@ int main()
 				}
 				case tab:           //Tab
 				{
-					//interface_vars();
+					interface_vars();
 					continue;
 				}
 			}

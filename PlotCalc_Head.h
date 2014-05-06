@@ -62,6 +62,7 @@ typedef struct Ariph
 {
 	char string[awruk_size];
 	double ans;
+	Rat_num rat;
 } Ariph;
 
 //Functions database
@@ -112,6 +113,9 @@ void interface_exit();
 
 //(Main/ariph count) screen  help
 void interface_help_main();
+
+//Plots screen help
+void interface_help_plots();
 
 //Analyse string and calculate/save/build
 int string_analyse(char* str, Note* point);
