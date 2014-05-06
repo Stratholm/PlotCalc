@@ -1,5 +1,3 @@
-#pragma once
-
 /*Includes*/
 #include "Queue_Head.h"
 #include "PlotCalc_Head.h"
@@ -10,7 +8,7 @@ void queue_create(List* queu)
 {
 	queu->head = NULL;
 	queu->tail = NULL;
-	queu->amount = 0; 
+	queu->amount = 0;
 }
 
 //Add element in the end
@@ -21,7 +19,7 @@ void queue_add_end(List *queu, Point el)
     note->prev = queu->tail;
 	note->data = el;
 	note->num = note->prev->num++;
-    if (queu->head == NULL) 
+    if (queu->head == NULL)
 		queu->head = note;
     if (queu->tail != NULL)
 		queu->tail->next = note;
@@ -47,7 +45,7 @@ int queue_el_del(List *queu, int num)
 		point->prev->next = point->next;
 		return 1;
 	}
-	else 
+	else
 		return 0;
 }
 

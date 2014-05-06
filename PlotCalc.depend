@@ -1,12 +1,13 @@
 # depslib dependency file v1.0
-1399207525 source:d:\documents and settings\admin\Мои документы\github\plotcalc\graph_funct.c
+1399304011 source:d:\documents and settings\admin\Мои документы\github\plotcalc\graph_funct.c
 	"Graph_Head.h"
 
-1399207525 d:\documents and settings\admin\Мои документы\github\plotcalc\graph_head.h
+1399212684 d:\documents and settings\admin\Мои документы\github\plotcalc\graph_head.h
 	<windows.h>
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
+	<wincon.h>
 
 1399199550 d:\documents and settings\admin\Мои документы\github\plotcalc\plotcalc_head.h
 	<stdlib.h>
