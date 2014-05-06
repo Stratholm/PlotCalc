@@ -113,20 +113,30 @@ void interface_help_main()
 //Plots screen help
 void interface_help_plots()
 {
-	/*
-	Plots builder help:
-	-------------------------
-	Keys:
-	Esc - exit
-	Tab - plots list
-	F1 - help
-	"+" - enlarge scale
-	"-" - decrease scale
-	Up - move asixs higher
-	Down - move asixs lower
-	Right - move asixs right
-	Left - move asixs left
-	*/
+    HDC hdc=GetDC(GetConsoleWindow());
+    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
+    RECT RectClear;
+    system("cls");
+    RectClear.top=0;
+    RectClear.left=0;
+    RectClear.bottom=600;
+    RectClear.right=800;
+    FillRect(hdc,&RectClear, BrushClear);
+    TextOutA(hdc,250,100,"Plots builder help:",19);
+    TextOutA(hdc,250,116,"----------------------------------------------------------------------------------",55);
+    TextOutA(hdc,250,132,"Keys:",5);
+    TextOutA(hdc,250,148,"Enter------ Calculate/Build",27);
+    TextOutA(hdc,250,164,"Esc--------- Exit",17);
+    TextOutA(hdc,250,180,"Tab--------- Plots List",23);
+    TextOutA(hdc,250,196,"F1----------- Watch help",24);
+    TextOutA(hdc,250,212,"\"+\"---------- Enlarge scale",27);
+    TextOutA(hdc,250,228,"\"-\"----------- Decrease scale",29);
+    TextOutA(hdc,250,244,"Up----------- Previous ariphmetical expression",46);
+    TextOutA(hdc,250,260,"Down------- Next ariphmetical expression",40);
+    TextOutA(hdc,250,276,"Right-------- Move Asix right",29);
+    TextOutA(hdc,250,292,"Left---------- Move Asix left",29);
+    SetPixel(hdc,-1,-1,0);
+    _getch();
 }
 
 //Analyse string and calculate/save/build
