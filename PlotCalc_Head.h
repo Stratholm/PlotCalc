@@ -26,6 +26,7 @@
 #define tab 9
 #define up 38
 #define down 40
+#define shift 16
 
 /*Main variables declaration*/
 extern int e;
@@ -116,6 +117,9 @@ void interface_help_main();
 
 //Plots screen help
 void interface_help_plots();
+
+//Variables list
+void interface_list_vars(List* vars);
 
 //Analyse string and calculate/save/build
 int string_analyse(char* str, Note* point);

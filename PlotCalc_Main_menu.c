@@ -41,7 +41,7 @@ int main()
 						}
 						continue;
 					}
-					case space:		  //Space
+					case shift:		  //Shift
 					{
 						if (M !=0)
 						string[i] = 'M';
@@ -101,7 +101,7 @@ int main()
 				}
 				case tab:           //Tab
 				{
-					interface_vars();
+					interface_list_vars(&vars);
 					continue;
 				}
 			}
