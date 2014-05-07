@@ -34,13 +34,13 @@ int interface_main(Note* point, char *str, double M)   //Str - text, after ">"
     FillRect(hdc,&RectClear, BrushClear);
     system("cls");
     SetPixel(hdc,-1,-1,0);
-    printf(">%s",Str);
+    printf(">%s",str);
     //SetConsoleTextAttribute(hStdOut,BACKGROUND_BLUE|BACKGROUND_GREEN|BACKGROUND_RED|BACKGROUND_INTENSITY);
     TextOutA(hdc,10,577,"Tab - variables",15);
     TextOutA(hdc,730,577,"F1 - Help",9);
     SetBkMode(hdc,TRANSPARENT);
-   // if (m==0) SetTextColor(hdc,RGB(192,192,192));
-    if (m!=0) TextOutA(hdc,396,577,"M",1);
+    if (M==0) SetTextColor(hdc,RGB(192,192,192));
+    TextOutA(hdc,396,577,"M",1);
     SetPixel(hdc,-1,-1,0);
     return 0;
 }

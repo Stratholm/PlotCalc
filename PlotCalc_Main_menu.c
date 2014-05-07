@@ -5,7 +5,6 @@
 
 int main()
 {
-	int j = 0;
 	queue_create(&ariph);
 	queue_create(&vars);
 	queue_create(&plots);
@@ -21,9 +20,8 @@ int main()
 				{
 					case enter:          //Enter
 					{
-						
 						printf("\a");
-						string_analyse(string, Pointer_ariph);
+						string_analyse(string, Pointer_ariph, &ariph);
 						continue;
 					}
 					case backspace:           //Backspace

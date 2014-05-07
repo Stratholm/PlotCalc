@@ -21,14 +21,17 @@
 #define backspace 8
 #define esc 27
 #define space 32
-#define F1 112
+#define F1 59
 #define alt 18
 #define del 46
 #define tab 9
-#define arr_up 38
-#define arr_down 40
+#define arr_up 72
+#define arr_down 80
+#define arr_right 77
+#define arr_left 75
 #define shift 16
 #define insert 45
+#define switch_key 224
 
 /*Main variables declaration*/
 extern int e;
@@ -99,10 +102,10 @@ List* inf_to_post(List* inf);
 //Calculate postfix
 double post_calc(List* post);
 
-//Transferes answer to the rational form
+//Transfers answer to the rational form
 Rat_num ans_to_rat(double ans);
 
-//Open sessinon to save
+//Open session to save
 int session_open();
 
 //Save plot
@@ -114,5 +117,5 @@ int session_close(List* ariph, List* var);
 //Variables list
 void interface_list_vars(List* vars);
 
-//Analyse string and calculate/save/build
-int string_analyse(char* str, Note* point);
+//Analise string and calculate/save/build
+int string_analyse(char* str, Note* point, List *ariph);

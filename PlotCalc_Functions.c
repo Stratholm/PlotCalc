@@ -64,7 +64,7 @@ void interface_list_vars(List* var)
 }
 
 //Analyse string and calculate/save/build
-int string_analyse(char* str, Note* point)
+int string_analyse(char* str, Note* point, List *ariph)
 {
 
 }
