@@ -9,6 +9,7 @@
 #include <assert.h>
 #include <Windows.h>
 #include "Queue_Head.h"
+#include "Graph_Head.h"
 
 #define awruk_size 99
 #define plot_amount 16
@@ -24,9 +25,10 @@
 #define alt 18
 #define del 46
 #define tab 9
-#define up 38
-#define down 40
+#define arr_up 38
+#define arr_down 40
 #define shift 16
+#define insert 45
 
 /*Main variables declaration*/
 extern int e;
@@ -58,6 +60,13 @@ typedef struct Plot
 	int num;
 } Plot;
 
+//Rational form
+typedef struct Rat_num
+{
+	double val;
+	int pow;
+} Rat_num;
+
 //Ariphmetical equasions
 typedef struct Ariph
 {
@@ -80,13 +89,6 @@ typedef struct Const
 	double val;
 } Const;
 
-//Rational form
-typedef struct Rat_num
-{
-	double val;
-	int pow;
-} Rat_num;
-
 /*Functions*/
 //Input string to infix notation
 List* str_to_inf(char* in);
@@ -108,15 +110,6 @@ int plot_save(Note* point);
 
 //Close session of storage
 int session_close(List* ariph, List* var);
-
-//Exit screen
-void interface_exit();
-
-//(Main/ariph count) screen  help
-void interface_help_main();
-
-//Plots screen help
-void interface_help_plots();
 
 //Variables list
 void interface_list_vars(List* vars);

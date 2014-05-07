@@ -5,6 +5,7 @@
 
 int main()
 {
+	int j = 0;
 	queue_create(&ariph);
 	queue_create(&vars);
 	queue_create(&plots);
@@ -15,16 +16,20 @@ int main()
 		{
 			while (i<=awruk_size)     //Input
 			{
+				interface_main(Pointer_ariph, string, M);
 				switch(c = getche())
 				{
 					case enter:          //Enter
 					{
+						
+						printf("\a");
 						string_analyse(string, Pointer_ariph);
 						continue;
 					}
 					case backspace:           //Backspace
 					{
 						string[i] = '\0';
+						if (i>0)
 						i--;
 						continue;
 					}
@@ -41,27 +46,32 @@ int main()
 						}
 						continue;
 					}
-					case shift:		  //Shift
+					case space:		  //Space
 					{
 						if (M !=0)
 						string[i] = 'M';
+						i++;
 						continue;
 					}
+					default:
+					{
 					string[i] = c;
 					i++;
+					}
 				}
 			}
 		}
 		else
 		{
+			interface_main(Pointer_ariph, string, M);
 			switch(c = getche())
 			{
-				case up:            //Arrow up - previous
+				case arr_up:            //Arrow up - previous
 				{
 					Pointer_ariph = Pointer_ariph->prev;
 					continue;
 				}
-				case down:           //Arrow down - next
+				case arr_down:           //Arrow down - next
 				{
 					Pointer_ariph = Pointer_ariph->next;
 					continue;
@@ -89,7 +99,7 @@ int main()
 					interface_help_main();
 					continue;
 				}
-				case alt:          //Alt
+				case insert:          //insert
 				{
 					M = ((Ariph*)(Pointer_ariph->data))->ans;
 					continue;
