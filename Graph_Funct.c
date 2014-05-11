@@ -34,7 +34,12 @@ int interface_main(Note* point, char *str, double M)   //Str - text, after ">"
     FillRect(hdc,&RectClear, BrushClear);
     system("cls");
     SetPixel(hdc,-1,-1,0);
+    if (point==NULL)
     printf(">%s",str);
+    if (point!=NULL)
+    {
+        printf(">%s\nAnswer: %d",(char*)point->data,point->num);
+    }
     //SetConsoleTextAttribute(hStdOut,BACKGROUND_BLUE|BACKGROUND_GREEN|BACKGROUND_RED|BACKGROUND_INTENSITY);
     TextOutA(hdc,10,577,"Tab - variables",15);
     TextOutA(hdc,730,577,"F1 - Help",9);
