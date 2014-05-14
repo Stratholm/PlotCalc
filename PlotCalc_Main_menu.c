@@ -18,6 +18,45 @@ int main()
 				interface_main(Pointer_ariph, string, M);
 				switch(c = getche())
 				{
+				case 0:
+				{
+					switch(c = getch())
+					{
+					case F1:
+						{
+						interface_help_main();
+						continue;
+						}
+					}
+				}
+				case -32:
+					{
+						switch(c=getch())
+						{
+							case arr_up:            //Arrow up - previous
+						{
+							//Pointer_ariph = Pointer_ariph->prev;
+							continue;
+						}
+						case arr_down:           //Arrow down - next
+						{
+							//Pointer_ariph = Pointer_ariph->next;
+							continue;
+						}
+						case insert:          //insert
+						{
+							//printf("INSERT SUCCEDED!");
+							//M = ((Ariph*)(Pointer_ariph->data))->ans;
+							continue;
+						}
+						case del:          //Del
+						{
+							//printf("DEL SUCCEDED!");
+							//M = 0;
+							continue;
+						}
+						}
+					}
 					case enter:          //Enter
 					{
 						printf("\a");
@@ -64,16 +103,7 @@ int main()
 			interface_main(Pointer_ariph, string, M);
 			switch(c = getche())
 			{
-				case arr_up:            //Arrow up - previous
-				{
-					Pointer_ariph = Pointer_ariph->prev;
-					continue;
-				}
-				case arr_down:           //Arrow down - next
-				{
-					Pointer_ariph = Pointer_ariph->next;
-					continue;
-				}
+			
 				case enter:          //Enter
 				{
 					Pointer_ariph = NULL;
@@ -90,21 +120,6 @@ int main()
 							return 1;
 						}
 					}
-					continue;
-				}
-				case F1:         //F1
-				{
-					interface_help_main();
-					continue;
-				}
-				case insert:          //insert
-				{
-					M = ((Ariph*)(Pointer_ariph->data))->ans;
-					continue;
-				}
-				case del:          //Del
-				{
-					M = 0;
 					continue;
 				}
 				case tab:           //Tab
