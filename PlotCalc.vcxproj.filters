@@ -27,6 +27,9 @@
     <ClCompile Include="Graph_Funct.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="computation_core.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlotCalc_Head.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graph_Head.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="comutation_core_head.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

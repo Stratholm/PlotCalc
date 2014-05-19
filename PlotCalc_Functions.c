@@ -15,30 +15,6 @@ Note* Pointer_ariph = NULL;
 Note* Pointer_vars;
 
 /*Functions*/
-//Input string to infix notation
-List* str_to_inf(char* in)
-{
-	/*Used inside string_analyse*/
-}
-
-//Queue to postfix
-List* inf_to_post(List* inf)
-{
-	/*Used inside string_analyse*/
-}
-
-//Calculate postfix
-double post_calc(List* post)
-{
-	/*Used inside string_analyse by ariph and plots (in cycle)*/
-}
-
-//Transferes answer to the rational form
-Rat_num ans_to_rat(double ans)
-{
-	/*Used inside string_analyse by ariph*/
-}
-
 //Open sessinon to save
 int session_open()
 {
