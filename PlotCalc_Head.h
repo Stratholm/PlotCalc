@@ -22,16 +22,16 @@
 #define backspace 8
 #define esc 27
 #define space 32
-#define F1 59
-#define alt 18
-#define del 46
+#define F1 59	//double with first 0
+#define alt 18	//OOO
+#define del 83	//double with first -32
 #define tab 9
-#define arr_up 72
-#define arr_down 80
-#define arr_right 77
-#define arr_left 75
-#define shift 16
-#define insert 45
+#define arr_up 72	//double with first -32
+#define arr_down 80	//double with first -32
+#define arr_right 77	//double with first -32
+#define arr_left 75	//double with first -32
+#define shift 16	//OOO
+#define insert 82	//double with first -32
 #define switch_key 224
 
 /*Main variables declaration*/

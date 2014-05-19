@@ -6,7 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <wincon.h>
 #include "PlotCalc_Head.h"
 #pragma once
 
