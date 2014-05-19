@@ -5,6 +5,8 @@
 
 int main()
 {
+	char exam[2] = {'2', '\0'};
+	str_to_inf(exam);
 	queue_create(&ariph);
 	queue_create(&vars);
 	queue_create(&plots);

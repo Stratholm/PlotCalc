@@ -41,7 +41,7 @@
     <ClInclude Include="Graph_Head.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="comutation_core_head.h">
+    <ClInclude Include="computation_core_head.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

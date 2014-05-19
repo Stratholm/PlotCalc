@@ -10,7 +10,7 @@
 #include <Windows.h>
 #include "Queue_Head.h"
 #include "Graph_Head.h"
-#include "comutation_core_head.h"
+#include "computation_core_head.h"
 
 #define awruk_size 99
 #define plot_amount 16
@@ -36,6 +36,7 @@
 
 /*Main variables declaration*/
 extern int e;
+extern double ans;
 extern double M;
 extern char c;
 extern char string[awruk_size];
