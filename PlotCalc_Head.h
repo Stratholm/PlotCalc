@@ -61,7 +61,6 @@ typedef struct Plot
 	char string[awruk_size];
 	List postfix;
 	int coord[width];
-	int num;
 } Plot;
 
 //Rational form
