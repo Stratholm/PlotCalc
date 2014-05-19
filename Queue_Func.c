@@ -16,14 +16,22 @@ void queue_add_end(List *queu, Point el)
 {
     Note *note = (Note*)malloc(sizeof(Note));
     note->next = NULL;
+	if (queu->head == NULL)
+	{
+		queu->head = note;
+		note->prev = NULL;
+		note->num = 1;
+		note->data = el;
+	}
+	else
+	{
     note->prev = queu->tail;
 	note->data = el;
 	note->num = note->prev->num++;
-    if (queu->head == NULL)
-		queu->head = note;
     if (queu->tail != NULL)
 		queu->tail->next = note;
     queu->tail = note;
+	}
 }
 
 //Delete element
