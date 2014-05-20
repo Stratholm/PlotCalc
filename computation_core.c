@@ -2,15 +2,15 @@
 
 /* Functions */
 //Input string to infix notation
-List* str_to_inf(char* in)
+List str_to_inf(char* in)
 {
 	int i = 0;
 	Element el; 
-	List* lt;
+	List lt;
 	int l;
 	l = strlen(in);
-	lt = (List*)malloc(sizeof(List));
-	queue_create(lt);
+	//lt = (List*)malloc(sizeof(List));
+	queue_create(&lt);
     while (i <= strlen(in)) 
 	{
 		if (in[i] == ' ') 
@@ -27,7 +27,8 @@ List* str_to_inf(char* in)
 			}
 			el.key = 0;
 			el.data = num;
-			queue_add_end(lt, &el);
+			queue_add_end(&lt, &el);
+			break;
         } 
 		else 
 		{

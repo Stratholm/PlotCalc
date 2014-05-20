@@ -5,9 +5,6 @@
 
 int main()
 {
-	char exam[2] = {'2', '\0'};
-	str_to_inf(exam);
-	queue_create(&ariph);
 	queue_create(&vars);
 	queue_create(&plots);
 	while (e == 0)
@@ -61,8 +58,13 @@ int main()
 					}
 					case enter:          //Enter
 					{
+						double answer;
 						printf("\a");
 						string_analyse(string, Pointer_ariph, &ariph);
+						queue_create(&ariph);
+						ariph = str_to_inf(string);
+						answer = ((Element*)(ariph.head->data))->data;
+						printf("%f", answer);
 						continue;
 					}
 					case backspace:           //Backspace
