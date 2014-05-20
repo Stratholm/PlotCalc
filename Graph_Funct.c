@@ -165,3 +165,46 @@ void interface_help_plots()
     SetPixel(hdc,-1,-1,0);
     _getch();
 }
+
+//Variables list
+void interface_list_vars(List* var)
+{
+	HDC hdc=GetDC(GetConsoleWindow());
+    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
+    RECT RectClear;
+    system("cls");
+    RectClear.top=0;
+    RectClear.left=0;
+    RectClear.bottom=600;
+    RectClear.right=800;
+    FillRect(hdc,&RectClear, BrushClear);
+    SetPixel(hdc,-1,-1,0);
+    Note *provd=var->head;
+    printf("List of variables:\n");
+    while (provd!=var->tail)
+    {
+        printf("%d ",provd->num);
+        printf("%s ",((Const*)(provd->data))->name);
+        printf("%f\n",((Const*)(provd->data))->val);
+        provd=provd->next;
+    }
+    printf("%d ",provd->num);
+    printf("%s ",((Const*)(provd->data))->name);
+    printf("%f\n",((Const*)(provd->data))->val);
+    char _tmp_c;
+    switch(_tmp_c=getch())
+    {
+    case -32:
+        {
+            _tmp_c=getch();
+            if (_tmp_c==83)
+            {
+            printf("Please, enter the number of variable, that you want to delete:\n");
+            int _tmp_n;
+            scanf("%d",&_tmp_n);
+            queue_el_del(var,_tmp_n);
+            }
+        }
+        default: return;
+    }
+}

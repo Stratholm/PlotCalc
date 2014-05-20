@@ -33,12 +33,6 @@ int session_close(List* ariph, List* var)
 	/*saves the rest*/
 }
 
-//Variables list
-void interface_list_vars(List* var)
-{
-	/**/
-}
-
 //Analyse string and calculate/save/build
 int string_analyse(char* str, Note* point, List *ariph)
 {

@@ -33,3 +33,5 @@ void interface_help_main();
 //Plots screen help
 void interface_help_plots();
 
+//Variables list
+void interface_list_vars(List* vars);

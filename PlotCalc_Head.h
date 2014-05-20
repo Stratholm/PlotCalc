@@ -103,8 +103,5 @@ int plot_save(Note* point);
 //Close session of storage
 int session_close(List* ariph, List* var);
 
-//Variables list
-void interface_list_vars(List* vars);
-
 //Analise string and calculate/save/build
 int string_analyse(char* str, Note* point, List *ariph);
