@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
@@ -14,7 +15,6 @@ List* inf_to_post(List* inf);
 
 //Calculate postfix
 double post_calc(List* post);
-/*
-//Transfers answer to the rational form
-Rat_num ans_to_rat(double ans);
-*/
+
+////Transfers answer to the rational form
+//Rat_num ans_to_rat(double ans);

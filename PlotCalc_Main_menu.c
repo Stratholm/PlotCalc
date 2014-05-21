@@ -69,9 +69,9 @@ int main()
 					}
 					case backspace:           //Backspace
 					{
-						string[i] = '\0';
 						if (i>0)
 						i--;
+						string[i] = '\0';
 						continue;
 					}
 					case esc:          //Esc

@@ -50,10 +50,10 @@ double post_calc(List* post)
 {
 	/*Used inside string_analyse by ariph and plots (in cycle)*/
 }
-//
+
 ////Transferes answer to the rational form
 //Rat_num ans_to_rat(double ans)
 //{
 //	/*Used inside string_analyse by ariph*/
 //}
-
+//
