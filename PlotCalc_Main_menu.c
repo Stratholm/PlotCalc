@@ -5,6 +5,7 @@
 
 int main()
 {
+	database_func = func_init(database_func);
 	queue_create(&vars);
 	queue_create(&plots);
 	while (e == 0)
@@ -58,13 +59,15 @@ int main()
 					}
 					case enter:          //Enter
 					{
-						double answer;
+						double answer = 0;
 						printf("\a");
 						string_analyse(string, Pointer_ariph, &ariph);
 						queue_create(&ariph);
-						ariph = str_to_inf(string);
+						ariph = str_to_inf(string, database_func);
 						answer = ((Element*)(ariph.head->data))->data;
 						printf("%f", answer);
+						/*answer = ((Element*)(ariph.head->next->data))->data;
+						printf("%f", answer);*/
 						continue;
 					}
 					case backspace:           //Backspace

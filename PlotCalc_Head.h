@@ -15,6 +15,7 @@
 #define awruk_size 99
 #define plot_amount 16
 #define var_amount 16
+#define func_amount 2
 #define width 800
 #define height 600
 
@@ -34,19 +35,8 @@
 #define insert 82	//double with first -32
 #define switch_key 224
 
-/*Main variables declaration*/
-extern int e;
-extern double ans;
-extern double M;
-extern char c;
-extern char string[awruk_size];
-extern int i;
-extern List plots;
-extern List ariph;
-extern List vars;
-extern Note* Pointer_plots;
-extern Note* Pointer_ariph;
-extern Note* Pointer_vars;
+#define NUM 1
+#define FUNC 2
 
 /*Structures*/
 //Universal element
@@ -80,7 +70,7 @@ typedef struct Ariph
 } Ariph;
 
 //Functions database
-typedef struct Func
+typedef struct _Func
 {
 	char name[8];
 	int prior;
@@ -92,6 +82,22 @@ typedef struct Const
 	char name[4];
 	double val;
 } Const;
+
+/*Main variables declaration*/
+extern int e;
+extern double ans;
+extern double M;
+extern char c;
+extern char string[awruk_size];
+extern int i;
+extern List plots;
+extern List ariph;
+extern List vars;
+extern Note* Pointer_plots;
+extern Note* Pointer_ariph;
+extern Note* Pointer_vars;
+extern Func* database_func;
+extern Const constants[32];
 
 /*Functions*/
 //Open session to save
@@ -105,3 +111,6 @@ int session_close(List* ariph, List* var);
 
 //Analise string and calculate/save/build
 int string_analyse(char* str, Note* point, List *ariph);
+
+//Initialise database
+Func* func_init(Func* fc);

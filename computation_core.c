@@ -2,38 +2,63 @@
 
 /* Functions */
 //Input string to infix notation
-List str_to_inf(char* in)
+List str_to_inf(char* in, Func* fc)
 {
-	int i = 0;
+	int symbol, func, chr, in_len, func_len;
 	Element el; 
 	List lt;
-	int l;
-	l = strlen(in);
-	//lt = (List*)malloc(sizeof(List));
+	symbol = 0;
+	func = 0;
+	chr = 0;
+	in_len = strlen(in);
 	queue_create(&lt);
-    while (i <= strlen(in)) 
+    while (symbol < in_len) 
 	{
-		if (in[i] == ' ') 
+		if (in[symbol] == ' ') 
 		{
-			i++;
+			symbol++;
 		} 
 		else
-		if (isdigit(in[i])) 
+		if (isdigit(in[symbol])) 
 		{
-			int num = in[i] - '0';
-			while (isdigit(in[i])) 
+			int num = in[symbol] - '0';
+			symbol++;
+			while (isdigit(in[symbol])) 
 			{
-				num = num * 10 + (in[i++]) - '0';
+				num = num * 10 + (in[symbol++]) - '0';
 			}
-			el.key = 0;
+			el.key = NUM;
 			el.data = num;
 			queue_add_end(&lt, &el);
-			break;
         } 
 		else 
 		{
-            
-
+			while (func < func_amount)
+			{
+				func_len = strlen(fc[func].name);
+				while (chr <= func_len)
+				{
+					if (in[symbol] == fc[func].name[chr])
+					{
+						chr++;
+						symbol++;
+						if (chr == func_len)
+						{
+							el.key = FUNC;
+							el.data = func;
+							queue_add_end(&lt, &el);
+							break;
+						}
+					}
+					else 
+					{
+						symbol -= --chr;
+						chr = 0;
+						break;
+					}
+				}
+				func++;
+			}
         }
     }
 	return lt;
