@@ -13,13 +13,17 @@
 extern const int NotUsed; //default colors
 
 /*External Variables*/
-extern HWND hWnd; //Console window
-extern HANDLE hStdOut; //Console Buffer
 extern HDC hdc; //console
 
 /*Functions*/
+//First Buffer Initialize
+void screen_first_init();
+
+//Clear Screen
+void screen_clear();
+
 //Main console initialization
-int interface_main(Note* point, char *str, double M);
+void interface_main(Note* point, char *str, double M);
 
 //Drawing asix
 int Graph_Draw_Asix(int right, int up);

@@ -5,6 +5,7 @@
 
 int main()
 {
+    screen_first_init();
 	database_func = func_init(database_func);
 	queue_create(&vars);
 	queue_create(&plots);
@@ -110,7 +111,7 @@ int main()
 			interface_main(Pointer_ariph, string, M);
 			switch(c = getche())
 			{
-			
+
 				case enter:          //Enter
 				{
 					Pointer_ariph = NULL;

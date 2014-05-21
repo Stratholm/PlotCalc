@@ -39,24 +39,22 @@ void queue_add_end(List *queu, Point el)
 //Delete element
 int queue_el_del(List *queu, int num)
 {
-	if (queu->head != NULL)
-	{
-		Note *point = (Note*)malloc(sizeof(Note));
-		if (num != queu->head->next->num)
-		{
-			point = point->next;
-			if (point != NULL)
-			{
-				queue_el_del(queu, num);
-			}
-			else
-				return 0;
-		}
-		point->prev->next = point->next;
-		return 1;
-	}
-	else
-		return 0;
+    Note *remover=(Note *)malloc(sizeof(Note));
+    Note *note=(Note*)malloc(sizeof(Note));
+    note=queu->head;
+    if (queu->head!=NULL)
+    {
+        while ((note->num!=num)&&(note!=queu->tail))
+        note=note->next;
+        if ((note->num!=num)&&(note==queu->tail)) return 0;
+        remover=note;
+        if (note!=queu->tail) note->next->prev=note->prev;
+            else queu->tail=note->prev;
+        if (note!=queu->head) note->prev->next=note->next;
+            else queu->head=note->next;
+        free(remover);
+    }
+    return 0;
 }
 
 //Go forward

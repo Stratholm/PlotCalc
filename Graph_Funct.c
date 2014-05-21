@@ -5,28 +5,33 @@
 
 /*Includes*/
 #include "Graph_Head.h"
-
+HDC hdc;
 /*Functions*/
-//Main console initialization
-int interface_main(Note* point, char *str, double M)   //Str - text, after ">"
+//First Buffer Initialize
+void screen_first_init()
 {
     const int NotUsed = system( "color F0" );
     HWND hWnd = GetConsoleWindow();
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    hdc=GetDC(hWnd);
     COORD sz=GetLargestConsoleWindowSize(hStdOut);
     SMALL_RECT  DisplayArea;
-    HDC hdc=GetDC(GetConsoleWindow());
-    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
-    RECT RectClear;
     sz.X=100;
     sz.Y=50;
     DisplayArea.Left=0;
     DisplayArea.Top=0;
     DisplayArea.Right=sz.X-1;
     DisplayArea.Bottom=sz.Y-1;
-    if(!SetConsoleScreenBufferSize(hStdOut,sz)) return 1;
-    if(!MoveWindow(hWnd,283,54,800,600,TRUE)) return 2;
-    if(!SetConsoleWindowInfo(hStdOut,TRUE,&DisplayArea)) return 3;
+    SetConsoleScreenBufferSize(hStdOut,sz);
+    MoveWindow(hWnd,283,54,800,600,TRUE);
+    SetConsoleWindowInfo(hStdOut,TRUE,&DisplayArea);
+}
+
+//Clear Screen
+void screen_clear()
+{
+    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
+    RECT RectClear;
     RectClear.top=0;
     RectClear.left=0;
     RectClear.bottom=600;
@@ -34,37 +39,33 @@ int interface_main(Note* point, char *str, double M)   //Str - text, after ">"
     FillRect(hdc,&RectClear, BrushClear);
     system("cls");
     SetPixel(hdc,-1,-1,0);
+}
+
+//Main console initialization
+void interface_main(Note* point, char *str, double M)   //Str - text, after ">"
+{
+    screen_clear();
     if (point==NULL)
     printf(">%s",str);
     if (point!=NULL)
     {
         printf(">%s\nAnswer: %d",(char*)point->data,point->num);
     }
-    //SetConsoleTextAttribute(hStdOut,BACKGROUND_BLUE|BACKGROUND_GREEN|BACKGROUND_RED|BACKGROUND_INTENSITY);
     TextOutA(hdc,10,577,"Tab - variables",15);
     TextOutA(hdc,730,577,"F1 - Help",9);
     SetBkMode(hdc,TRANSPARENT);
     if (M==0) SetTextColor(hdc,RGB(192,192,192));
     TextOutA(hdc,396,577,"M",1);
     SetPixel(hdc,-1,-1,0);
-    return 0;
 }
 
 //Drawing asix
-int graph_draw_asix(int right, int up)  //right(up) - number of times, that user presses Right-Left/Up-Down
+void graph_draw_asix(int right, int up)  //right(up) - number of times, that user presses Right-Left/Up-Down
 {
     int i;
-    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    HDC hdc=GetDC(GetConsoleWindow());
-    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
-    RECT RectClear;
+    //HDC hdc=GetDC(GetConsoleWindow());
     HPEN PenAsix=CreatePen(0,3,RGB(0,0,0)), PenAsiA=CreatePen(0,1,RGB(200,200,200));
-    RectClear.top=0;
-    RectClear.left=0;
-    RectClear.bottom=600;
-    RectClear.right=800;
-    FillRect(hdc,&RectClear, BrushClear);
-    system("cls");
+    screen_clear();
     SelectObject(hdc,PenAsiA);
     for (i=0; i<17; i++)
     {
@@ -81,21 +82,13 @@ int graph_draw_asix(int right, int up)  //right(up) - number of times, that user
     LineTo(hdc,400+50*right,600);
     MoveToEx(hdc,0,300-50*up,NULL);
     LineTo(hdc,800,300-50*up);
-    return 0;
 }
 
 //Exit screen
 void interface_exit()
 {
-    HDC hdc=GetDC(GetConsoleWindow());
-    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
-    RECT RectClear;
-    system("cls");
-    RectClear.top=0;
-    RectClear.left=0;
-    RectClear.bottom=600;
-    RectClear.right=800;
-    FillRect(hdc,&RectClear, BrushClear);
+    //HDC hdc=GetDC(GetConsoleWindow());
+
     TextOutA(hdc,250,250,"Are you sure you want to exit the program?",42);
     TextOutA(hdc,320,266,"Press 'Enter' to exit.",22);
     SetPixel(hdc,-1,-1,0);
@@ -104,16 +97,7 @@ void interface_exit()
 //(Main/ariph count) screen  help
 void interface_help_main()
 {
-    HDC hdc=GetDC(GetConsoleWindow());
-    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
-    RECT RectClear;
     char *gig;
-    system("cls");
-    RectClear.top=0;
-    RectClear.left=0;
-    RectClear.bottom=600;
-    RectClear.right=800;
-    FillRect(hdc,&RectClear, BrushClear);
     TextOutA(hdc,250,100,"Calculator, plots builder.",26);
     TextOutA(hdc,250,116,"----------------------------------------------------------------------------------",55);
     TextOutA(hdc,250,132,"Insert ariphmetical expression you want to calculate,",53);
@@ -140,15 +124,6 @@ void interface_help_main()
 //Plots screen help
 void interface_help_plots()
 {
-    HDC hdc=GetDC(GetConsoleWindow());
-    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
-    RECT RectClear;
-    system("cls");
-    RectClear.top=0;
-    RectClear.left=0;
-    RectClear.bottom=600;
-    RectClear.right=800;
-    FillRect(hdc,&RectClear, BrushClear);
     TextOutA(hdc,250,100,"Plots builder help:",19);
     TextOutA(hdc,250,116,"----------------------------------------------------------------------------------",55);
     TextOutA(hdc,250,132,"Keys:",5);
@@ -171,16 +146,6 @@ void interface_list_vars(List* var)
 {
 	char _tmp_c;
 	Note *provd;
-	HDC hdc=GetDC(GetConsoleWindow());
-    HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
-    RECT RectClear;
-    system("cls");
-    RectClear.top=0;
-    RectClear.left=0;
-    RectClear.bottom=600;
-    RectClear.right=800;
-    FillRect(hdc,&RectClear, BrushClear);
-    SetPixel(hdc,-1,-1,0);
     provd = var->head;
     printf("List of variables:\n");
     while (provd!=var->tail)
