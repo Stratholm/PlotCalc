@@ -2,12 +2,13 @@
 /*Programm calculates arithmetical equasions, bulds plots*/
 
 #include "PlotCalc_Head.h"
+#include "computation_core_head.h"
 
 int main()
 {
     screen_first_init();
 	database_func = func_init(database_func);
-	queue_create(&vars);
+	//queue_create(&vars);
 	queue_create(&plots);
 	while (e == 0)
 	{
@@ -64,9 +65,9 @@ int main()
 						printf("\a");
 						string_analyse(string, Pointer_ariph, &ariph);
 						queue_create(&ariph);
-						//ariph = str_to_inf(string, database_func);
-						/*answer = ((Element*)(ariph.head->data))->data;
-						printf("%f", answer);
+						ariph = str_to_inf(string, database_func, database_const, vars);
+						answer = ((Element*)(ariph.head->data))->data;
+						printf("%f", answer);/*
 						answer = ((Element*)(ariph.head->next->data))->data;
 						printf("%f", answer);*/
 						continue;
@@ -132,7 +133,7 @@ int main()
 				}
 				case tab:           //Tab
 				{
-					interface_list_vars(&vars);
+					//interface_list_vars(&vars);
 					continue;
 				}
 			}

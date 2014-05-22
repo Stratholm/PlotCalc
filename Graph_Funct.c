@@ -120,7 +120,7 @@ void interface_help_main()
     TextOutA(hdc,250,260,"F1----------- Watch help",24);
     TextOutA(hdc,250,276,"Tab--------- Watch variables",28);
     TextOutA(hdc,250,292,"Alt----------- Push value in memory",35);
-    TextOutA(hdc,250,308,"Shift----- Recall memory",24);
+    TextOutA(hdc,250,308,"Shift------- Recall memory",24);
     TextOutA(hdc,250,324,"Del---------- Clean memory",26);
     TextOutA(hdc,250,340,"Up----------- Previous ariphmetical expression",46);
     TextOutA(hdc,250,356,"Down------- Next ariphmetical expression",40);
@@ -148,6 +148,7 @@ void interface_help_plots()
     _getch();
 }
 
+/*
 //Variables list
 void interface_list_vars(List* var)
 {
@@ -181,3 +182,4 @@ void interface_list_vars(List* var)
         default: return;
     }
 }
+*/
