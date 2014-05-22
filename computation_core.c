@@ -2,16 +2,20 @@
 
 /* Functions */
 //Input string to infix notation
-List str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* var)
+List* str_to_inf(char* in, Func* fc)
 {
-	unsigned int symbol = 0;
-	unsigned int in_len;
+	int symbol, func, chr, in_len, func_len;
 	Element el; 
-	List* lt= (List*)malloc(sizeof(List));
+	List* lt;
+	lt = (List*)malloc(sizeof(List));
+	symbol = 0;
+	func = 0;
+	chr = 0;
 	in_len = strlen(in);
 	queue_create(lt);
     while (symbol < in_len) 
 	{
+//////////////////////////////////////////////////////////////////
 		if (in[symbol] == ' ')				//Space
 		{
 			symbol++;
@@ -29,12 +33,43 @@ List str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* var)
 			el.data = num;
 			queue_add_end(lt, &el);
 			continue;
-		} 
-		lexem_find(&symbol, in, lt, fc, func_amount, FUNC);
-		lexem_find(&symbol, in, lt, fc, const_amount, CONST);
-		lexem_find(&symbol, in, lt, fc, var_amount, VAR);
-	}
-	return *lt;
+        } 
+		else 
+		{
+			while (func < func_amount)		//function
+			{
+				func_len = strlen(fc[func].name);
+				while (chr <= func_len)
+				{
+					if (in[symbol] == fc[func].name[chr])
+					{
+						chr++;
+						symbol++;
+						if (chr == func_len)
+						{
+							el.key = FUNC;
+							el.data = func;
+							queue_add_end(lt, &el);
+							break;
+						}
+					}
+					else 
+					{
+						symbol -= --chr;
+						chr = 0;
+						break;
+					}
+				}
+				func++;
+			}
+        }
+		else
+		{
+
+		}
+//////////////////////////////////////////////////////////////////
+    }
+	return lt;
 }
 
 //Queue to postfix
@@ -55,45 +90,3 @@ Rat_num* ans_to_rat(double ans)
 	/*Used inside string_analyse by ariph*/
 }
 
-//Finds closest lexems
-int lexem_find(unsigned int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
-{
-	unsigned int lex = 0;
-	unsigned int chr = 0;
-	unsigned int lex_len;
-	Element el; 
-	while (lex < amount)		//element
-		{
-			lex_len = strlen(db[lex].name);
-			while (chr <= lex_len)		//charachter in an element
-			{
-				if (in[*smb] == db[lex].name[chr])
-				{
-					chr++;
-					*smb++;
-					if (chr == lex_len)
-					{
-						if (mode == FUNC)
-						{
-							el.key = FUNC;
-							el.data = lex;
-						}
-						if ((mode == CONST)||(mode == VAR))
-						{
-							el.key = NUM;
-							el.data = db[lex].data;
-						}
-						queue_add_end(lt, &el);
-						break;
-					}
-				}
-				else 
-				{
-					*smb -= --chr;
-					chr = 0;
-					break;
-				}
-			}
-			lex++;
-		}
-}

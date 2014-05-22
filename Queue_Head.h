@@ -1,5 +1,4 @@
-#ifndef QC_H
-#define QC_H
+#pragma once
 
 /*Includes*/
 #include <stdio.h>
@@ -42,5 +41,3 @@ void queue_qo_fwd(List *queu, Note *Point);
 
 //Go back
 void queue_go_back(List *queu, Note *Point);
-
-#endif

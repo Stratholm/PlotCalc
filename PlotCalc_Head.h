@@ -1,5 +1,4 @@
-#ifndef PC_H
-#define PC_H
+#pragma once
 
 /*Includes*/
 #include <stdlib.h>
@@ -11,11 +10,10 @@
 #include <Windows.h>
 #include "Queue_Head.h"
 #include "Graph_Head.h"
-//#include "computation_core_head.h"
+#include "computation_core_head.h"
 
 #define awruk_size 99
 #define plot_amount 16
-#define const_amount 16
 #define var_amount 16
 #define func_amount 2
 #define width 800
@@ -39,8 +37,6 @@
 
 #define NUM 1
 #define FUNC 2
-#define CONST 3
-#define VAR 4
 
 /*Structures*/
 //Universal element
@@ -73,12 +69,19 @@ typedef struct Ariph
 	Rat_num rat;
 } Ariph;
 
-
-typedef struct Dbase
+//Functions database
+typedef struct _Func
 {
 	char name[8];
-	double data;
-} Dbase;
+	int prior;
+} Func;
+
+//Constants database
+typedef struct Const
+{
+	char name[4];
+	double val;
+} Const;
 
 /*Main variables declaration*/
 extern int e;
@@ -89,12 +92,12 @@ extern char string[awruk_size];
 extern int i;
 extern List plots;
 extern List ariph;
+extern List vars;
 extern Note* Pointer_plots;
 extern Note* Pointer_ariph;
 extern Note* Pointer_vars;
-extern Dbase* database_func;
-extern Dbase* database_const;
-extern Dbase* vars;
+extern Func* database_func;
+extern Const constants[32];
 
 /*Functions*/
 //Open session to save
@@ -110,6 +113,4 @@ int session_close(List* ariph, List* var);
 int string_analyse(char* str, Note* point, List *ariph);
 
 //Initialise database
-Dbase* func_init(Dbase* fc);
-
-#endif
+Func* func_init(Func* fc);
