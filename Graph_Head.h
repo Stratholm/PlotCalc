@@ -39,3 +39,6 @@ void interface_help_plots();
 
 //Variables list
 void interface_list_vars(List* vars);
+
+//Plots list
+void interface_list_plots(List* plot);
