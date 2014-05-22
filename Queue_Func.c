@@ -44,7 +44,7 @@ int queue_el_del(List *queu, int num)
     note=queu->head;
     if (queu->head!=NULL)
     {
-        while ((note->num!=num)&&(note!=queu->tail))
+        while ((note->num != num)&&(note!=queu->tail))
         note=note->next;
         if ((note->num!=num)&&(note==queu->tail)) return 0;
         remover=note;

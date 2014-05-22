@@ -64,10 +64,10 @@ int main()
 						printf("\a");
 						string_analyse(string, Pointer_ariph, &ariph);
 						queue_create(&ariph);
-						ariph = str_to_inf(string, database_func);
-						answer = ((Element*)(ariph.head->data))->data;
+						//ariph = str_to_inf(string, database_func);
+						/*answer = ((Element*)(ariph.head->data))->data;
 						printf("%f", answer);
-						/*answer = ((Element*)(ariph.head->next->data))->data;
+						answer = ((Element*)(ariph.head->next->data))->data;
 						printf("%f", answer);*/
 						continue;
 					}

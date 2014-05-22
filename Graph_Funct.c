@@ -10,12 +10,13 @@ HDC hdc;
 //First Buffer Initialize
 void screen_first_init()
 {
+	SMALL_RECT  DisplayArea;
+	COORD sz;
     const int NotUsed = system( "color F0" );
     HWND hWnd = GetConsoleWindow();
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
     hdc=GetDC(hWnd);
-    COORD sz=GetLargestConsoleWindowSize(hStdOut);
-    SMALL_RECT  DisplayArea;
+    sz=GetLargestConsoleWindowSize(hStdOut);
     sz.X=100;
     sz.Y=50;
     DisplayArea.Left=0;
@@ -37,16 +38,22 @@ void screen_clear()
     RectClear.bottom=600;
     RectClear.right=800;
     FillRect(hdc,&RectClear, BrushClear);
-    system("cls");
+    //system("cls");
     SetPixel(hdc,-1,-1,0);
 }
 
 //Main console initialization
 void interface_main(Note* point, char *str, double M)   //Str - text, after ">"
 {
+	char *_strtmp=(char*)malloc(100*sizeof(char));
     screen_clear();
+	//printf(" ");
     if (point==NULL)
-    printf(">%s",str);
+	{
+		sprintf(_strtmp,">%s",str);
+		TextOutA(hdc,0,0,_strtmp,strlen(_strtmp));
+		//printf(" ");
+	}
     if (point!=NULL)
     {
         printf(">%s\nAnswer: %d",(char*)point->data,point->num);
