@@ -10,11 +10,12 @@
 #include <Windows.h>
 #include "Queue_Head.h"
 #include "Graph_Head.h"
-#include "computation_core_head.h"
+//#include "computation_core_head.h"
 
 #define awruk_size 99
 #define plot_amount 16
 #define var_amount 16
+#define const_amount 16
 #define func_amount 2
 #define width 800
 #define height 600
@@ -37,6 +38,9 @@
 
 #define NUM 1
 #define FUNC 2
+#define CONST 3
+#define VAR 4
+
 
 /*Structures*/
 //Universal element
@@ -70,18 +74,11 @@ typedef struct Ariph
 } Ariph;
 
 //Functions database
-typedef struct _Func
+typedef struct Dbase
 {
 	char name[8];
-	int prior;
-} Func;
-
-//Constants database
-typedef struct Const
-{
-	char name[4];
-	double val;
-} Const;
+	int data;
+} Dbase;
 
 /*Main variables declaration*/
 extern int e;
@@ -92,12 +89,13 @@ extern char string[awruk_size];
 extern int i;
 extern List plots;
 extern List ariph;
-extern List vars;
 extern Note* Pointer_plots;
 extern Note* Pointer_ariph;
 extern Note* Pointer_vars;
-extern Func* database_func;
-extern Const constants[32];
+extern Dbase* database_func;
+extern Dbase* database_const;
+extern Dbase* vars;
+
 
 /*Functions*/
 //Open session to save
@@ -113,4 +111,4 @@ int session_close(List* ariph, List* var);
 int string_analyse(char* str, Note* point, List *ariph);
 
 //Initialise database
-Func* func_init(Func* fc);
+Dbase* func_init(Dbase* fc);

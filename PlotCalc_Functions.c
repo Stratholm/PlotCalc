@@ -9,12 +9,12 @@ char string[awruk_size] = {'\0'};
 int i = 0;
 List plots;
 List ariph;
-List vars;
 Note* Pointer_plots;
 Note* Pointer_ariph = NULL;
 Note* Pointer_vars;
-Func* database_func;
-Const constants[32];
+Dbase* database_func;
+Dbase* database_const;
+Dbase* vars;
 
 
 /*Functions*/
@@ -43,14 +43,14 @@ int string_analyse(char* str, Note* point, List *ariph)
 }
 
 //Initialise database
-Func* func_init(Func* fc)
+Dbase* func_init(Dbase* fc)
 {
-	fc = (Func*)malloc(func_amount * sizeof(Func));
+	fc = (Dbase*)malloc(func_amount * sizeof(Dbase));
 	fc[0].name[0] = '+';
 	fc[0].name[1] = '\0';
-	fc[0].prior = 1;
+	fc[0].data = 1;
 	fc[1].name[0] = '-';
 	fc[1].name[1] = '\0';
-	fc[1].prior = 1;
+	fc[1].data = 1;
 	return fc;
 }

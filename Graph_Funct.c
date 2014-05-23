@@ -160,47 +160,47 @@ void interface_help_plots()
     _getch();
 }
 
-//Variables list
-void interface_list_vars(List* var)
-{
-	char _tmp_c;
-	Note *provd;
-	screen_clear();
-	system("cls");
-    provd = var->head;
-    printf("List of variables:\n");
-    if (var->head==var->tail)
-    {
-        printf("There are no plots!");
-        getch();
-        return;
-    }
-    while (provd!=var->tail)
-    {
-        printf("%d ",provd->num);
-        printf("%s ",((Const*)(provd->data))->name);
-        printf("%f\n",((Const*)(provd->data))->val);
-        provd=provd->next;
-    }
-    printf("%d ",provd->num);
-    printf("%s ",((Const*)(provd->data))->name);
-    printf("%f\n",((Const*)(provd->data))->val);
-    switch(_tmp_c=getch())
-    {
-    case -32:
-        {
-			int _tmp_n;
-            _tmp_c=getch();
-            if (_tmp_c==83)
-            {
-            printf("Please, enter the number of variable, that you want to delete:\n");
-            scanf("%d",&_tmp_n);
-            queue_el_del(var,_tmp_n);
-            }
-        }
-        default: return;
-    }
-}
+////Variables list
+//void interface_list_vars(List* var)
+//{
+//	char _tmp_c;
+//	Note *provd;
+//	screen_clear();
+//	system("cls");
+//    provd = var->head;
+//    printf("List of variables:\n");
+//    if (var->head==var->tail)
+//    {
+//        printf("There are no plots!");
+//        getch();
+//        return;
+//    }
+//    while (provd!=var->tail)
+//    {
+//        printf("%d ",provd->num);
+//        printf("%s ",((Const*)(provd->data))->name);
+//        printf("%f\n",((Const*)(provd->data))->val);
+//        provd=provd->next;
+//    }
+//    printf("%d ",provd->num);
+//    printf("%s ",((Const*)(provd->data))->name);
+//    printf("%f\n",((Const*)(provd->data))->val);
+//    switch(_tmp_c=getch())
+//    {
+//    case -32:
+//        {
+//			int _tmp_n;
+//            _tmp_c=getch();
+//            if (_tmp_c==83)
+//            {
+//            printf("Please, enter the number of variable, that you want to delete:\n");
+//            scanf("%d",&_tmp_n);
+//            queue_el_del(var,_tmp_n);
+//            }
+//        }
+//        default: return;
+//    }
+//}
 
 //Plots list
 void interface_list_plots(List* plot)
