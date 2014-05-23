@@ -16,7 +16,7 @@
 #define plot_amount 16
 #define var_amount 16
 #define const_amount 16
-#define func_amount 2
+#define func_amount 3
 #define width 800
 #define height 600
 

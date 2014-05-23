@@ -52,5 +52,11 @@ Dbase* func_init(Dbase* fc)
 	fc[1].name[0] = '-';
 	fc[1].name[1] = '\0';
 	fc[1].data = 1;
+	fc[2].name[0] = 'l';
+	fc[2].name[1] = 'o';
+	fc[2].name[2] = 'l';
+	fc[2].name[3] = 'i';
+	fc[2].name[3] = '\0';
+	fc[1].data = 2;
 	return fc;
 }

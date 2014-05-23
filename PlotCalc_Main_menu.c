@@ -62,14 +62,18 @@ int main()
 					case enter:          //Enter
 					{
 						double answer = 0;
-						printf("\a");
 						string_analyse(string, Pointer_ariph, &ariph);
 						queue_create(&ariph);
 						ariph = str_to_inf(string, database_func, database_const, vars);
-						/*answer = ((Element*)(ariph.head->data))->data;
-						printf("%f", answer);
-						answer = ((Element*)(ariph.head->next->data))->data;
-						printf("%f", answer);*/
+						if (ariph.amount != 0)
+						answer = ((Element*)(ariph.head->data))->data;
+						for (i = 0; i < answer; i++)
+						{
+							printf("\a");
+						}
+						//printf("%f", answer);
+						//answer = ((Element*)(ariph.head->next->data))->data;
+						//printf("%f", answer);
 						continue;
 					}
 					case backspace:           //Backspace

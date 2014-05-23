@@ -19,4 +19,4 @@ double post_calc(List* post);
 Rat_num* ans_to_rat(double ans);
 
 //Finds closest lexems
-int lexem_find(unsigned int* smb, char* in, List* lt, Dbase* db, int amount, int mode);
+int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode);

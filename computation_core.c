@@ -4,7 +4,7 @@
 //Input string to infix notation
 List str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* var)
 {
-	unsigned int symbol = 0;
+	int symbol = 0;
 	unsigned int in_len;
 	Element el; 
 	List* lt= (List*)malloc(sizeof(List));
@@ -32,8 +32,8 @@ List str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* var)
 			continue;
         } 
 		lexem_find(&symbol, in, lt, fc, func_amount, FUNC);
-		lexem_find(&symbol, in, lt, fc, const_amount, CONST);
-		lexem_find(&symbol, in, lt, fc, var_amount, VAR);
+		//lexem_find(&symbol, in, lt, fc, const_amount, CONST);
+		//lexem_find(&symbol, in, lt, fc, var_amount, VAR);
 	
 //////////////////////////////////////////////////////////////////
     }
@@ -59,27 +59,34 @@ Rat_num* ans_to_rat(double ans)
 }
 
 //Finds closest lexems
-int lexem_find(unsigned int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
+int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 {
+	int mother_mother = *smb;
 	unsigned int lex = 0;
 	unsigned int chr = 0;
 	unsigned int lex_len;
 	Element el; 
+	el.key = 0;
 	while (lex < amount)		//element
 	{
-		lex_len = strlen(db[lex].name);
-		while (chr <= lex_len)		//charachter in an element
+		if (el.key == 0)
 		{
-			if (in[*smb] == db[lex].name[chr])
+		lex_len = strlen(db[lex].name);
+		while (chr < lex_len)		//charachter in an element
+		{
+			if (in[mother_mother] == db[lex].name[chr])
 			{
 				chr++;
-				*smb++;
+				mother_mother++;
+				//*smb++;
 				if (chr == lex_len)
 				{
 					if (mode == FUNC)
 					{
 						el.key = FUNC;
 						el.data = lex;
+						*smb = mother_mother;
+						//*smb++;
 					}
 					if ((mode == CONST)||(mode == VAR))
 					{
@@ -98,5 +105,8 @@ int lexem_find(unsigned int* smb, char* in, List* lt, Dbase* db, int amount, int
 			}
 		}
 		lex++;
+		}
+		else
+		break;
 	}
 }
