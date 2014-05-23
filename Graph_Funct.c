@@ -15,6 +15,7 @@ void screen_first_init()
     const int NotUsed = system( "color F0" );
     HWND hWnd = GetConsoleWindow();
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO structCursorInfo;
     hdc=GetDC(hWnd);
     sz=GetLargestConsoleWindowSize(hStdOut);
     sz.X=100;
@@ -26,6 +27,10 @@ void screen_first_init()
     SetConsoleScreenBufferSize(hStdOut,sz);
     MoveWindow(hWnd,283,54,800,600,TRUE);
     SetConsoleWindowInfo(hStdOut,TRUE,&DisplayArea);
+    GetConsoleCursorInfo(hStdOut,&structCursorInfo);
+    structCursorInfo.bVisible = FALSE;
+    SetConsoleCursorInfo(hStdOut, &structCursorInfo );
+
 }
 
 //Clear Screen
@@ -52,17 +57,21 @@ void interface_main(Note* point, char *str, double M)   //Str - text, after ">"
 	{
 		sprintf(_strtmp,">%s",str);
 		TextOutA(hdc,0,0,_strtmp,strlen(_strtmp));
-		//printf(" ");
+		//printf(">");
 	}
     if (point!=NULL)
     {
-        printf(">%s\nAnswer: %d",(char*)point->data,point->num);
+        sprintf(_strtmp,">%s",(char*)point->data);
+        TextOutA(hdc,0,0,_strtmp,strlen(_strtmp));
+        sprintf(_strtmp,"Answer: %d",point->num);
+        TextOutA(hdc,0,16,_strtmp,strlen(_strtmp));
     }
     TextOutA(hdc,10,577,"Tab - variables",15);
     TextOutA(hdc,730,577,"F1 - Help",9);
     SetBkMode(hdc,TRANSPARENT);
     if (M==0) SetTextColor(hdc,RGB(192,192,192));
     TextOutA(hdc,396,577,"M",1);
+    SetTextColor(hdc,RGB(0,0,0));
     SetPixel(hdc,-1,-1,0);
 }
 
@@ -95,7 +104,8 @@ void graph_draw_asix(int right, int up)  //right(up) - number of times, that use
 void interface_exit()
 {
     //HDC hdc=GetDC(GetConsoleWindow());
-
+    screen_clear();
+    system("cls");
     TextOutA(hdc,250,250,"Are you sure you want to exit the program?",42);
     TextOutA(hdc,320,266,"Press 'Enter' to exit.",22);
     SetPixel(hdc,-1,-1,0);
@@ -105,6 +115,7 @@ void interface_exit()
 void interface_help_main()
 {
     char *gig;
+    screen_clear();
     TextOutA(hdc,250,100,"Calculator, plots builder.",26);
     TextOutA(hdc,250,116,"----------------------------------------------------------------------------------",55);
     TextOutA(hdc,250,132,"Insert ariphmetical expression you want to calculate,",53);
@@ -131,6 +142,7 @@ void interface_help_main()
 //Plots screen help
 void interface_help_plots()
 {
+    screen_clear();
     TextOutA(hdc,250,100,"Plots builder help:",19);
     TextOutA(hdc,250,116,"----------------------------------------------------------------------------------",55);
     TextOutA(hdc,250,132,"Keys:",5);
@@ -153,8 +165,16 @@ void interface_list_vars(List* var)
 {
 	char _tmp_c;
 	Note *provd;
+	screen_clear();
+	system("cls");
     provd = var->head;
     printf("List of variables:\n");
+    if (var->head==var->tail)
+    {
+        printf("There are no plots!");
+        getch();
+        return;
+    }
     while (provd!=var->tail)
     {
         printf("%d ",provd->num);
@@ -176,6 +196,46 @@ void interface_list_vars(List* var)
             printf("Please, enter the number of variable, that you want to delete:\n");
             scanf("%d",&_tmp_n);
             queue_el_del(var,_tmp_n);
+            }
+        }
+        default: return;
+    }
+}
+
+//Plots list
+void interface_list_plots(List* plot)
+{
+	char _tmp_c;
+	Note *provd;
+	screen_clear();
+	system("cls");
+    provd = plot->head;
+    printf("List of variables:\n");
+    if (plot->head==plot->tail)
+    {
+            printf("There are no plots!");
+            getch();
+            return;
+    }
+    while (provd!=plot->tail)
+    {
+        printf("%d ",provd->num);
+        printf("%s ",((Plot*)(provd->data))->string);
+        provd=provd->next;
+    }
+    printf("%d ",provd->num);
+    printf("%s ",((Plot*)(provd->data))->string);
+    switch(_tmp_c=getch())
+    {
+    case -32:
+        {
+			int _tmp_n;
+            _tmp_c=getch();
+            if (_tmp_c==83)
+            {
+            printf("Please, enter the number of plot, that you want to delete:\n");
+            scanf("%d",&_tmp_n);
+            queue_el_del(plot,_tmp_n);
             }
         }
         default: return;
