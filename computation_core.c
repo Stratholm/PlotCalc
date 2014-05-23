@@ -90,8 +90,8 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 					}
 					if ((mode == CONST)||(mode == VAR))
 					{
-					el.key = NUM;
-					el.data = db[lex].data;
+						el.key = NUM;
+						el.data = db[lex].data;
 					}
 					queue_add_end(lt, &el);
 					break;
