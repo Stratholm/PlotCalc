@@ -31,8 +31,9 @@ List str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* var)
 			queue_add_end(lt, &el);
 			continue;
         } 
+		lexem_find(&symbol, in, lt, ct, const_amount, CONST);
 		lexem_find(&symbol, in, lt, fc, func_amount, FUNC);
-		//lexem_find(&symbol, in, lt, fc, const_amount, CONST);
+		
 		//lexem_find(&symbol, in, lt, fc, var_amount, VAR);
 	
 //////////////////////////////////////////////////////////////////
@@ -74,24 +75,25 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 		lex_len = strlen(db[lex].name);
 		while (chr < lex_len)		//charachter in an element
 		{
-			if (in[mother_mother] == db[lex].name[chr])
+			if (in[mother_mother] == db[lex].name[chr])	//equivalance
 			{
 				chr++;
 				mother_mother++;
-				//*smb++;
-				if (chr == lex_len)
+				if (chr == lex_len)		//check
 				{
 					if (mode == FUNC)
 					{
 						el.key = FUNC;
 						el.data = lex;
 						*smb = mother_mother;
-						//*smb++;
+						return 1;
 					}
 					if ((mode == CONST)||(mode == VAR))
 					{
 						el.key = NUM;
 						el.data = db[lex].data;
+						*smb = mother_mother;
+						return 1;
 					}
 					queue_add_end(lt, &el);
 					break;
@@ -99,7 +101,7 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 			}
 			else 
 			{
-				*smb -= --chr;
+				*smb = mother_mother - chr;
 				chr = 0;
 				break;
 			}

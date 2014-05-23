@@ -21,6 +21,7 @@ void queue_add_end(List *queu, Point el)
 		queu->head = note;
 		queu->tail = note;
 		note->prev = NULL;
+		note->next = NULL;
 		note->num = 1;
 		queu->amount = 1;
 		note->data = el;
@@ -28,12 +29,14 @@ void queue_add_end(List *queu, Point el)
 	else
 	{
 		note->prev = queu->tail;
+		queu->tail = note;
+		queu->tail->next = note;
 		note->data = el;
 		note->num = note->prev->num++;
 		queu->amount++;
-		if (queu->tail != NULL)
+		/*if (queu->tail != NULL)
 			queu->tail->next = note;
-		queu->tail = note;
+		queu->tail = note;*/
 	}
 }
 

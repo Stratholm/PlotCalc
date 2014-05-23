@@ -8,6 +8,7 @@ int main()
 {
     screen_first_init();
 	database_func = func_init(database_func);
+	database_const = const_init(database_const);
 	//queue_create(&vars);
 	queue_create(&plots);
 	while (e == 0)
@@ -65,7 +66,7 @@ int main()
 					queue_create(&ariph);
 					ariph = str_to_inf(string, database_func, database_const, vars);
 					if (ariph.amount != 0)
-						answer = ((Element*)(ariph.head->data))->data + ((Element*)(ariph.head->next->data))->data;
+						answer =/* ((Element*)(ariph.tail->data))->data +*/ ((Element*)(ariph.head->data))->data;
 					for (i = 0; i < answer; i++)
 					{
 						printf("\a");

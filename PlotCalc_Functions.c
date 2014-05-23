@@ -42,7 +42,7 @@ int string_analyse(char* str, Note* point, List *ariph)
 
 }
 
-//Initialise database
+//Initialise functions database
 Dbase* func_init(Dbase* fc)
 {
 	fc = (Dbase*)malloc(func_amount * sizeof(Dbase));
@@ -58,4 +58,14 @@ Dbase* func_init(Dbase* fc)
 	fc[2].name[3] = '\0';
 	fc[1].data = 2;
 	return fc;
+}
+
+//Initialise constants database
+Dbase* const_init(Dbase* ct)
+{
+	ct = (Dbase*)malloc(const_amount * sizeof(Dbase));
+	ct[0].name[0] = 'p';
+	ct[0].name[1] = 'i';
+	ct[0].name[2] = '\0';
+	ct[0].data = 3,141592;
 }

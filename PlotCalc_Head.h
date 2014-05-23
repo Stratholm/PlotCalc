@@ -15,7 +15,7 @@
 #define awruk_size 99
 #define plot_amount 16
 #define var_amount 16
-#define const_amount 16
+#define const_amount 1
 #define func_amount 3
 #define width 800
 #define height 600
@@ -110,5 +110,8 @@ int session_close(List* ariph, List* var);
 //Analise string and calculate/save/build
 int string_analyse(char* str, Note* point, List *ariph);
 
-//Initialise database
+//Initialise functions database
 Dbase* func_init(Dbase* fc);
+
+//Initialise constants database
+Dbase* const_init(Dbase* ct);
