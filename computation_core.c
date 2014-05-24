@@ -17,7 +17,6 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr)
 		if (in[symbol] == ' ')				//Space
 		{
 			symbol++;
-			return 1;
 			continue;
 		} 
 		if (isdigit(in[symbol]))			//number
@@ -31,19 +30,21 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr)
 			el.key = NUM;
 			el.data = num;
 			queue_add_end(lt, &el);
-			return 1;
 			continue;
         }
 		if (lexem_find(&symbol, in, lt, fc, func_amount, FUNC) == 1)
-			return 1;
+			continue;
 		if (lexem_find(&symbol, in, lt, ct, const_amount, CONST) == 1)
-			return 1;
+			continue;
 		if (lexem_find(&symbol, in, lt, vr, var_amount, VAR) == 1)
-			return 1;
-		symbol++;
+			continue;
+		return 0;
 //////////////////////////////////////////////////////////////////
     }
-	return 0;
+	/*if (symbol == in_len)
+		return 1;
+	else
+		return 0;*/
 }
 
 //Queue to postfix
@@ -77,42 +78,41 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 	{
 		if (el.key == 0)
 		{
-		lex_len = strlen(db[lex].name);
-		while (chr < lex_len)		//charachter in an element
-		{
-			if (in[mother_mother] == db[lex].name[chr])	//equivalance
+			lex_len = strlen(db[lex].name);
+			while (chr < lex_len)		//charachter in an element
 			{
-				chr++;
-				mother_mother++;
-				if (chr == lex_len)		//check
+				if (in[mother_mother] == db[lex].name[chr])	//equivalance
 				{
-					if (mode == FUNC)
+					chr++;
+					mother_mother++;
+					if (chr == lex_len)		//check
 					{
-						el.key = FUNC;
-						el.data = lex;
-						*smb = mother_mother;
-						queue_add_end(lt, &el);
-						return 1;
+						if (mode == FUNC)
+						{
+							el.key = FUNC;
+							el.data = lex;
+							*smb = mother_mother;
+							queue_add_end(lt, &el);
+							return 1;
+						}
+						if ((mode == CONST)||(mode == VAR))
+						{
+							el.key = NUM;
+							el.data = db[lex].data;
+							*smb = mother_mother;
+							queue_add_end(lt, &el);
+							return 1;
+						}
 					}
-					if ((mode == CONST)||(mode == VAR))
-					{
-						el.key = NUM;
-						el.data = db[lex].data;
-						*smb = mother_mother;
-						queue_add_end(lt, &el);
-						return 1;
-					}
-					//break;
+				}
+				else 
+				{
+					*smb = mother_mother - chr;
+					chr = 0;
+					break;
 				}
 			}
-			else 
-			{
-				*smb = mother_mother - chr;
-				chr = 0;
-				break;
-			}
-		}
-		lex++;
+			lex++;
 		}
 		else
 		break;

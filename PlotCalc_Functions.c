@@ -77,4 +77,7 @@ Dbase* vars_init(Dbase* vr)
 	vr[0].name[0] = 'a';
 	vr[0].name[1] = '\0';
 	vr[0].data = 5;
+	vr[1].name[0] = 'b';
+	vr[1].name[1] = '\0';
+	vr[1].data = 2;
 }

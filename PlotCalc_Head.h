@@ -14,7 +14,7 @@
 
 #define awruk_size 99
 #define plot_amount 16
-#define var_amount 1
+#define var_amount 2
 #define const_amount 1
 #define func_amount 3
 #define width 800

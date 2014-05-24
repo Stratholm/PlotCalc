@@ -6,10 +6,18 @@
 
 int main()
 {
+	Element el1, el2, el3;
     screen_first_init();
 	database_func = func_init(database_func);
 	database_const = const_init(database_const);
 	vars = vars_init(vars);
+	/*queue_create(&ariph);
+	el1.data = 1;
+	el2.data = 2;
+	el3.data = 3;
+	queue_add_end(&ariph, &el1);
+	queue_add_end(&ariph, &el2);
+	queue_add_end(&ariph, &el3);*/
 	//queue_create(&vars);
 	queue_create(&plots);
 	while (e == 0)
@@ -67,8 +75,9 @@ int main()
 					//queue_create(&ariph);
 					if (str_to_inf(&ariph, string, database_func, database_const, vars) == 1)
 						string[0] = '\0';
-					if (ariph.amount != 0)
-						answer = ((Element*)(ariph.head->data))->data;// + ((Element*)(ariph.tail->data))->data;
+					else string[0] = 'E';
+					if (ariph.amount  = 3)
+						answer = ((Element*)(ariph.head->data))->data + ((Element*)(ariph.head->next->data))->data + ((Element*)(ariph.head->next->next->data))->data;// + ((Element*)(ariph.head->next->next->next->data))->data;
 					for (i = 0; i < answer; i++)
 					{
 						printf("\a");

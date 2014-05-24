@@ -30,8 +30,8 @@ void queue_add_end(List *queu, Point el)
 	else
 	{
 		note->prev = queu->tail;
-		queu->tail = note;
 		queu->tail->next = note;
+		queu->tail = note;
 		note->data = el;
 		note->num = note->prev->num + 1;
 		queu->amount++;
