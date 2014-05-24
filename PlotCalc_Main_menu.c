@@ -9,6 +9,7 @@ int main()
     screen_first_init();
 	database_func = func_init(database_func);
 	database_const = const_init(database_const);
+	vars = vars_init(vars);
 	//queue_create(&vars);
 	queue_create(&plots);
 	while (e == 0)
@@ -63,10 +64,11 @@ int main()
 				{
 					double answer = 0;
 					string_analyse(string, Pointer_ariph, &ariph);
-					queue_create(&ariph);
-					ariph = str_to_inf(string, database_func, database_const, vars);
+					//queue_create(&ariph);
+					if (str_to_inf(&ariph, string, database_func, database_const, vars) == 1)
+						string[0] = '\0';
 					if (ariph.amount != 0)
-						answer =/* ((Element*)(ariph.tail->data))->data +*/ ((Element*)(ariph.head->data))->data;
+						answer = ((Element*)(ariph.head->data))->data;// + ((Element*)(ariph.tail->data))->data;
 					for (i = 0; i < answer; i++)
 					{
 						printf("\a");

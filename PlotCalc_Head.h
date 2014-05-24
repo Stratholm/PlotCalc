@@ -14,7 +14,7 @@
 
 #define awruk_size 99
 #define plot_amount 16
-#define var_amount 16
+#define var_amount 1
 #define const_amount 1
 #define func_amount 3
 #define width 800
@@ -115,3 +115,6 @@ Dbase* func_init(Dbase* fc);
 
 //Initialise constants database
 Dbase* const_init(Dbase* ct);
+
+//Initialise variables
+Dbase* vars_init(Dbase* vr);

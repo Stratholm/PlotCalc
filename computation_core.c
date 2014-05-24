@@ -2,20 +2,22 @@
 
 /* Functions */
 //Input string to infix notation
-List str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* var)
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr)
 {
 	int symbol = 0;
 	unsigned int in_len;
 	Element el; 
-	List* lt= (List*)malloc(sizeof(List));
 	in_len = strlen(in);
-	queue_create(lt);
+	lt->head = NULL;
+	lt->tail = NULL;
+	lt->amount = 0;
     while (symbol < in_len) 
 	{
 //////////////////////////////////////////////////////////////////
 		if (in[symbol] == ' ')				//Space
 		{
 			symbol++;
+			return 1;
 			continue;
 		} 
 		if (isdigit(in[symbol]))			//number
@@ -29,16 +31,19 @@ List str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* var)
 			el.key = NUM;
 			el.data = num;
 			queue_add_end(lt, &el);
+			return 1;
 			continue;
-        } 
-		lexem_find(&symbol, in, lt, ct, const_amount, CONST);
-		lexem_find(&symbol, in, lt, fc, func_amount, FUNC);
-		
-		//lexem_find(&symbol, in, lt, fc, var_amount, VAR);
-	
+        }
+		if (lexem_find(&symbol, in, lt, fc, func_amount, FUNC) == 1)
+			return 1;
+		if (lexem_find(&symbol, in, lt, ct, const_amount, CONST) == 1)
+			return 1;
+		if (lexem_find(&symbol, in, lt, vr, var_amount, VAR) == 1)
+			return 1;
+		symbol++;
 //////////////////////////////////////////////////////////////////
     }
-	return *lt;
+	return 0;
 }
 
 //Queue to postfix
@@ -86,6 +91,7 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 						el.key = FUNC;
 						el.data = lex;
 						*smb = mother_mother;
+						queue_add_end(lt, &el);
 						return 1;
 					}
 					if ((mode == CONST)||(mode == VAR))
@@ -93,10 +99,10 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 						el.key = NUM;
 						el.data = db[lex].data;
 						*smb = mother_mother;
+						queue_add_end(lt, &el);
 						return 1;
 					}
-					queue_add_end(lt, &el);
-					break;
+					//break;
 				}
 			}
 			else 
@@ -111,4 +117,6 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 		else
 		break;
 	}
+	if (el.key == 0)
+		return 0;
 }

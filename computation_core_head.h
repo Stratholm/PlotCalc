@@ -7,7 +7,7 @@
 
 /* Functions */
 //Input string to infix notation
-List str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* var);
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr);
 
 //Queue to postfix
 List* inf_to_post(List* inf);

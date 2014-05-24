@@ -6,6 +6,7 @@
 //Create queue
 void queue_create(List* queu)
 {
+	//queu = (List*) malloc(sizeof(List));
 	queu->head = NULL;
 	queu->tail = NULL;
 	queu->amount = 0;
@@ -32,7 +33,7 @@ void queue_add_end(List *queu, Point el)
 		queu->tail = note;
 		queu->tail->next = note;
 		note->data = el;
-		note->num = note->prev->num++;
+		note->num = note->prev->num + 1;
 		queu->amount++;
 		/*if (queu->tail != NULL)
 			queu->tail->next = note;

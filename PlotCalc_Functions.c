@@ -69,3 +69,12 @@ Dbase* const_init(Dbase* ct)
 	ct[0].name[2] = '\0';
 	ct[0].data = 3,141592;
 }
+
+//Initialise variables
+Dbase* vars_init(Dbase* vr)
+{
+	vr = (Dbase*)malloc(const_amount * sizeof(Dbase));
+	vr[0].name[0] = 'a';
+	vr[0].name[1] = '\0';
+	vr[0].data = 5;
+}
