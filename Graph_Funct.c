@@ -101,7 +101,7 @@ void interface_main(Note* point, char *str, double M)   //Str - text, after ">"
     LineTo(hdc,750,147);
     MoveToEx(hdc,50,525,NULL);
     LineTo(hdc,750,525);
-    MoveToEx(hdc,400,500,NULL);
+    MoveToEx(hdc,50,500,NULL);
     LineTo(hdc,750,500);
     MoveToEx(hdc,400,122,NULL);
     LineTo(hdc,400,525);
@@ -110,6 +110,7 @@ void interface_main(Note* point, char *str, double M)   //Str - text, after ">"
     TextOutA(hdc,53,127,"Previous calculations:",22);
     TextOutA(hdc,403,127,"Functions",9);
     TextOutA(hdc,623,127,"Variables",9);
+    TextOutA(hdc,53,505,"Del - to clear",14);
     TextOutA(hdc,403,505,"to edit",7);
     TextOutA(hdc,623,505,"to edit",7);
     TextOutA(hdc,53,530,"Tab - switch to plots",21);
