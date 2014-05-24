@@ -30,7 +30,7 @@ void screen_first_init()
     GetConsoleCursorInfo(hStdOut,&structCursorInfo);
     structCursorInfo.bVisible = FALSE;
     SetConsoleCursorInfo(hStdOut, &structCursorInfo );
-
+    SetBkMode(hdc,TRANSPARENT);
 }
 
 //Clear Screen
@@ -43,34 +43,79 @@ void screen_clear()
     RectClear.bottom=600;
     RectClear.right=800;
     FillRect(hdc,&RectClear, BrushClear);
-    //system("cls");
     SetPixel(hdc,-1,-1,0);
 }
+
+//creates frame
+void screen_frame_create()
+{
+    HBRUSH BrushGrey = CreateSolidBrush(RGB(128,128,128));  //You are fucked, if you have error here. Include "gdi32" in builder.
+    RECT RectDraw;
+    RectDraw.top=0;
+    RectDraw.left=0;
+    RectDraw.bottom=50;
+    RectDraw.right=800;
+    FillRect(hdc,&RectDraw, BrushGrey);
+    RectDraw.top=0;
+    RectDraw.left=0;
+    RectDraw.bottom=600;
+    RectDraw.right=50;
+    FillRect(hdc,&RectDraw, BrushGrey);
+    RectDraw.top=550;
+    RectDraw.left=0;
+    RectDraw.bottom=600;
+    RectDraw.right=800;
+    FillRect(hdc,&RectDraw, BrushGrey);
+    RectDraw.top=0;
+    RectDraw.left=750;
+    RectDraw.bottom=600;
+    RectDraw.right=800;
+    FillRect(hdc,&RectDraw, BrushGrey);
+    SetPixel(hdc,-1,-1,0);
+}
+
 
 //Main console initialization
 void interface_main(Note* point, char *str, double M)   //Str - text, after ">"
 {
 	char *_strtmp=(char*)malloc(100*sizeof(char));
+	HPEN PenAsiA=CreatePen(0,1,RGB(128,128,128));
     screen_clear();
-	//printf(" ");
+	screen_frame_create();
+	SelectObject(hdc,PenAsiA);
     if (point==NULL)
 	{
 		sprintf(_strtmp,">%s",str);
-		TextOutA(hdc,0,0,_strtmp,strlen(_strtmp));
-		//printf(">");
+		TextOutA(hdc,53,53,_strtmp,strlen(_strtmp));
 	}
     if (point!=NULL)
     {
         sprintf(_strtmp,">%s",(char*)point->data);
-        TextOutA(hdc,0,0,_strtmp,strlen(_strtmp));
+        TextOutA(hdc,53,53,_strtmp,strlen(_strtmp));
         sprintf(_strtmp,"Answer: %d",point->num);
-        TextOutA(hdc,0,16,_strtmp,strlen(_strtmp));
+        TextOutA(hdc,50,86,_strtmp,strlen(_strtmp));
     }
-    TextOutA(hdc,10,577,"Tab - variables",15);
-    TextOutA(hdc,730,577,"F1 - Help",9);
-    SetBkMode(hdc,TRANSPARENT);
+    MoveToEx(hdc,50,122,NULL);
+    LineTo(hdc,750,122);
+    MoveToEx(hdc,50,147,NULL);
+    LineTo(hdc,750,147);
+    MoveToEx(hdc,50,525,NULL);
+    LineTo(hdc,750,525);
+    MoveToEx(hdc,400,500,NULL);
+    LineTo(hdc,750,500);
+    MoveToEx(hdc,400,122,NULL);
+    LineTo(hdc,400,525);
+    MoveToEx(hdc,620,122,NULL);
+    LineTo(hdc,620,525);
+    TextOutA(hdc,53,127,"Previous calculations:",22);
+    TextOutA(hdc,403,127,"Functions",9);
+    TextOutA(hdc,623,127,"Variables",9);
+    TextOutA(hdc,403,505,"to edit",7);
+    TextOutA(hdc,623,505,"to edit",7);
+    TextOutA(hdc,53,530,"Tab - switch to plots",21);
+    TextOutA(hdc,690,530,"F1 - Help",9);
     if (M==0) SetTextColor(hdc,RGB(192,192,192));
-    TextOutA(hdc,396,577,"M",1);
+    TextOutA(hdc,396,530,"M",1);
     SetTextColor(hdc,RGB(0,0,0));
     SetPixel(hdc,-1,-1,0);
 }
@@ -106,6 +151,7 @@ void interface_exit()
     //HDC hdc=GetDC(GetConsoleWindow());
     screen_clear();
     system("cls");
+    screen_frame_create();
     TextOutA(hdc,250,250,"Are you sure you want to exit the program?",42);
     TextOutA(hdc,320,266,"Press 'Enter' to exit.",22);
     SetPixel(hdc,-1,-1,0);
@@ -116,6 +162,7 @@ void interface_help_main()
 {
     char *gig;
     screen_clear();
+    screen_frame_create();
     TextOutA(hdc,250,100,"Calculator, plots builder.",26);
     TextOutA(hdc,250,116,"----------------------------------------------------------------------------------",55);
     TextOutA(hdc,250,132,"Insert ariphmetical expression you want to calculate,",53);
@@ -143,6 +190,7 @@ void interface_help_main()
 void interface_help_plots()
 {
     screen_clear();
+    screen_frame_create();
     TextOutA(hdc,250,100,"Plots builder help:",19);
     TextOutA(hdc,250,116,"----------------------------------------------------------------------------------",55);
     TextOutA(hdc,250,132,"Keys:",5);
@@ -166,6 +214,7 @@ void interface_help_plots()
 //	char _tmp_c;
 //	Note *provd;
 //	screen_clear();
+//  screen_frame_create();
 //	system("cls");
 //    provd = var->head;
 //    printf("List of variables:\n");
@@ -208,6 +257,7 @@ void interface_list_plots(List* plot)
 	char _tmp_c;
 	Note *provd;
 	screen_clear();
+	screen_frame_create();
 	system("cls");
     provd = plot->head;
     printf("List of variables:\n");

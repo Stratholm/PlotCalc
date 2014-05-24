@@ -22,6 +22,9 @@ void screen_first_init();
 //Clear Screen
 void screen_clear();
 
+//creates frame
+void screen_frame_create();
+
 //Main console initialization
 void interface_main(Note* point, char *str, double M);
 
