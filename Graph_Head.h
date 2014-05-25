@@ -1,13 +1,14 @@
 //Graph_Head.h - a header, which works with graphics. Sakuya is best. Lunars - fuck yourself.
 
 /*Includes*/
+#pragma once
 #define _WIN32_WINNT 0x0500
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "PlotCalc_Head.h"
-#pragma once
+
 
 /*Structures*/
 extern const int NotUsed; //default colors
@@ -41,7 +42,7 @@ void interface_help_main();
 void interface_help_plots();
 
 //Variables list
-void interface_list_vars(List* vars);
+void interface_list_vars(Dbase* var);
 
 //Plots list
 void interface_list_plots(List* plot);

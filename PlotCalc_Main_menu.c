@@ -2,7 +2,6 @@
 /*Programm calculates arithmetical equasions, bulds plots*/
 
 #include "PlotCalc_Head.h"
-#include "computation_core_head.h"
 
 int main()
 {
