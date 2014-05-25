@@ -81,19 +81,19 @@ int main()
 					}
 					case ERR_EMPTY:
 					{
-						//print, mess = 1
+						//print, mess = ERR_EMPTY
 					}
 					case ERR_CONST:
 					{
-						//print, mess = 1
+						//print, mess = ERR_CONST
 					}
 					case ERR_SPEC:
 					{
-						//print, mess = 1
+						//print, mess = ERR_SPEC
 					}
 					case ERR_EQUAS:
 					{
-						//print, mess = 1
+						//print, mess = ERR_EQUAS
 					}
 					default:
 					{

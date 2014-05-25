@@ -9,7 +9,7 @@
 #include <assert.h>
 #include <Windows.h>
 #include "Queue_Head.h"
-#include "Graph_Head.h"
+//#include "Graph_Head.h"
 //#include "computation_core_head.h"
 
 #define awruk_size 86
@@ -38,7 +38,7 @@
 
 #define NUM 1
 #define FUNC 2
-#define CONST 3
+#define CONS 3
 #define ARIPH 4
 #define VAR 5
 #define ERR_EMPTY 6
@@ -101,7 +101,7 @@ extern Note* Pointer_vars;
 extern Dbase* database_func;
 extern Dbase* database_const;
 extern Dbase* vars;
-extern int var_amount = 0;
+extern int var_amount;
 
 
 /*Functions*/

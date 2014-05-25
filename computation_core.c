@@ -34,7 +34,7 @@ List* str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount)
         }
 		if (lexem_find(&symbol, in, lt, fc, func_amount, FUNC) == 1)
 			continue;
-		if (lexem_find(&symbol, in, lt, ct, const_amount, CONST) == 1)
+		if (lexem_find(&symbol, in, lt, ct, const_amount, CONS) == 1)
 			continue;
 		if (lexem_find(&symbol, in, lt, vr, var_amount, VAR) == 1)
 			continue;
@@ -93,7 +93,7 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 							queue_add_end(lt, element_create(FUNC, lex));
 							return 1;
 						}
-						if ((mode == CONST)||(mode == VAR))
+						if ((mode == CONS)||(mode == VAR))
 						{
 							*smb = mother_mother;
 							queue_add_end(lt, element_create(NUM, db[lex].data));
