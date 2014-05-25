@@ -5,16 +5,19 @@
 int e = 0;
 double M = 0;
 char c = ' ';
+char message = 0;
 char string[awruk_size] = {'\0'};
 int i = 0;
 List plots;
 List ariph;
+List ariph_list;
 Note* Pointer_plots;
 Note* Pointer_ariph = NULL;
 Note* Pointer_vars;
 Dbase* database_func;
 Dbase* database_const;
 Dbase* vars;
+int var_amount = 0;
 
 
 /*Functions*/
@@ -37,9 +40,23 @@ int session_close(List* ariph, List* var)
 }
 
 //Analyse string and calculate/save/build
-int string_analyse(char* str, Note* point, List *ariph)
+int string_analyse(char* str, Note* point)
 {
+	if (point == NULL)
+	{
+		if (strlen(str) == 0)
+		{
+			return ERR_EMPTY;
+		}
+		else
+		{
+			//analyse
+		}
+	}
+	else
+	{
 
+	}
 }
 
 //Initialise functions database

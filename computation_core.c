@@ -2,15 +2,14 @@
 
 /* Functions */
 //Input string to infix notation
-int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr)
+List* str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount)
 {
+	List* lt = (List*)malloc(sizeof(List));
 	int symbol = 0;
 	unsigned int in_len;
 	Element el; 
+	queue_create(lt);
 	in_len = strlen(in);
-	lt->head = NULL;
-	lt->tail = NULL;
-	lt->amount = 0;
     while (symbol < in_len) 
 	{
 //////////////////////////////////////////////////////////////////
@@ -27,9 +26,10 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr)
 			{
 				num = num * 10 + (in[symbol++]) - '0';
 			}
-			el.key = NUM;
+			/*el.key = NUM;
 			el.data = num;
-			queue_add_end(lt, &el);
+			queue_add_end(lt, &el);*/
+			queue_add_end(lt, element_create(NUM, num));
 			continue;
         }
 		if (lexem_find(&symbol, in, lt, fc, func_amount, FUNC) == 1)
@@ -38,7 +38,7 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr)
 			continue;
 		if (lexem_find(&symbol, in, lt, vr, var_amount, VAR) == 1)
 			continue;
-		return 0;
+		return NULL;
 //////////////////////////////////////////////////////////////////
     }
 	/*if (symbol == in_len)
@@ -89,18 +89,14 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 					{
 						if (mode == FUNC)
 						{
-							el.key = FUNC;
-							el.data = lex;
 							*smb = mother_mother;
-							queue_add_end(lt, &el);
+							queue_add_end(lt, element_create(FUNC, lex));
 							return 1;
 						}
 						if ((mode == CONST)||(mode == VAR))
 						{
-							el.key = NUM;
-							el.data = db[lex].data;
 							*smb = mother_mother;
-							queue_add_end(lt, &el);
+							queue_add_end(lt, element_create(NUM, db[lex].data));
 							return 1;
 						}
 					}
@@ -119,4 +115,13 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 	}
 	if (el.key == 0)
 		return 0;
+}
+
+//Create new Element
+Element* element_create(char key, double data)
+{
+	Element* el = (Element*)malloc(sizeof(Element));
+	el->key = key;
+	el->data = data;
+	return el;
 }
