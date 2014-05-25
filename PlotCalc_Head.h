@@ -9,7 +9,7 @@
 #include <assert.h>
 #include <Windows.h>
 #include "Queue_Head.h"
-#include "Graph_Head.h"
+//#include "Graph_Head.h"
 //#include "computation_core_head.h"
 
 #define awruk_size 99
@@ -38,7 +38,7 @@
 
 #define NUM 1
 #define FUNC 2
-#define CONST 3
+#define CONST 3 //CONST redefined. Please.
 #define VAR 4
 
 
