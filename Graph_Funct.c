@@ -224,7 +224,7 @@ void interface_list_vars(Dbase* var)
         getch();
         return;
     }
-    while (var[_tmp_i].name!="_NULL")
+    while (_tmp_i<var_amount)
     {
         printf("%d ",_tmp_i+1);
         printf("%s ",var[_tmp_i].name);
@@ -241,10 +241,9 @@ void interface_list_vars(Dbase* var)
             {
             printf("Please, enter the number of variable, that you want to delete:\n");
             scanf("%d",&_tmp_n);
-            for (_tmp_i=_tmp_n;_tmp_i<16;_tmp_i++)
+            for (_tmp_i=_tmp_n;_tmp_i<var_amount;_tmp_i++)
                 var[_tmp_i-1]=var[_tmp_i];
-            sprintf(var[15].name,"_NULL");
-            var[15].data=-1;
+                var_amount++;
             }
         }
         default: return;
