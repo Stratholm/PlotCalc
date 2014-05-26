@@ -18,6 +18,7 @@
 #define const_amount 1
 #define func_amount 3
 #define sym_allow_quant 72
+#define dbase_name_len 8
 #define width 800
 #define height 600
 
@@ -46,6 +47,7 @@
 #define ERR_CONST 7
 #define ERR_SPEC 8
 #define ERR_EQUAS 9
+#define VAR_RE 10
 
 /*Structures*/
 //Universal element
@@ -81,7 +83,7 @@ typedef struct Ariph
 //Functions database
 typedef struct Dbase
 {
-	char name[8];
+	char name[dbase_name_len];
 	int data;
 } Dbase;
 
@@ -90,7 +92,7 @@ extern int e;
 extern double ans;
 extern double M;
 extern char c;
-extern char message;
+extern int message;
 extern char string[awruk_size];
 extern int i;
 extern List plots;
@@ -128,5 +130,7 @@ Dbase* const_init(Dbase* ct);
 //Initialise variables
 Dbase* vars_init(Dbase* vr);
 
-//Initialize allowed symbols
-void sym_allow_init(int* sm);
+
+//
+////Initialize allowed symbols
+//void sym_allow_init(int* sm);

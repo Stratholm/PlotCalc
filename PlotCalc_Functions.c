@@ -5,7 +5,7 @@
 int e = 0;
 double M = 0;
 char c = ' ';
-char message = 0;
+int message = 0;
 char string[awruk_size] = {'\0'};
 int i = 0;
 List plots;
@@ -44,6 +44,7 @@ int session_close(List* ariph, List* var)
 int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount)
 {
 	int i = 0;
+	int amount = 0;
 	if (point == NULL)
 	{
 		if (strlen(str) == 0)			//empty string
@@ -54,15 +55,21 @@ int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int 
 		{
 			while (i <= strlen(str))		//check alphabit
 			{
-				if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))
-				{		
+				if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))	
 					return ERR_SPEC;
+				if ((i >= dbase_name_len) && (str[i] == 61))
+					return ERR_EQUAS;
+				if (str[i] == 61)
+				{
+					if (amount > 1)
+						return ERR_EQUAS;
+					amount++;
 				}
+				if ((i == 0) && (str[i] == 'y') && (str[i+1] == '='))
+					return FUNC;
+				i++;
 			}
-			if (1)
-			{
-
-			}
+			return ARIPH;
 		}
 	}
 	else
@@ -109,23 +116,25 @@ Dbase* vars_init(Dbase* vr)
 	vr[1].data = 2;
 }
 
-//Initialize allowed symbols
-void sym_allow_init(int* sm)
-{
-	int i = 0;
-	int c = 33;
-	while (i <= sym_allow_quant)
-	{
-		if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))
-		{
-			c++;
-			continue;
-		}
-		else
-		{
-			sm[i] = c;
-			i++;
-			c++;
-		}
-	}
-}
+
+//
+////Initialize allowed symbols
+//void sym_allow_init(int* sm)
+//{
+//	int i = 0;
+//	int c = 33;
+//	while (i <= sym_allow_quant)
+//	{
+//		if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))
+//		{
+//			c++;
+//			continue;
+//		}
+//		else
+//		{
+//			sm[i] = c;
+//			i++;
+//			c++;
+//		}
+//	}
+//}

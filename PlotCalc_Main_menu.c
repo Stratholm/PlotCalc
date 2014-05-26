@@ -10,33 +10,13 @@ int main()
 	database_func = func_init(database_func);
 	database_const = const_init(database_const);
 	vars = vars_init(vars);
-	sym_allow_init(sym_allow);
+	//sym_allow_init(sym_allow);
 	while (e == 0)
 	{
 ///////////////////////////////////////////////////////////
 		while (i <= awruk_size)     //Input
 		{
-			interface_main(Pointer_ariph, string, M); //(+ &message) (char *message);
-			/*
-			output all the stuff from lists, then:
-			if pointer == null
-			{
-				if message == 0
-				{
-					print string after >
-				}
-				else 
-				{
-					if string is emty, print message after >
-					else
-					print under it, in the place of 'Answer:'
-				}
-			}
-			else
-			{
-				print string and answer from a pointer
-			}
-			*/
+			interface_main(Pointer_ariph, string, M);
 			switch(c = getche())
 			{
 			case 0:
@@ -81,39 +61,34 @@ int main()
 				}
 				case enter:          //Enter
 				{
-					//double answer = 0;
-					
 					switch(message = string_analyse(string, Pointer_ariph, database_func, database_const, vars, var_amount))
 					{
-					case ARIPH:
+						case ARIPH:
 					{
-						if (str_to_inf(&ariph, string, database_func, database_const, vars, var_amount))
+						/*if (str_to_inf(&ariph, string, database_func, database_const, vars, var_amount))
 						{
 
-						}
+						}*/
 						//check -> calculate
 					}
-					case FUNC:
+						case FUNC:
+					{
+						//printf("Lol");
+						//check -> add
+					}
+						case VAR:
 					{
 						//check -> add
 					}
-					case VAR:
-					{
-						//check -> add
-					}
-					case ERR_EMPTY:
+						case ERR_EMPTY:
 					{
 						//print, mess = ERR_EMPTY
 					}
-					case ERR_CONST:
-					{
-						//print, mess = ERR_CONST
-					}
-					case ERR_SPEC:
+						case ERR_SPEC:
 					{
 						//print, mess = ERR_SPEC
 					}
-					case ERR_EQUAS:
+						case ERR_EQUAS:
 					{
 						//print, mess = ERR_EQUAS
 					}
@@ -125,7 +100,7 @@ int main()
 					}
 					}
 					//queue_create(&ariph);
-					if (str_to_inf(&ariph, string, database_func, database_const, vars))
+					/*if (str_to_inf(&ariph, string, database_func, database_const, vars))
 						string[0] = '\0';
 					else string[0] = 'E';
 					/*if (ariph.amount  = 4)
@@ -215,7 +190,27 @@ int main()
 
 
 
-
+ //(+ &message) (char *message);
+			/*
+			output all the stuff from lists, then:
+			if pointer == null
+			{
+				if message == 0
+				{
+					print string after >
+				}
+				else 
+				{
+					if string is emty, print message after >
+					else
+					print under it, in the place of 'Answer:'
+				}
+			}
+			else
+			{
+				print string and answer from a pointer
+			}
+			*/
 
 
 
