@@ -17,6 +17,7 @@
 #define var_max_amount 16
 #define const_amount 1
 #define func_amount 3
+#define sym_allow_quant 72
 #define width 800
 #define height 600
 
@@ -101,6 +102,7 @@ extern Note* Pointer_vars;
 extern Dbase* database_func;
 extern Dbase* database_const;
 extern Dbase* vars;
+extern int sym_allow[sym_allow_quant];
 extern int var_amount;
 
 
@@ -115,7 +117,7 @@ int plot_save(Note* point);
 int session_close(List* ariph, List* var);
 
 //Analise string and calculate/save/build
-int string_analyse(char* str, Note* point);
+int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount);
 
 //Initialise functions database
 Dbase* func_init(Dbase* fc);
@@ -125,3 +127,6 @@ Dbase* const_init(Dbase* ct);
 
 //Initialise variables
 Dbase* vars_init(Dbase* vr);
+
+//Initialize allowed symbols
+void sym_allow_init(int* sm);

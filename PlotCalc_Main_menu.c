@@ -2,6 +2,7 @@
 /*Programm calculates arithmetical equasions, bulds plots*/
 
 #include "PlotCalc_Head.h"
+#include "Graph_Head.h"
 
 int main()
 {
@@ -9,12 +10,33 @@ int main()
 	database_func = func_init(database_func);
 	database_const = const_init(database_const);
 	vars = vars_init(vars);
+	sym_allow_init(sym_allow);
 	while (e == 0)
 	{
 ///////////////////////////////////////////////////////////
 		while (i <= awruk_size)     //Input
 		{
 			interface_main(Pointer_ariph, string, M); //(+ &message) (char *message);
+			/*
+			output all the stuff from lists, then:
+			if pointer == null
+			{
+				if message == 0
+				{
+					print string after >
+				}
+				else 
+				{
+					if string is emty, print message after >
+					else
+					print under it, in the place of 'Answer:'
+				}
+			}
+			else
+			{
+				print string and answer from a pointer
+			}
+			*/
 			switch(c = getche())
 			{
 			case 0:
@@ -61,7 +83,7 @@ int main()
 				{
 					//double answer = 0;
 					
-					switch(message = string_analyse(string, Pointer_ariph))
+					switch(message = string_analyse(string, Pointer_ariph, database_func, database_const, vars, var_amount))
 					{
 					case ARIPH:
 					{
@@ -95,10 +117,11 @@ int main()
 					{
 						//print, mess = ERR_EQUAS
 					}
-					default:
+					case NULL:
 					{
 						string[0] = '\0';
 						Pointer_ariph = NULL;
+						continue;
 					}
 					}
 					//queue_create(&ariph);
@@ -149,16 +172,22 @@ int main()
 				{
 					if (message == 0)
 					{
-					if (Pointer_ariph == NULL)
-					{
-						if (i < awruk_size)
+						if (Pointer_ariph == NULL)
 						{
+							if (i < awruk_size)
+							{
+								string[i] = c;
+								i++;
+							}
+						}
+						else 
+						{
+							Pointer_ariph = NULL;
+							string[0] = '\0';
+							i = 0;
 							string[i] = c;
 							i++;
 						}
-					}
-					else 
-						Pointer_ariph = NULL;
 					}
 					else
 					{
