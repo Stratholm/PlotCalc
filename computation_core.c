@@ -2,12 +2,13 @@
 
 /* Functions */
 //Input string to infix notation
-List* str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount)
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount)
 {
-	List* lt = (List*)malloc(sizeof(List));
+	/*List* lt = (List*)malloc(sizeof(List));*/
 	int symbol = 0;
 	unsigned int in_len;
-	Element el; 
+	Element el;
+	//lt = (List*)malloc(sizeof(List));
 	queue_create(lt);
 	in_len = strlen(in);
     while (symbol < in_len) 
@@ -20,15 +21,28 @@ List* str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount)
 		} 
 		if (isdigit(in[symbol]))			//number
 		{
-			int num = in[symbol] - '0';
-			symbol++;
-			while (isdigit(in[symbol])) 
+			double hui = '.';
+			double her = '\0';
+			double num = in[symbol] - '0';
+			int count = 0;
+ 			symbol++;
+			while ((isdigit(in[symbol])) || (in[symbol] == '.')) 
 			{
-				num = num * 10 + (in[symbol++]) - '0';
+				if (in[symbol] == '.')
+				{
+					count++;
+					if (count > 1)
+						return ERR_FRAC;
+					symbol++;
+					if (isdigit(in[symbol]))
+						num = num + (in[symbol] - '0') * 0.1;
+					else 
+						return ERR_FRAC;
+				}
+				else
+					num = num * 10 + (in[symbol++]) - '0';
+				count = 0;
 			}
-			/*el.key = NUM;
-			el.data = num;
-			queue_add_end(lt, &el);*/
 			queue_add_end(lt, element_create(NUM, num));
 			continue;
         }
@@ -45,6 +59,7 @@ List* str_to_inf(char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount)
 		return 1;
 	else
 		return 0;*/
+	return lt;
 }
 
 //Queue to postfix

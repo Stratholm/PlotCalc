@@ -63,32 +63,38 @@ int main()
 				{
 					switch(message = string_analyse(string, Pointer_ariph, database_func, database_const, vars, var_amount))
 					{
-						case ARIPH:
+					case ARIPH:
 					{
-						/*if (str_to_inf(&ariph, string, database_func, database_const, vars, var_amount))
+						str_to_inf(&ariph, string, database_func, database_const, vars, var_amount);
+						if (&ariph != NULL)
 						{
-
-						}*/
+							double answer;
+							answer = ((Element*)(ariph.head->data))->data;
+							for (i = 0; i < answer; i++)
+							{
+								printf("\a");
+							}
+						}
 						//check -> calculate
 					}
-						case FUNC:
+					case FUNC:
 					{
 						//printf("Lol");
 						//check -> add
 					}
-						case VAR:
+					case VAR:
 					{
 						//check -> add
 					}
-						case ERR_EMPTY:
+					case ERR_EMPTY:
 					{
 						//print, mess = ERR_EMPTY
 					}
-						case ERR_SPEC:
+					case ERR_SPEC:
 					{
 						//print, mess = ERR_SPEC
 					}
-						case ERR_EQUAS:
+					case ERR_EQUAS:
 					{
 						//print, mess = ERR_EQUAS
 					}

@@ -48,6 +48,7 @@
 #define ERR_SPEC 8
 #define ERR_EQUAS 9
 #define VAR_RE 10
+#define ERR_FRAC 11
 
 /*Structures*/
 //Universal element
