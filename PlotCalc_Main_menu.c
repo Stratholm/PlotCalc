@@ -16,7 +16,7 @@ int main()
 ///////////////////////////////////////////////////////////
 		while (i <= awruk_size)     //Input
 		{
-			interface_main(Pointer_ariph, string, M);
+			interface_main(Pointer_ariph, string, M, &ariph_list, &plots, vars);
 			switch(c = getche())
 			{
 			case 0:
@@ -111,7 +111,7 @@ int main()
 					//queue_create(&ariph);
 					/*if (str_to_inf(&ariph, string, database_func, database_const, vars))
 						string[0] = '\0';
-					else string[0] = 'E';
+					else string[0] = 'E';*/
 					/*if (ariph.amount  = 4)
 						answer = ((Element*)(ariph.head->data))->data + ((Element*)(ariph.head->next->data))->data + ((Element*)(ariph.head->next->next->data))->data + ((Element*)(ariph.head->next->next->next->data))->data;
 					for (i = 0; i < answer; i++)
@@ -164,7 +164,7 @@ int main()
 								i++;
 							}
 						}
-						else 
+						else
 						{
 							Pointer_ariph = NULL;
 							string[0] = '\0';
@@ -185,10 +185,10 @@ int main()
 					else
 						lol++;
 					if lol > 5 printf(random place) one of the phrases from the array
-						'Nope, stop, no more, please, 
-						if lol > 15 
+						'Nope, stop, no more, please,
+						if lol > 15
 							'are you kidding? you wanna break me? stop right there, criminal scum, damn it'
-							if lol > 30 
+							if lol > 30
 								'hell you, press backspace!!! you are a bad person, you know it'*/
 				}
 			}
@@ -208,7 +208,7 @@ int main()
 				{
 					print string after >
 				}
-				else 
+				else
 				{
 					if string is emty, print message after >
 					else

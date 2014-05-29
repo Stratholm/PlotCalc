@@ -2,7 +2,6 @@
 
 /*Includes*/
 #pragma once
-#define _WIN32_WINNT 0x0500
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,11 +26,12 @@ void screen_clear();
 void screen_frame_create();
 
 //Main console initialization
-void interface_main(Note* point, char *str, double M);
+void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars);
 
 //Drawing asix
 void graph_draw_asix(int right, int up);
 
+//Drawing graphs
 void graph_draw_graps(List plots);
 
 //Exit screen

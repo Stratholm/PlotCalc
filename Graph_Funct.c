@@ -76,10 +76,15 @@ void screen_frame_create()
 
 
 //Main console initialization
-void interface_main(Note* point, char *str, double M)   //Str - text, after ">"
+void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars)   //Str - text, after ">"
 {
 	char *_strtmp=(char*)malloc(100*sizeof(char));
 	HPEN PenAsiA=CreatePen(0,1,RGB(128,128,128));
+	int _tmp_i=0;
+	Note *tmp_ariph;
+	Note *tmp_plot;
+	if (ariph!=NULL) tmp_ariph=ariph->head;
+	if (plots!=NULL) tmp_plot=plots->head;
     screen_clear();
 	screen_frame_create();
 	SelectObject(hdc,PenAsiA);
@@ -115,6 +120,41 @@ void interface_main(Note* point, char *str, double M)   //Str - text, after ">"
     TextOutA(hdc,623,505,"to edit",7);
     TextOutA(hdc,53,530,"Tab - switch to plots",21);
     TextOutA(hdc,690,530,"F1 - Help",9);
+    if (tmp_ariph!=NULL)
+    {
+    while (tmp_ariph->next!=NULL)
+    {
+        sprintf(_strtmp,"%s",((Ariph*)(tmp_ariph->data))->string);
+        TextOutA(hdc,53,150+48*_tmp_i,_strtmp,strlen(_strtmp));
+        sprintf(_strtmp,"Answer: %f",((Ariph*)(tmp_ariph->data))->ans);
+        TextOutA(hdc,53,150+48*_tmp_i+16,_strtmp,strlen(_strtmp));
+        tmp_ariph=tmp_ariph->next;
+        _tmp_i++;
+    }
+        sprintf(_strtmp,"%s",((Ariph*)(tmp_ariph->data))->string);
+        TextOutA(hdc,53,150+48*_tmp_i,_strtmp,strlen(_strtmp));
+        sprintf(_strtmp,"Answer: %f",((Ariph*)(tmp_ariph->data))->ans);
+        TextOutA(hdc,53,150+48*_tmp_i+16,_strtmp,strlen(_strtmp));
+    }
+    if (tmp_plot!=NULL)
+    {
+    while (tmp_plot->next!=NULL)
+    {
+        sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
+        TextOutA(hdc,403,150+32*_tmp_i,_strtmp,strlen(_strtmp));
+        tmp_ariph=tmp_ariph->next;
+        _tmp_i++;
+    }
+        sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
+        TextOutA(hdc,403,150+32*_tmp_i,_strtmp,strlen(_strtmp));
+    }
+    _tmp_i=0;
+    while (_tmp_i<var_amount)
+    {
+        sprintf(_strtmp,"%s = %f",vars[_tmp_i].name,vars[_tmp_i].data);
+        TextOutA(hdc,623,150+32*_tmp_i,_strtmp,strlen(_strtmp));
+        i++;
+    }
     if (M==0) SetTextColor(hdc,RGB(192,192,192));
     TextOutA(hdc,396,530,"M",1);
     SetTextColor(hdc,RGB(0,0,0));
@@ -161,6 +201,7 @@ void graph_draw_graps(List plots)
             MoveToEx(hdc,tmp_i+1,((Plot*)(tmp_R->data))->coord[tmp_i],NULL);
             LineTo(hdc,tmp_i+2,((Plot*)(tmp_R->data))->coord[tmp_i+1]);
         }
+        tmp_R=tmp_R->next;
     }
     if (tmp_R!=NULL)
     {
