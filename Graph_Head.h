@@ -30,7 +30,9 @@ void screen_frame_create();
 void interface_main(Note* point, char *str, double M);
 
 //Drawing asix
-int Graph_Draw_Asix(int right, int up);
+void graph_draw_asix(int right, int up);
+
+void graph_draw_graps(List plots);
 
 //Exit screen
 void interface_exit();

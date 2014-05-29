@@ -125,7 +125,6 @@ void interface_main(Note* point, char *str, double M)   //Str - text, after ">"
 void graph_draw_asix(int right, int up)  //right(up) - number of times, that user presses Right-Left/Up-Down
 {
     int i;
-    //HDC hdc=GetDC(GetConsoleWindow());
     HPEN PenAsix=CreatePen(0,3,RGB(0,0,0)), PenAsiA=CreatePen(0,1,RGB(200,200,200));
     screen_clear();
     SelectObject(hdc,PenAsiA);
@@ -144,6 +143,35 @@ void graph_draw_asix(int right, int up)  //right(up) - number of times, that use
     LineTo(hdc,400+50*right,600);
     MoveToEx(hdc,0,300-50*up,NULL);
     LineTo(hdc,800,300-50*up);
+}
+
+//Drawing graphs
+void graph_draw_graps(List plots)
+{
+    HPEN PenAsix=CreatePen(0,2,RGB(255,0,0));
+    int tmp_clr[16]={RGB(255,0,0),RGB(0,255,0),RGB(0,0,255),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0)};
+    int tmp_i;
+    Note *tmp_R = plots.head;
+    while (tmp_R->next!=NULL)
+    {
+        PenAsix=CreatePen(0,2,tmp_clr[tmp_R->num-1]);
+        SelectObject(hdc,PenAsix);
+        for(tmp_i=0;tmp_i<799;tmp_i++)
+        {
+            MoveToEx(hdc,tmp_i+1,((Plot*)(tmp_R->data))->coord[tmp_i],NULL);
+            LineTo(hdc,tmp_i+2,((Plot*)(tmp_R->data))->coord[tmp_i+1]);
+        }
+    }
+    if (tmp_R!=NULL)
+    {
+        PenAsix=CreatePen(0,2,tmp_clr[tmp_R->num-1]);
+        SelectObject(hdc,PenAsix);
+        for(tmp_i=0;tmp_i<799;tmp_i++)
+        {
+            MoveToEx(hdc,tmp_i+1,((Plot*)(tmp_R->data))->coord[tmp_i],NULL);
+            LineTo(hdc,tmp_i+2,((Plot*)(tmp_R->data))->coord[tmp_i+1]);
+        }
+    }
 }
 
 //Exit screen
@@ -228,7 +256,7 @@ void interface_list_vars(Dbase* var)
     {
         printf("%d ",_tmp_i+1);
         printf("%s ",var[_tmp_i].name);
-        printf("%d\n",var[_tmp_i].data);
+        printf("%f\n",var[_tmp_i].data);
         i++;
     }
     switch(_tmp_c=getch())
