@@ -68,16 +68,14 @@ int main()
 					{
 					case ARIPH:
 					{
-						str_to_inf(&ariph, string, database_func, database_const, vars, var_amount);
-						if (&ariph != NULL)
+						message = 0;
+						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount);
+						if (message == 0)
 						{
-							double answer;
-							answer = ((Element*)(ariph.head->data))->data;
-							for (i = 0; i < answer; i++)
-							{
-								printf("\a");
-							}
+							postfix = inf_to_post(&ariph);
 						}
+						else
+							continue;
 						//check -> calculate
 					}
 					case FUNC:

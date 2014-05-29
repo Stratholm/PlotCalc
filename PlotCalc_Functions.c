@@ -10,6 +10,7 @@ char string[awruk_size] = {'\0'};
 int i = 0;
 List plots;
 List ariph;
+List* postfix;
 List ariph_list;
 Note* Pointer_plots;
 Note* Pointer_ariph = NULL;
@@ -80,17 +81,27 @@ int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int 
 Dbase* func_init(Dbase* fc)
 {
 	fc = (Dbase*)malloc(func_amount * sizeof(Dbase));
-	fc[0].name[0] = '+';
+	fc[0].name[0] = '(';
 	fc[0].name[1] = '\0';
-	fc[0].data = 1;
-	fc[1].name[0] = '-';
+	fc[0].data = 0;
+	fc[1].name[0] = ')';
 	fc[1].name[1] = '\0';
-	fc[1].data = 1;
-	fc[2].name[0] = 'l';
-	fc[2].name[1] = 'o';
-	fc[2].name[2] = 'l';
-	fc[2].name[3] = '\0';
-	fc[1].data = 2;
+	fc[1].data = 0;
+	fc[2].name[0] = '+';
+	fc[2].name[1] = '\0';
+	fc[2].data = -1;
+	fc[3].name[0] = '-';
+	fc[3].name[1] = '\0';
+	fc[3].data = -1;
+	fc[4].name[0] = '*';
+	fc[4].name[1] = '\0';
+	fc[4].data = -2;
+	fc[5].name[0] = '/';
+	fc[5].name[1] = '\0';
+	fc[5].data = -2;
+	fc[6].name[0] = '^';
+	fc[6].name[1] = '\0';
+	fc[6].data = 3;
 	return fc;
 }
 

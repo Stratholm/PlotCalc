@@ -6,12 +6,13 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 {
 	/*List* lt = (List*)malloc(sizeof(List));*/
 	int symbol = 0;
+	int tmp = 0;
 	unsigned int in_len;
 	Element el;
 	//lt = (List*)malloc(sizeof(List));
 	queue_create(lt);
 	in_len = strlen(in);
-    while (symbol < in_len - 1) 
+    while (symbol < in_len) 
 	{
 //////////////////////////////////////////////////////////////////
 		if (in[symbol] == ' ')				//Space
@@ -54,10 +55,18 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 					symbol++;
 				}
 			}
-			count = (int)(num * pow(10.0, num_frac_len + 1));
-			if (((int)count % (int)pow(10.0, num_frac_len)) == 9)
-				count++;
-			num = ((int)count)/(pow(10.0, num_frac_len)) + (((int)(count) % (int)(pow(10.0, num_frac_len))) * (pow(10.0, -num_frac_len)));
+			/* Damn it
+			tmp = (int)(num * pow(10.0, num_frac_len + 1));
+			if ((tmp % (int)pow(10.0, num_frac_len)) == 9)
+			{
+				//num += (pow(10.0, (-(num_frac_len + 1)))); num = ((int)count)/(pow(10.0, num_frac_len++)) + (((int)(count) % (int)(pow(10.0, num_frac_len))) * (pow(10.0, -num_frac_len)));
+				tmp++;
+				num = 0;
+				num = (((tmp / 10) % (int)(pow(10.0, num_frac_len))) * (pow(10.0, -num_frac_len)));
+				num += (int)((tmp)/(pow(10.0, num_frac_len + 1)));// + (((tmp / 10) % (int)(pow(10.0, num_frac_len))) * (pow(10.0, -num_frac_len)));
+
+			}
+			*/
 			queue_add_end(lt, element_create(NUM, num));
 			continue;
         }
@@ -80,7 +89,69 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 //Queue to postfix
 List* inf_to_post(List* inf)
 {
-	/*Used inside string_analyse*/
+	List* post = (List*)malloc(sizeof(List));
+	List* stack = (List*)malloc(sizeof(List));
+	Note* point = (Note*)malloc(sizeof(Note));
+	queue_create(post);
+	queue_create(stack);
+	point = inf->head;
+	while (point != NULL)
+	{
+		if (((Element*)(point->data))->key == NUM)
+		{
+			queue_add_end(post, element_create(NUM, ((Element*)(point->data))->data));
+			point = point->next;
+			continue;
+		}
+		if (((Element*)(point->data))->key == FUNC)
+		{
+			queue_add_end(stack, element_create(FUNC, ((Element*)(point->data))->data));
+			point = point->next;
+			continue;
+		}
+		if (((Element*)(point->data))->key == LB)
+		{
+			queue_add_end(stack, element_create(LB, ((Element*)(point->data))->data));
+			point = point->next;
+			continue;
+		}
+		if (((Element*)(point->data))->key == RB)
+		{
+			while (((Element*)(stack->tail->data))->key != LB)
+			{
+				queue_add_end(post, element_create(((Element*)(stack->tail->data))->key, ((Element*)(stack->tail->data))->data));
+				queue_el_del(stack, stack->tail->num);
+				if (stack->tail->prev == NULL)
+					return NULL;
+			}
+			if (((Element*)(stack->tail->data))->key == LB)
+				queue_el_del(stack, stack->tail->num);
+			if (((Element*)(stack->tail->data))->key == FUNC)
+			{
+				queue_add_end(post, element_create(((Element*)(stack->tail->data))->key, ((Element*)(stack->tail->data))->data));
+				queue_el_del(stack, stack->tail->num);
+			}
+			point = point->next;
+			continue;
+		}
+		if (((Element*)(point->data))->key == FUNC)
+		{
+			while ((((Element*)(point->data))->data > 0) ? (  abs( ((Element*)(point->data))->data ) <  abs( ((Element*)(stack->tail->data))->data )  ) : (  abs( ((Element*)(point->data))->data ) <= abs( ((Element*)(stack->tail->data))->data )  ))
+			{
+				queue_add_end(post, element_create(((Element*)(stack->tail->data))->key, ((Element*)(stack->tail->data))->data));
+				queue_el_del(stack, stack->tail->num);
+			}
+			queue_add_end(stack, element_create(FUNC, ((Element*)(point->data))->data));
+			point = point->next;
+			continue;
+		}
+	}
+	while (stack->tail != NULL)
+	{
+		queue_add_end(post, element_create(((Element*)(stack->tail->data))->key, ((Element*)(stack->tail->data))->data));
+		queue_el_del(stack, stack->tail->num);
+	}
+	return post;
 }
 
 //Calculate postfix
@@ -117,6 +188,18 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 					mother_mother++;
 					if (chr == lex_len)		//check
 					{
+						if (lex == 0)
+						{
+							*smb = mother_mother;
+							queue_add_end(lt, element_create(LB, lex));
+							return 1;
+						}
+						if (lex == 1)
+						{
+							*smb = mother_mother;
+							queue_add_end(lt, element_create(RB, lex));
+							return 1;
+						}
 						if (mode == FUNC)
 						{
 							*smb = mother_mother;

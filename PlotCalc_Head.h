@@ -16,7 +16,7 @@
 #define plot_amount 16
 #define var_max_amount 16
 #define const_amount 1
-#define func_amount 3
+#define func_amount 7
 #define sym_allow_quant 72
 #define dbase_name_len 8
 #define width 800
@@ -43,12 +43,14 @@
 #define CONS 3
 #define ARIPH 4
 #define VAR 5
-#define ERR_EMPTY 6
-#define ERR_CONST 7
-#define ERR_SPEC 8
-#define ERR_EQUAS 9
-#define VAR_RE 10
-#define ERR_FRAC 11
+#define LB 6
+#define RB 7
+#define ERR_EMPTY 8
+#define ERR_CONST 9
+#define ERR_SPEC 10
+#define ERR_EQUAS 11
+#define VAR_RE 12
+#define ERR_FRAC 13
 
 /*Structures*/
 //Universal element
@@ -98,6 +100,7 @@ extern char string[awruk_size];
 extern int i;
 extern List plots;
 extern List ariph;
+extern List* postfix;
 extern List ariph_list;
 extern Note* Pointer_plots;
 extern Note* Pointer_ariph;
