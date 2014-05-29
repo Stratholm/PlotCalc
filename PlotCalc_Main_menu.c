@@ -47,6 +47,9 @@ int main()
 					}
 					case insert:          //insert
 					{
+						int tmp_i = 0;
+						Note* tmp_R = plots.head;
+						//LineTo(hdc,tmp_i+2,(Plot*)(tmp_R->data)->coord[tmp_i+1]);
 						//printf("INSERT SUCCEDED!");
 						//M = ((Ariph*)(Pointer_ariph->data))->ans;
 						continue;

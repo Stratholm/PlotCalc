@@ -21,14 +21,14 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 		} 
 		if (isdigit(in[symbol]))			//number
 		{
-			double num = in[symbol] - '0';
-			int count = 0;
+			double num = 0;
+			double count = 0;
 			int num_int_len = 0;
 			int num_frac_len = 0;
- 			symbol++;
+ 			//symbol++;
 			while ((isdigit(in[symbol])) || (in[symbol] == '.'))
 			{
-				if (symbol == in_len - 1)
+				if (symbol == in_len)
 					break;
 				if (in[symbol] == '.')
 				{
@@ -36,25 +36,27 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 					if (count > 1)
 						return ERR_FRAC;
 					symbol++;
-					if (isdigit(in[symbol]))
-						num = num + (in[symbol] - '0') * 0.1;
-					else 
+					if (!isdigit(in[symbol]))
 						return ERR_FRAC;
 				}
 				else
 				{
 					if (count != 0)
 					{
-						num_len++;
-						num = num + (in[symbol] - '0') * (10^(-num_len));
+						num_frac_len++;
+						num = num + (in[symbol] - '0') * pow(10.0,(-num_frac_len));
 					}
 					else
-						num = num * 10 + (in[symbol++]) - '0';
+					{
+						num = num * (pow(10.0,(num_int_len))) + (in[symbol]) - '0';
+					}
 					symbol++;
 				}
 			}
-			count = 0;
-			num = floor(num);
+			count = (int)(num * pow(10.0, num_frac_len + 1));
+			if (((int)count % (int)pow(10.0, num_frac_len)) == 9)
+				count++;
+			num = ((int)count)/(pow(10.0, num_frac_len)) + (((int)(count) % (int)(pow(10.0, num_frac_len))) * (pow(10.0, -num_frac_len)));
 			queue_add_end(lt, element_create(NUM, num));
 			continue;
         }
