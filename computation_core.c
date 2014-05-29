@@ -48,7 +48,8 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 					}
 					else
 					{
-						num = num * (pow(10.0,(num_int_len))) + (in[symbol]) - '0';
+						num_int_len++;
+						num = num * 10 + (in[symbol]) - '0';
 					}
 					symbol++;
 				}
@@ -66,7 +67,7 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 			continue;
 		if (lexem_find(&symbol, in, lt, vr, var_amount, VAR) == 1)
 			continue;
-		return NULL;
+		return 0;
 //////////////////////////////////////////////////////////////////
     }
 	if (symbol == in_len - 1)
