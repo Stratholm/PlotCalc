@@ -11,7 +11,7 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 	//lt = (List*)malloc(sizeof(List));
 	queue_create(lt);
 	in_len = strlen(in);
-    while (symbol < in_len) 
+    while (symbol < in_len - 1) 
 	{
 //////////////////////////////////////////////////////////////////
 		if (in[symbol] == ' ')				//Space
@@ -21,13 +21,15 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 		} 
 		if (isdigit(in[symbol]))			//number
 		{
-			double hui = '.';
-			double her = '\0';
 			double num = in[symbol] - '0';
 			int count = 0;
+			int num_int_len = 0;
+			int num_frac_len = 0;
  			symbol++;
-			while ((isdigit(in[symbol])) || (in[symbol] == '.')) 
+			while ((isdigit(in[symbol])) || (in[symbol] == '.'))
 			{
+				if (symbol == in_len - 1)
+					break;
 				if (in[symbol] == '.')
 				{
 					count++;
@@ -40,9 +42,19 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 						return ERR_FRAC;
 				}
 				else
-					num = num * 10 + (in[symbol++]) - '0';
-				count = 0;
+				{
+					if (count != 0)
+					{
+						num_len++;
+						num = num + (in[symbol] - '0') * (10^(-num_len));
+					}
+					else
+						num = num * 10 + (in[symbol++]) - '0';
+					symbol++;
+				}
 			}
+			count = 0;
+			num = floor(num);
 			queue_add_end(lt, element_create(NUM, num));
 			continue;
         }
@@ -55,11 +67,11 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 		return NULL;
 //////////////////////////////////////////////////////////////////
     }
-	/*if (symbol == in_len)
+	if (symbol == in_len - 1)
 		return 1;
 	else
-		return 0;*/
-	return lt;
+		return 0;
+	//return lt;
 }
 
 //Queue to postfix

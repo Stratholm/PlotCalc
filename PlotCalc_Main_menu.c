@@ -98,7 +98,7 @@ int main()
 					{
 						//print, mess = ERR_EQUAS
 					}
-					case NULL:
+					case 0:
 					{
 						string[0] = '\0';
 						Pointer_ariph = NULL;

@@ -85,7 +85,7 @@ typedef struct Ariph
 typedef struct Dbase
 {
 	char name[dbase_name_len];
-	int data;
+	double data;
 } Dbase;
 
 /*Main variables declaration*/
