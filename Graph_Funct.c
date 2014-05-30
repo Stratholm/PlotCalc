@@ -83,7 +83,7 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
 	int _tmp_i=0;
 	Note *tmp_ariph;
 	Note *tmp_plot;
-	int tmp_clr[16]={RGB(255,0,0),RGB(0,255,0),RGB(0,0,255),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0)};
+	int tmp_cololr[16]={RGB(255,0,0),RGB(0,255,0),RGB(0,0,255),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0)};
 	if (ariph!=NULL) tmp_ariph=ariph->head;
 	if (plots!=NULL) tmp_plot=plots->head;
     screen_clear();
@@ -167,22 +167,34 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
 
         if (strlen(((Plot*)(tmp_plot->data))->string)<26)
         {
-            sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
+            SetTextColor(hdc,tmp_cololr[tmp_plot->num-1]);
+            sprintf(_strtmp,"%d.",tmp_plot->num);
             TextOutA(hdc,403,116+32*_tmp_i,_strtmp,strlen(_strtmp));
+            SetTextColor(hdc,RGB(0,0,0));
+            sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
+            TextOutA(hdc,423,116+32*_tmp_i,_strtmp,strlen(_strtmp));
         }
         else
         {
             ((Plot*)(tmp_plot->data))->string[23]='.';
             ((Plot*)(tmp_plot->data))->string[24]='.';
             ((Plot*)(tmp_plot->data))->string[25]='.';
+            SetTextColor(hdc,tmp_cololr[tmp_plot->num-1]);
+            sprintf(_strtmp,"%d.",tmp_plot->num);
+            TextOutA(hdc,403,116+32*_tmp_i,_strtmp,strlen(_strtmp));
+            SetTextColor(hdc,RGB(0,0,0));
             sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
-            TextOutA(hdc,403,116+32*_tmp_i,_strtmp,26);
+            TextOutA(hdc,423,116+32*_tmp_i,_strtmp,26);
         }
         tmp_plot=tmp_plot->next;
         _tmp_i++;
     }
-        sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
+        SetTextColor(hdc,tmp_cololr[tmp_plot->num-1]);
+        sprintf(_strtmp,"%d.",tmp_plot->num);
         TextOutA(hdc,403,116+32*_tmp_i,_strtmp,strlen(_strtmp));
+        SetTextColor(hdc,RGB(0,0,0));
+        sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
+        TextOutA(hdc,423,116+32*_tmp_i,_strtmp,strlen(_strtmp));
     }
     _tmp_i=0;
     while (_tmp_i<var_amount)
