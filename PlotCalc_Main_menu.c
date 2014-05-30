@@ -79,7 +79,7 @@ int main()
 							{
 								post_calc(postfix, &ans);
 								queue_add_end(&ariph_list, ariph_create(string, ans));
-								if (ariph_list.amount > 9)
+								if (ariph_list.amount > ariph_height)
 								{
 									queue_el_del(&ariph_list, 1);
 									queue_renum(&ariph_list);
@@ -90,7 +90,6 @@ int main()
 						}
 						else
 							continue;
-						//check -> calculate
 					}
 					case FUNC:
 					{

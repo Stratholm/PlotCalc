@@ -21,6 +21,7 @@
 #define dbase_name_len 8
 #define width 800
 #define height 600
+#define ariph_height 7
 
 #define enter 13
 #define backspace 8

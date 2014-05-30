@@ -289,7 +289,7 @@ Ariph* ariph_create(char* string, double ans)
 	Ariph* af = (Ariph*)malloc(sizeof(Ariph));
 	for (i = 0; i < strlen(string); i++)
 	af->string[i] = string[i];
-	string[i+1] = '\0';
+	af->string[i] = '\0';
 	af->ans = ans;
 	return af;
 }
