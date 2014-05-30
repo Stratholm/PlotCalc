@@ -83,6 +83,7 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
 	int _tmp_i=0;
 	Note *tmp_ariph;
 	Note *tmp_plot;
+	int tmp_clr[16]={RGB(255,0,0),RGB(0,255,0),RGB(0,0,255),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0)};
 	if (ariph!=NULL) tmp_ariph=ariph->head;
 	if (plots!=NULL) tmp_plot=plots->head;
     screen_clear();
@@ -124,36 +125,71 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
     {
     while (tmp_ariph->next!=NULL)
     {
-        sprintf(_strtmp,"%s",((Ariph*)(tmp_ariph->data))->string);
-        TextOutA(hdc,53,150+48*_tmp_i,_strtmp,strlen(_strtmp));
-        sprintf(_strtmp,"Answer: %f",((Ariph*)(tmp_ariph->data))->ans);
+        if (strlen(((Ariph*)(tmp_ariph->data))->string)<39)
+        {
+            sprintf(_strtmp,"%s",((Ariph*)(tmp_ariph->data))->string);
+            TextOutA(hdc,53,150+48*_tmp_i,_strtmp,strlen(_strtmp));
+        }
+        else
+        {
+            ((Ariph*)(tmp_ariph->data))->string[36]='.';
+            ((Ariph*)(tmp_ariph->data))->string[37]='.';
+            ((Ariph*)(tmp_ariph->data))->string[38]='.';
+            sprintf(_strtmp,"%s",((Ariph*)(tmp_ariph->data))->string);
+            TextOutA(hdc,53,150+48*_tmp_i,_strtmp,39);
+        }
+        sprintf(_strtmp,"Answer: %.2f",((Ariph*)(tmp_ariph->data))->ans);
         TextOutA(hdc,53,150+48*_tmp_i+16,_strtmp,strlen(_strtmp));
+        SetPixel(hdc,-1,-1,0);
         tmp_ariph=tmp_ariph->next;
         _tmp_i++;
     }
-        sprintf(_strtmp,"%s",((Ariph*)(tmp_ariph->data))->string);
-        TextOutA(hdc,53,150+48*_tmp_i,_strtmp,strlen(_strtmp));
-        sprintf(_strtmp,"Answer: %f",((Ariph*)(tmp_ariph->data))->ans);
+        if (strlen(((Ariph*)(tmp_ariph->data))->string)<39)
+        {
+            sprintf(_strtmp,"%s",((Ariph*)(tmp_ariph->data))->string);
+            TextOutA(hdc,53,150+48*_tmp_i,_strtmp,strlen(_strtmp));
+        }
+        else
+        {
+            ((Ariph*)(tmp_ariph->data))->string[36]='.';
+            ((Ariph*)(tmp_ariph->data))->string[37]='.';
+            ((Ariph*)(tmp_ariph->data))->string[38]='.';
+            sprintf(_strtmp,"%s",((Ariph*)(tmp_ariph->data))->string);
+            TextOutA(hdc,53,150+48*_tmp_i,_strtmp,39);
+        }
+        sprintf(_strtmp,"Answer: %.2f",((Ariph*)(tmp_ariph->data))->ans);
         TextOutA(hdc,53,150+48*_tmp_i+16,_strtmp,strlen(_strtmp));
     }
     if (tmp_plot!=NULL)
     {
     while (tmp_plot->next!=NULL)
     {
-        sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
-        TextOutA(hdc,403,150+32*_tmp_i,_strtmp,strlen(_strtmp));
-        tmp_ariph=tmp_ariph->next;
+
+        if (strlen(((Plot*)(tmp_plot->data))->string)<26)
+        {
+            sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
+            TextOutA(hdc,403,116+32*_tmp_i,_strtmp,strlen(_strtmp));
+        }
+        else
+        {
+            ((Plot*)(tmp_plot->data))->string[23]='.';
+            ((Plot*)(tmp_plot->data))->string[24]='.';
+            ((Plot*)(tmp_plot->data))->string[25]='.';
+            sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
+            TextOutA(hdc,403,116+32*_tmp_i,_strtmp,26);
+        }
+        tmp_plot=tmp_plot->next;
         _tmp_i++;
     }
         sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
-        TextOutA(hdc,403,150+32*_tmp_i,_strtmp,strlen(_strtmp));
+        TextOutA(hdc,403,116+32*_tmp_i,_strtmp,strlen(_strtmp));
     }
     _tmp_i=0;
     while (_tmp_i<var_amount)
     {
-        sprintf(_strtmp,"%s = %f",vars[_tmp_i].name,vars[_tmp_i].data);
+        sprintf(_strtmp,"%s = %.2f",vars[_tmp_i].name,vars[_tmp_i].data);
         TextOutA(hdc,623,150+32*_tmp_i,_strtmp,strlen(_strtmp));
-        i++;
+        _tmp_i++;
     }
     if (M==0) SetTextColor(hdc,RGB(192,192,192));
     TextOutA(hdc,396,530,"M",1);
