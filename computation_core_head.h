@@ -13,7 +13,7 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 List* inf_to_post(List* inf);
 
 //Calculate postfix
-double post_calc(List* post);
+double post_calc(List* post, double* ans);
 
 //Transfers answer to the rational form
 Rat_num* ans_to_rat(double ans);
@@ -23,3 +23,6 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode);
 
 //Create new Element
 Element* element_create(char key, double data);
+
+//Create new Ariph
+Ariph* ariph_create(char* string, double ans);

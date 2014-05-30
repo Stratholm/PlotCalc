@@ -41,3 +41,6 @@ void queue_qo_fwd(List *queu, Note *Point);
 
 //Go back
 void queue_go_back(List *queu, Note *Point);
+
+//Renumber all notes
+int queue_renum(List* queu);

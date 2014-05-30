@@ -50,7 +50,9 @@
 #define ERR_SPEC 10
 #define ERR_EQUAS 11
 #define VAR_RE 12
-#define ERR_FRAC 13
+#define ERR 13
+#define ERR_FRAC 14
+#define ERR_BR 15
 
 /*Structures*/
 //Universal element
@@ -64,7 +66,7 @@ typedef struct Element
 typedef struct Plot
 {
 	char string[awruk_size];
-	List postfix;
+	List* postfix;
 	int coord[width];
 } Plot;
 

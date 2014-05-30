@@ -4,14 +4,13 @@
 //Input string to infix notation
 int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount)
 {
-	/*List* lt = (List*)malloc(sizeof(List));*/
 	int symbol = 0;
 	int tmp = 0;
 	unsigned int in_len;
 	Element el;
-	//lt = (List*)malloc(sizeof(List));
 	queue_create(lt);
 	in_len = strlen(in);
+
     while (symbol < in_len) 
 	{
 //////////////////////////////////////////////////////////////////
@@ -26,7 +25,6 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 			double count = 0;
 			int num_int_len = 0;
 			int num_frac_len = 0;
- 			//symbol++;
 			while ((isdigit(in[symbol])) || (in[symbol] == '.'))
 			{
 				if (symbol == in_len)
@@ -76,14 +74,13 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 			continue;
 		if (lexem_find(&symbol, in, lt, vr, var_amount, VAR) == 1)
 			continue;
-		return 0;
+		return ERR;
 //////////////////////////////////////////////////////////////////
     }
-	if (symbol == in_len - 1)
-		return 1;
-	else
+	if (symbol == in_len)
 		return 0;
-	//return lt;
+	else
+		return ERR;
 }
 
 //Queue to postfix
@@ -103,12 +100,12 @@ List* inf_to_post(List* inf)
 			point = point->next;
 			continue;
 		}
-		if (((Element*)(point->data))->key == FUNC)
+		/*if (((Element*)(point->data))->key == FUNC)
 		{
 			queue_add_end(stack, element_create(FUNC, ((Element*)(point->data))->data));
 			point = point->next;
 			continue;
-		}
+		}*/
 		if (((Element*)(point->data))->key == LB)
 		{
 			queue_add_end(stack, element_create(LB, ((Element*)(point->data))->data));
@@ -136,6 +133,7 @@ List* inf_to_post(List* inf)
 		}
 		if (((Element*)(point->data))->key == FUNC)
 		{
+			if (stack->amount != 0)
 			while ((((Element*)(point->data))->data > 0) ? (  abs( ((Element*)(point->data))->data ) <  abs( ((Element*)(stack->tail->data))->data )  ) : (  abs( ((Element*)(point->data))->data ) <= abs( ((Element*)(stack->tail->data))->data )  ))
 			{
 				queue_add_end(post, element_create(((Element*)(stack->tail->data))->key, ((Element*)(stack->tail->data))->data));
@@ -155,9 +153,54 @@ List* inf_to_post(List* inf)
 }
 
 //Calculate postfix
-double post_calc(List* post)
+double post_calc(List* post, double* ans)
 {
-	/*Used inside string_analyse by ariph and plots (in cycle)*/
+	Note* point = (Note*)malloc(sizeof(Note));
+	*ans = 0;
+	point = post->head;
+	while (post->amount != 1)
+	{
+		if (((Element*)(point->data))->key == NUM)
+		{
+			point = point->next;
+			continue;
+		}
+		if (((Element*)(point->data))->key == FUNC)
+		{
+			if ((((Element*)(point->data))->data == 2) && (((Element*)(point->data))->key == FUNC))			//+
+			{
+				((Element*)(point->prev->prev->data))->data += ((Element*)(point->prev->data))->data;
+				point = point->prev->prev;
+				queue_el_del(post, point->num + 2);
+				queue_el_del(post, point->num + 1);
+			}
+			if ((((Element*)(point->data))->data == 3) && (((Element*)(point->data))->key == FUNC))			//-
+			{
+				((Element*)(point->prev->prev->data))->data -= ((Element*)(point->prev->data))->data;
+				point = point->prev->prev;
+				queue_el_del(post, point->num + 2);
+				queue_el_del(post, point->num + 1);
+			}
+			if ((((Element*)(point->data))->data == 4) && (((Element*)(point->data))->key == FUNC))			//*
+			{
+				((Element*)(point->prev->prev->data))->data *= ((Element*)(point->prev->data))->data;
+				point = point->prev->prev;
+				queue_el_del(post, point->num + 2);
+				queue_el_del(post, point->num + 1);
+			}
+			if ((((Element*)(point->data))->data == 5) && (((Element*)(point->data))->key == FUNC))			//:
+			{
+				((Element*)(point->prev->prev->data))->data /= ((Element*)(point->prev->data))->data;
+				point = point->prev->prev;
+				queue_el_del(post, point->num + 2);
+				queue_el_del(post, point->num + 1);
+			}
+			if (point->next != NULL)
+				point = point->next;
+			continue;
+		}
+	}
+	*ans = ((Element*)(point->data))->data;
 }
 
 //Transferes answer to the rational form
@@ -188,20 +231,20 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 					mother_mother++;
 					if (chr == lex_len)		//check
 					{
-						if (lex == 0)
-						{
-							*smb = mother_mother;
-							queue_add_end(lt, element_create(LB, lex));
-							return 1;
-						}
-						if (lex == 1)
-						{
-							*smb = mother_mother;
-							queue_add_end(lt, element_create(RB, lex));
-							return 1;
-						}
 						if (mode == FUNC)
 						{
+							if (lex == 0)
+							{
+								*smb = mother_mother;
+								queue_add_end(lt, element_create(LB, lex));
+								return 1;
+							}
+							if (lex == 1)
+							{
+								*smb = mother_mother;
+								queue_add_end(lt, element_create(RB, lex));
+								return 1;
+							}
 							*smb = mother_mother;
 							queue_add_end(lt, element_create(FUNC, lex));
 							return 1;
@@ -237,4 +280,16 @@ Element* element_create(char key, double data)
 	el->key = key;
 	el->data = data;
 	return el;
+}
+
+//Create new Ariph
+Ariph* ariph_create(char* string, double ans)
+{
+	int i = 0;
+	Ariph* af = (Ariph*)malloc(sizeof(Ariph));
+	for (i = 0; i < strlen(string); i++)
+	af->string[i] = string[i];
+	string[i+1] = '\0';
+	af->ans = ans;
+	return af;
 }

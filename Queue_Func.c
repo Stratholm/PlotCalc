@@ -44,20 +44,47 @@ void queue_add_end(List *queu, Point el)
 //Delete element
 int queue_el_del(List *queu, int num)
 {
-    Note *remover=(Note *)malloc(sizeof(Note));
-    Note *note=(Note*)malloc(sizeof(Note));
-    note=queu->head;
-    if (queu->head!=NULL)
+    //Note* remover = (Note*)malloc(sizeof(Note));
+    Note* note = (Note*)malloc(sizeof(Note));
+    note = queu->head;
+    if (queu->head != NULL)
     {
-        while ((note->num != num)&&(note!=queu->tail))
-			note=note->next;
-        if ((note->num!=num)&&(note==queu->tail)) return 0;
-			remover=note;
-        if (note!=queu->tail) note->next->prev=note->prev;
-            else queu->tail=note->prev;
-        if (note!=queu->head) note->prev->next=note->next;
-            else queu->head=note->next;
-        free(remover);
+		while ((note->num != num) && (note != NULL))
+			note = note->next;
+		if (note == NULL) 
+			return 0;
+		if (queu->head == queu->tail)
+			{
+				queu->head = NULL;
+				queu->tail = NULL;
+				queu->amount--;
+				queue_renum(queu);
+				return 1;
+			}
+		if (note == queu->head)
+		{
+			queu->head = note->next;
+			note->next->prev = NULL;
+			queu->amount--;
+			queue_renum(queu);
+			return 1;
+		}
+		if (note == queu->tail)
+		{
+			note->prev->next = NULL;
+			queu->tail = note->prev;
+			queu->amount--;
+			queue_renum(queu);
+			return 1;
+		}
+		else
+		{
+			note->next->prev = note->prev;
+			note->prev->next = note->next;
+			queu->amount--;
+			queue_renum(queu);
+			return 1;
+		}
     }
     return 0;
 }
@@ -74,4 +101,23 @@ void queue_go_back(List *queu, Note *point)
 {
     if (point->prev != NULL)
 		point = point->prev;
+}
+
+//Renumber all notes
+int queue_renum(List* queu)
+{
+	Note* note = (Note*)malloc(sizeof(Note));
+    note = queu->head;
+    if (queu->head != NULL)
+    {
+		queu->head->num = 1;
+		note = note->next;
+		while ((note != NULL))
+		{
+			note->num = note->prev->num + 1;
+			note = note->next;
+		}
+		return 1;
+	}
+	return 0;
 }

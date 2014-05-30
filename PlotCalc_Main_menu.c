@@ -68,11 +68,25 @@ int main()
 					{
 					case ARIPH:
 					{
+						int i = 0;
+						double ans = 0;
 						message = 0;
 						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount);
 						if (message == 0)
 						{
 							postfix = inf_to_post(&ariph);
+							if (postfix != NULL)
+							{
+								post_calc(postfix, &ans);
+								queue_add_end(&ariph_list, ariph_create(string, ans));
+								if (ariph_list.amount > 9)
+								{
+									queue_el_del(&ariph_list, 1);
+									queue_renum(&ariph_list);
+								}
+							}
+							else
+								message = ERR_BR;
 						}
 						else
 							continue;
@@ -219,6 +233,28 @@ int main()
 			}
 			*/
 
+/*
+        while ((note->num != num) && (note!=queu->tail))
+			note = note->next;
+        if ((note->num != num) && (note == queu->tail))
+			return 0;
+			remover = note;
+        if (note != queu->tail)
+			{
+				note->next->prev = note->prev;
+				note->prev->next = note->next;
+			}	
+        else 
+			{
+				note->next = NULL;
+				queu->tail = note->prev;
+			}
+        if (note != queu->head)
+			note->prev->next=note->next;
+        else queu->head=note->next;
+        free(remover);
+		queu->amount--;
+		*/
 
 
 
