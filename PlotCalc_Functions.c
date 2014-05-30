@@ -8,8 +8,9 @@ char c = ' ';
 int message = 0;
 char string[awruk_size] = {'\0'};
 int i = 0;
-List plots;
+List plot_list;
 List ariph;
+List plot;
 List* postfix;
 List ariph_list;
 Note* Pointer_plots;
@@ -20,6 +21,10 @@ Dbase* database_const;
 Dbase* vars;
 int sym_allow[sym_allow_quant];
 int var_amount = 0;
+int coordinates[width];
+int push_right = 0;
+int push_up = 0;
+double resize = 1;
 
 
 /*Functions*/

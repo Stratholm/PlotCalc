@@ -2,7 +2,7 @@
 
 /* Functions */
 //Input string to infix notation
-int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount)
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess)
 {
 	int symbol = 0;
 	int tmp = 0;
@@ -10,7 +10,8 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 	Element el;
 	queue_create(lt);
 	in_len = strlen(in);
-
+	if (mess == FUNC)
+		symbol = 2;
     while (symbol < in_len) 
 	{
 //////////////////////////////////////////////////////////////////
@@ -19,6 +20,12 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 			symbol++;
 			continue;
 		} 
+		if (in[symbol] == 'x')
+		{
+			queue_add_end(lt, element_create(X_VAR, 0));
+			symbol++;
+			continue;
+		}
 		if (isdigit(in[symbol]))			//number
 		{
 			double num = 0;
@@ -100,12 +107,12 @@ List* inf_to_post(List* inf)
 			point = point->next;
 			continue;
 		}
-		/*if (((Element*)(point->data))->key == FUNC)
+		if (((Element*)(point->data))->key == X_VAR)
 		{
-			queue_add_end(stack, element_create(FUNC, ((Element*)(point->data))->data));
+			queue_add_end(post, element_create(X_VAR, ((Element*)(point->data))->data));
 			point = point->next;
 			continue;
-		}*/
+		}
 		if (((Element*)(point->data))->key == LB)
 		{
 			queue_add_end(stack, element_create(LB, ((Element*)(point->data))->data));
@@ -153,54 +160,90 @@ List* inf_to_post(List* inf)
 }
 
 //Calculate postfix
-double post_calc(List* post, double* ans)
+double post_calc(List* post, double* ans, int* coord, int mess)
 {
+	int i = 0, max = 0;
+	List* post_save = (List*)malloc(sizeof(List));
 	Note* point = (Note*)malloc(sizeof(Note));
+	Note* point_save = (Note*)malloc(sizeof(Note));
+	post_save = queu_el_copy(post);
+	*point_save = *post_save->head;
 	*ans = 0;
-	point = post->head;
-	while (post->amount != 1)
+	//point = post->head;
+	if (mess == FUNC)
+		max = width;
+	if (mess == ARIPH)
+		max = 1;
+	for (i = 0; i < max; i++)
 	{
-		if (((Element*)(point->data))->key == NUM)
+		post = queu_el_copy(post_save);
+		point = post->head;
+		while (post->amount != 1)
 		{
-			point = point->next;
-			continue;
-		}
-		if (((Element*)(point->data))->key == FUNC)
-		{
-			if ((((Element*)(point->data))->data == 2) && (((Element*)(point->data))->key == FUNC))			//+
+			if (((Element*)(point->data))->key == NUM)
 			{
-				((Element*)(point->prev->prev->data))->data += ((Element*)(point->prev->data))->data;
-				point = point->prev->prev;
-				queue_el_del(post, point->num + 2);
-				queue_el_del(post, point->num + 1);
+				if (point->next != NULL)
+					point = point->next;
+				continue;
 			}
-			if ((((Element*)(point->data))->data == 3) && (((Element*)(point->data))->key == FUNC))			//-
+			if (((Element*)(point->data))->key == X_VAR)
 			{
-				((Element*)(point->prev->prev->data))->data -= ((Element*)(point->prev->data))->data;
-				point = point->prev->prev;
-				queue_el_del(post, point->num + 2);
-				queue_el_del(post, point->num + 1);
+				((Element*)(point->data))->data = i;
+				/*if (point->next != NULL)
+					point = point->next;
+				continue;*/
 			}
-			if ((((Element*)(point->data))->data == 4) && (((Element*)(point->data))->key == FUNC))			//*
+			if (((Element*)(point->data))->key == FUNC)
 			{
-				((Element*)(point->prev->prev->data))->data *= ((Element*)(point->prev->data))->data;
-				point = point->prev->prev;
-				queue_el_del(post, point->num + 2);
-				queue_el_del(post, point->num + 1);
-			}
-			if ((((Element*)(point->data))->data == 5) && (((Element*)(point->data))->key == FUNC))			//:
-			{
-				((Element*)(point->prev->prev->data))->data /= ((Element*)(point->prev->data))->data;
-				point = point->prev->prev;
-				queue_el_del(post, point->num + 2);
-				queue_el_del(post, point->num + 1);
+				if ((((Element*)(point->data))->data == 2) && (((Element*)(point->data))->key == FUNC))			//+
+				{
+					((Element*)(point->prev->prev->data))->data += ((Element*)(point->prev->data))->data;
+					point = point->prev->prev;
+					queue_el_del(post, point->num + 2);
+					queue_el_del(post, point->num + 1);
+				}
+				if ((((Element*)(point->data))->data == 3) && (((Element*)(point->data))->key == FUNC))			//-
+				{
+					((Element*)(point->prev->prev->data))->data -= ((Element*)(point->prev->data))->data;
+					point = point->prev->prev;
+					queue_el_del(post, point->num + 2);
+					queue_el_del(post, point->num + 1);
+				}
+				if ((((Element*)(point->data))->data == 4) && (((Element*)(point->data))->key == FUNC))			//*
+				{
+					((Element*)(point->prev->prev->data))->data *= ((Element*)(point->prev->data))->data;
+					point = point->prev->prev;
+					queue_el_del(post, point->num + 2);
+					queue_el_del(post, point->num + 1);
+				}
+				if ((((Element*)(point->data))->data == 5) && (((Element*)(point->data))->key == FUNC))			//:
+				{
+					((Element*)(point->prev->prev->data))->data /= ((Element*)(point->prev->data))->data;
+					point = point->prev->prev;
+					queue_el_del(post, point->num + 2);
+					queue_el_del(post, point->num + 1);
+				}
+				if ((((Element*)(point->data))->data == 6) && (((Element*)(point->data))->key == FUNC))			//^
+				{
+					((Element*)(point->prev->prev->data))->data = pow((((Element*)(point->prev->prev->data))->data),(((Element*)(point->prev->data))->data));
+					point = point->prev->prev;
+					queue_el_del(post, point->num + 2);
+					queue_el_del(post, point->num + 1);
+				}
+				if (point->next != NULL)
+					point = point->next;
+				continue;
 			}
 			if (point->next != NULL)
 				point = point->next;
-			continue;
+			else break;
 		}
+		if (mess == FUNC)
+			coord[i] = ((Element*)(point->data))->data;
+		if (mess == ARIPH)
+		*ans = ((Element*)(point->data))->data;
 	}
-	*ans = ((Element*)(point->data))->data;
+	post = queu_el_copy(post_save);
 }
 
 //Transferes answer to the rational form
@@ -288,8 +331,37 @@ Ariph* ariph_create(char* string, double ans)
 	int i = 0;
 	Ariph* af = (Ariph*)malloc(sizeof(Ariph));
 	for (i = 0; i < strlen(string); i++)
-	af->string[i] = string[i];
+		af->string[i] = string[i];
 	af->string[i] = '\0';
 	af->ans = ans;
 	return af;
+}
+
+//Create new Plot
+Plot* plot_create(char* string, List* post, int* coord)
+{
+	int i = 0;
+	Plot* pt = (Plot*)malloc(sizeof(Plot));
+	for (i = 0; i < strlen(string); i++)
+		pt->string[i] = string[i];
+	pt->string[i] = '\0';
+	pt->postfix = *post;
+	for (i = 0; i < width; i++)
+		pt->coord[i] = coord[i];
+	return pt;
+}
+
+//Copies list of elements
+List* queu_el_copy(List* in)
+{
+	List* copy = (List*)malloc(sizeof(List));
+	Note* point = (Note*)malloc(sizeof(Note));
+	queue_create(copy);
+	point = in->head;
+	while (point != NULL)
+	{
+		queue_add_end(copy, element_create(((Element*)(point->data))->key, ((Element*)(point->data))->data));
+		point = point->next;
+	}
+	return copy;
 }

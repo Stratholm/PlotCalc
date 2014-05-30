@@ -22,6 +22,7 @@
 #define width 800
 #define height 600
 #define ariph_height 7
+#define plot_height 7
 
 #define enter 13
 #define backspace 8
@@ -54,6 +55,7 @@
 #define ERR 13
 #define ERR_FRAC 14
 #define ERR_BR 15
+#define X_VAR 16
 
 /*Structures*/
 //Universal element
@@ -67,7 +69,7 @@ typedef struct Element
 typedef struct Plot
 {
 	char string[awruk_size];
-	List* postfix;
+	List postfix;
 	int coord[width];
 } Plot;
 
@@ -101,8 +103,9 @@ extern char c;
 extern int message;
 extern char string[awruk_size];
 extern int i;
-extern List plots;
+extern List plot_list;
 extern List ariph;
+extern List plot;
 extern List* postfix;
 extern List ariph_list;
 extern Note* Pointer_plots;
@@ -113,6 +116,10 @@ extern Dbase* database_const;
 extern Dbase* vars;
 extern int sym_allow[sym_allow_quant];
 extern int var_amount;
+extern int coordinates[width];
+extern int push_right = 0;
+extern int push_up = 0;
+extern double resize = 1;
 
 
 /*Functions*/

@@ -16,7 +16,7 @@ int main()
 ///////////////////////////////////////////////////////////
 		while (i <= awruk_size)     //Input
 		{
-			interface_main(Pointer_ariph, string, M, &ariph_list, &plots, vars);
+			interface_main(Pointer_ariph, string, M, &ariph_list, &plot, vars);
 			switch(c = getche())
 			{
 			case 0:
@@ -33,7 +33,7 @@ int main()
 			}
 			case -32:
 				{
-					switch(c=getch())
+					switch(c = getch())
 					{
 						case arr_up:            //Arrow up - previous
 					{
@@ -48,7 +48,7 @@ int main()
 					case insert:          //insert
 					{
 						int tmp_i = 0;
-						Note* tmp_R = plots.head;
+						Note* tmp_R = plot.head;
 						//LineTo(hdc,tmp_i+2,(Plot*)(tmp_R->data)->coord[tmp_i+1]);
 						//printf("INSERT SUCCEDED!");
 						//M = ((Ariph*)(Pointer_ariph->data))->ans;
@@ -68,21 +68,87 @@ int main()
 					{
 					case ARIPH:
 					{
-						int i = 0;
 						double ans = 0;
 						message = 0;
-						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount);
+						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH);
 						if (message == 0)
 						{
 							postfix = inf_to_post(&ariph);
 							if (postfix != NULL)
 							{
-								post_calc(postfix, &ans);
+								post_calc(postfix, &ans, coordinates, ARIPH);
 								queue_add_end(&ariph_list, ariph_create(string, ans));
 								if (ariph_list.amount > ariph_height)
 								{
 									queue_el_del(&ariph_list, 1);
 									queue_renum(&ariph_list);
+								}
+								Pointer_ariph = ariph_list.tail; 
+							}
+							else
+								message = ERR_BR;
+						}
+						else
+							continue;
+						continue;
+					}
+					case FUNC:
+					{
+						double ans = 0;
+						message = 0;
+						message = str_to_inf(&plot, string, database_func, database_const, vars, var_amount, FUNC);
+						if (message == 0)
+						{
+							postfix = (List*)malloc(sizeof(List));
+							postfix = inf_to_post(&plot);
+							if (postfix != NULL)
+							{
+								post_calc(postfix, &ans, coordinates, FUNC);
+								queue_add_end(&plot_list, plot_create(string, postfix, coordinates));
+								if (plot_list.amount > plot_height)
+								{
+									queue_el_del(&plot_list, 1);
+									queue_renum(&plot_list);
+								}
+								while ((c = getche()) != esc)
+								{
+									graph_draw_asix(push_right, push_up);
+									graph_draw_graps(plot_list);
+									switch(c)
+									{
+									case esc:
+										break;
+									case arr_up:
+										{
+											push_up++;
+											continue;
+										}
+									case arr_down:
+										{
+											push_up--;
+											continue;
+										}
+									case arr_right:
+										{
+											push_right++;
+											continue;
+										}
+									case arr_left:
+										{
+											push_right--;
+											continue;
+										}
+									case '+':
+										{
+											resize *= 2;
+											post_calc(postfix, &ans, coordinates, FUNC);
+											queue_add_end(&plot_list, plot_create(string, postfix, coordinates));
+										}
+									case '-':
+										{
+											resize /= 2;
+										}
+									}
 								}
 							}
 							else
@@ -90,11 +156,7 @@ int main()
 						}
 						else
 							continue;
-					}
-					case FUNC:
-					{
-						//printf("Lol");
-						//check -> add
+						continue;
 					}
 					case VAR:
 					{
@@ -133,7 +195,7 @@ int main()
 				}
 				case backspace:           //Backspace
 				{
-					if (i>0)
+					if (i > 0)
 					{
 						i--;
 						string[i] = '\0';
