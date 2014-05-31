@@ -13,7 +13,7 @@
 //#include "computation_core_head.h"
 
 #define awruk_size 86
-#define plot_amount 7
+#define plot_amount 11
 #define var_max_amount 7
 #define const_amount 1
 #define func_amount 14
@@ -22,7 +22,7 @@
 #define width 800
 #define height 600
 #define ariph_height 7
-#define plot_height 7
+#define plot_height 1
 #define cell 50
 
 #define enter 13
