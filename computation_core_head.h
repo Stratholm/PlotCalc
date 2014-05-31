@@ -7,13 +7,13 @@
 
 /* Functions */
 //Input string to infix notation
-int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess);
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double resz);
 
 //Queue to postfix
 List* inf_to_post(List* inf);
 
 //Calculate postfix
-double post_calc(List* post, double* ans);
+double post_calc(List* post, double* ans, int* coord, int mess, double resz, int up, int right);
 
 //Transfers answer to the rational form
 Rat_num* ans_to_rat(double ans);

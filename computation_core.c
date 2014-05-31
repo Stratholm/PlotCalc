@@ -160,7 +160,7 @@ List* inf_to_post(List* inf)
 }
 
 //Calculate postfix
-double post_calc(List* post, double* ans, int* coord, int mess)
+double post_calc(List* post, double* ans, int* coord, int mess, double resz, int up, int right)
 {
 	int i = 0, max = 0;
 	List* post_save = (List*)malloc(sizeof(List));
@@ -182,13 +182,13 @@ double post_calc(List* post, double* ans, int* coord, int mess)
 		{
 			if (((Element*)(point->data))->key == NUM)
 			{
-				if (point->next != NULL)
-					point = point->next;
-				continue;
+				/*if (point->next != NULL)
+					point = point->next;*/
+				//continue;
 			}
 			if (((Element*)(point->data))->key == X_VAR)
 			{
-				((Element*)(point->data))->data = i;
+				((Element*)(point->data))->data = (i - 400 + cell*right)/resz;
 				/*if (point->next != NULL)
 					point = point->next;
 				continue;*/
@@ -239,7 +239,7 @@ double post_calc(List* post, double* ans, int* coord, int mess)
 			else break;
 		}
 		if (mess == FUNC)
-			coord[i] = ((Element*)(point->data))->data;
+			coord[i] = cell*up + 300 - (((Element*)(point->data))->data)*resz;
 		if (mess == ARIPH)
 		*ans = ((Element*)(point->data))->data;
 	}

@@ -23,6 +23,7 @@
 #define height 600
 #define ariph_height 7
 #define plot_height 7
+#define cell 50
 
 #define enter 13
 #define backspace 8
@@ -116,10 +117,10 @@ extern Dbase* database_const;
 extern Dbase* vars;
 extern int sym_allow[sym_allow_quant];
 extern int var_amount;
-extern int coordinates[width];
-extern int push_right = 0;
-extern int push_up = 0;
-extern double resize = 1;
+extern long long int coordinates[width];
+extern int push_right;
+extern int push_up;
+extern double resize;
 
 
 /*Functions*/
