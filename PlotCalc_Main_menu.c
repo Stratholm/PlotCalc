@@ -10,7 +10,6 @@ int main()
 	database_func = func_init(database_func);
 	database_const = const_init(database_const);
 	vars = vars_init(vars);
-	//sym_allow_init(sym_allow);
 	while (e == 0)
 	{
 ///////////////////////////////////////////////////////////
@@ -76,16 +75,21 @@ int main()
 							postfix = inf_to_post(&ariph);
 							if (postfix != NULL)
 							{
-								post_calc(postfix, &ans, coordinates, ARIPH);
+								message = ARIPH;
+								post_calc(postfix, &ans, coordinates, &message, resize, push_up, push_right);
+								if (message != 0)
+								{
+									continue;
+								}
 								queue_add_end(&ariph_list, ariph_create(string, ans));
 								if (ariph_list.amount > ariph_height)
 								{
 									queue_el_del(&ariph_list, 1);
 									queue_renum(&ariph_list);
 								}
-								for (i=0; i<86; i++)
-								string[i]="\0";
-								i=0;
+								for (i = 0; i < awruk_size; i++)
+									string[i] = '\0';
+								i = 0;
 								Pointer_ariph = ariph_list.tail;
 							}
 							else
@@ -249,10 +253,20 @@ int main()
 				}
 				case backspace:           //Backspace
 				{
-					if (i > 0)
+					if (Pointer_ariph == NULL)
 					{
-						i--;
-						string[i] = '\0';
+						if (i > 0)
+						{
+							i--;
+							string[i] = '\0';
+						}
+					}
+					else
+					{
+						int j = 0;
+						Pointer_ariph = NULL;
+						for (j = 0; j <= awruk_size; j++)
+							string[j] = '\0';
 					}
 					//lol = 0
 					continue;
@@ -293,8 +307,10 @@ int main()
 						}
 						else
 						{
+							int j = 0;
 							Pointer_ariph = NULL;
-							string[0] = '\0';
+							for (j = 0; j <= awruk_size; j++)
+								string[j] = '\0';
 							i = 0;
 							string[i] = c;
 							i++;
@@ -302,6 +318,10 @@ int main()
 					}
 					else
 					{
+						int j = 0;
+						Pointer_ariph = NULL;
+						for (j = 0; j <= awruk_size; j++)
+							string[j] = '\0';
 						message = 0;
 						string[0] = '\0';
 						i = 0;

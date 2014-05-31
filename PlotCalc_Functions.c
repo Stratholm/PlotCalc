@@ -107,6 +107,41 @@ Dbase* func_init(Dbase* fc)
 	fc[6].name[0] = '^';
 	fc[6].name[1] = '\0';
 	fc[6].data = 3;
+	fc[7].name[0] = 'l';
+	fc[7].name[1] = 'n';
+	fc[7].name[2] = '\0';
+	fc[7].data = 2;
+	fc[8].name[0] = 'l';
+	fc[8].name[1] = 'o';
+	fc[8].name[2] = 'g';
+	fc[8].name[3] = '\0';
+	fc[8].data = 2;
+	fc[9].name[0] = 's';
+	fc[9].name[1] = 'q';
+	fc[9].name[2] = 'r';
+	fc[9].name[3] = 't';
+	fc[9].name[4] = '\0';
+	fc[9].data = 2;
+	fc[10].name[0] = 'c';
+	fc[10].name[1] = 'o';
+	fc[10].name[2] = 's';
+	fc[10].name[3] = '\0';
+	fc[10].data = 2;
+	fc[11].name[0] = 's';
+	fc[11].name[1] = 'i';
+	fc[11].name[2] = 'n';
+	fc[11].name[3] = '\0';
+	fc[11].data = 2;
+	fc[12].name[0] = 't';
+	fc[12].name[1] = 'a';
+	fc[12].name[2] = 'n';
+	fc[12].name[3] = '\0';
+	fc[12].data = 2;
+	fc[13].name[0] = 'c';
+	fc[13].name[1] = 't';
+	fc[13].name[2] = 'g';
+	fc[13].name[3] = '\0';
+	fc[13].data = 2;
 	return fc;
 }
 
@@ -117,7 +152,7 @@ Dbase* const_init(Dbase* ct)
 	ct[0].name[0] = 'p';
 	ct[0].name[1] = 'i';
 	ct[0].name[2] = '\0';
-	ct[0].data = 3.141592;
+	ct[0].data = 3.1415926535;
 }
 
 //Initialise variables

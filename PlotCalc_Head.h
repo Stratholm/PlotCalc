@@ -13,10 +13,10 @@
 //#include "computation_core_head.h"
 
 #define awruk_size 86
-#define plot_amount 16
-#define var_max_amount 16
+#define plot_amount 7
+#define var_max_amount 7
 #define const_amount 1
-#define func_amount 7
+#define func_amount 14
 #define sym_allow_quant 72
 #define dbase_name_len 8
 #define width 800
@@ -57,6 +57,12 @@
 #define ERR_FRAC 14
 #define ERR_BR 15
 #define X_VAR 16
+#define ERR_ZERO_DIV 17
+#define ERR_NEG_DEG 18
+#define ERR_NEG_LN 19
+#define ERR_NEG_ROOT 20
+#define ERR_CTG 21
+#define ERR_TAN 22
 
 /*Structures*/
 //Universal element
