@@ -83,7 +83,7 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
 	int _tmp_i=0;
 	Note *tmp_ariph;
 	Note *tmp_plot;
-	int tmp_cololr[16]={RGB(255,0,0),RGB(0,255,0),RGB(0,0,255),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0)};
+	int tmp_cololr[11]={RGB(255,0,0),RGB(0,255,0),RGB(0,0,255),RGB(255,127,0),RGB(0,80,0),RGB(127,0,127),RGB(255,90,90),RGB(255,255,0),RGB(127,127,255),RGB(80,80,80),RGB(127,0,0)};
 	if (ariph!=NULL) tmp_ariph=ariph->head;
 	if (plots!=NULL) tmp_plot=plots->head;
     screen_clear();
@@ -238,12 +238,12 @@ void graph_draw_asix(int right, int up)  //right(up) - number of times, that use
 void graph_draw_graps(List plots)
 {
     HPEN PenAsix=CreatePen(0,2,RGB(255,0,0));
-    int tmp_clr[16]={RGB(255,0,0),RGB(0,255,0),RGB(0,0,255),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0),RGB(0,0,0)};
+    int tmp_cololr[11]={RGB(255,0,0),RGB(0,255,0),RGB(0,0,255),RGB(255,127,0),RGB(0,80,0),RGB(127,0,127),RGB(255,90,90),RGB(255,255,0),RGB(127,127,255),RGB(80,80,80),RGB(127,0,0)};
     int tmp_i;
     Note *tmp_R = plots.head;
     while (tmp_R->next!=NULL)
     {
-        PenAsix=CreatePen(0,2,tmp_clr[tmp_R->num-1]);
+        PenAsix=CreatePen(0,2,tmp_cololr[tmp_R->num-1]);
         SelectObject(hdc,PenAsix);
         for(tmp_i=0;tmp_i<799;tmp_i++)
         {
@@ -254,7 +254,7 @@ void graph_draw_graps(List plots)
     }
     if (tmp_R!=NULL)
     {
-        PenAsix=CreatePen(0,2,tmp_clr[tmp_R->num-1]);
+        PenAsix=CreatePen(0,2,tmp_cololr[tmp_R->num-1]);
         SelectObject(hdc,PenAsix);
         for(tmp_i=0;tmp_i<799;tmp_i++)
         {
