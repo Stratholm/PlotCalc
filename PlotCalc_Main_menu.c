@@ -15,7 +15,7 @@ int main()
 ///////////////////////////////////////////////////////////
 		while (i <= awruk_size)     //Input
 		{
-			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars);
+			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message);
 			switch(c = getche())
 			{
 			case 0:
@@ -55,8 +55,7 @@ int main()
 					}
 					case del:          //Del
 					{
-						//printf("DEL SUCCEDED!");
-						//M = 0;
+                        queue_create(&ariph_list);
 						continue;
 					}
 					}
@@ -144,6 +143,7 @@ int main()
 										}
 									case arr_down:
 										{
+											system("cls");
 											push_up--;
 											plots_recalc(&plot_list, &ans, coordinates, &message, resize, push_up, push_right);
 											graph_draw_asix(-push_right, -push_up);
@@ -152,6 +152,7 @@ int main()
 										}
 									case arr_right:
 										{
+											system("cls");
 											push_right++;
 											plots_recalc(&plot_list, &ans, coordinates, &message, resize, push_up, push_right);
 											graph_draw_asix(-push_right, -push_up);

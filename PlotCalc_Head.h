@@ -22,7 +22,7 @@
 #define width 800
 #define height 600
 #define ariph_height 7
-#define plot_height 1
+#define plot_height 11
 #define cell 50
 
 #define enter 13

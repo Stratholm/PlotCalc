@@ -76,7 +76,7 @@ void screen_frame_create()
 
 
 //Main console initialization
-void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars)   //Str - text, after ">"
+void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars,int message)   //Str - text, after ">"
 {
 	char *_strtmp=(char*)malloc(100*sizeof(char));
 	HPEN PenAsiA=CreatePen(0,1,RGB(128,128,128));
@@ -94,12 +94,76 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
 		sprintf(_strtmp,">%s",str);
 		TextOutA(hdc,53,53,_strtmp,strlen(_strtmp));
 	}
-    if (point!=NULL)
+    if ((point!=NULL)&&(message==0))
     {
         sprintf(_strtmp,">%s",(char*)((Ariph*)(point->data))->string);
         TextOutA(hdc,53,53,_strtmp,strlen(_strtmp));
         sprintf(_strtmp,"Answer: %.2f",((Ariph*)(point->data))->ans);
         TextOutA(hdc,50,86,_strtmp,strlen(_strtmp));
+    }
+        if (message!=0)
+    {
+        sprintf(_strtmp,">%s",str);
+            TextOutA(hdc,53,53,_strtmp,strlen(_strtmp));
+        switch(message)
+        {
+        case 8:
+            {
+            TextOutA(hdc,50,86,"Empty string!",13);
+            break;
+            }
+        case 10:
+            {
+            TextOutA(hdc,50,86,"No special symbols allowed!",26);
+            break;
+            }
+        case 11:
+            {
+            TextOutA(hdc,50,86,"Wrong equasion!",15);
+            break;
+            }
+        case 13:
+            {
+            TextOutA(hdc,50,86,"Error!",6);
+            break;
+            }
+        case 14:
+            {
+            TextOutA(hdc,50,86,"Incorrect fraction!",19);
+            break;
+            }
+        case 15:
+            {
+            TextOutA(hdc,50,86,"Wrong Bracket Balance!",22);
+            break;
+            }
+        case 17:
+            {
+            TextOutA(hdc,50,86,"Division by zero!",17);
+            break;
+            }
+        case 19:
+            {
+            TextOutA(hdc,50,86,"Negative logariphm!",19);
+            break;
+            }
+        case 20:
+            {
+            TextOutA(hdc,50,86,"Negative square root!",21);
+            break;
+            }
+        case 21:
+            {
+            TextOutA(hdc,50,86,"Ctg error!",10);
+            break;
+            }
+        case 22:
+            {
+            TextOutA(hdc,50,86,"Tan error!",10);
+            break;
+            }
+        }
+
     }
     MoveToEx(hdc,50,122,NULL);
     LineTo(hdc,750,122);
@@ -287,20 +351,18 @@ void interface_help_main()
     TextOutA(hdc,250,132,"Insert ariphmetical expression you want to calculate,",53);
     TextOutA(hdc,250,148,"or plot formula you want to visualise.",38);
     gig=(char*)malloc(127*sizeof(char));
-    sprintf(gig,"You can save %d constants, build %d plots at the same time.",var_amount,plot_amount);
+    sprintf(gig,"You can save %d constants, build %d plots at the same time.",var_max_amount,plot_amount);
     TextOutA(hdc,250,164,gig,strlen(gig));
     TextOutA(hdc,250,180,"To save constant, print: \"constant_name\" = \"value\".",51);
-    TextOutA(hdc,250,196,"\"constant_name\" should take one latin latter.",45);
+    TextOutA(hdc,250,196,"\"constant_name\" can take up to !!DBASE NAME LEN latin letters.",45);
     TextOutA(hdc,250,212,"Keys:",5);
     TextOutA(hdc,250,228,"Enter------ Calculate/Build",27);
     TextOutA(hdc,250,244,"Esc--------- Exit",17);
     TextOutA(hdc,250,260,"F1----------- Watch help",24);
-    TextOutA(hdc,250,276,"Tab--------- Watch variables",28);
-    TextOutA(hdc,250,292,"Alt----------- Push value in memory",35);
-    TextOutA(hdc,250,308,"Shift----- Recall memory",24);
+    TextOutA(hdc,250,276,"Tab--------- Switch to plots",28);
+    TextOutA(hdc,250,292,"Insert----------- Push value in memory",35);
+    TextOutA(hdc,250,308,"Space----- Recall memory",24);
     TextOutA(hdc,250,324,"Del---------- Clean memory",26);
-    TextOutA(hdc,250,340,"Up----------- Previous ariphmetical expression",46);
-    TextOutA(hdc,250,356,"Down------- Next ariphmetical expression",40);
     SetPixel(hdc,-1,-1,0);
     _getch();
 }
