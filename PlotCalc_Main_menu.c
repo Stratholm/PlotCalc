@@ -28,6 +28,23 @@ int main()
 						string[i - 1] = '\0';
 						continue;
 					}
+				case 60:
+					{
+						string[0] = 'W';
+						string[1] = 'a';
+						string[2] = 'k';
+						string[3] = 'e';
+						string[4] = ' ';
+						string[5] = 'u';
+						string[6] = 'p';
+						string[7] = ',';
+						string[8] = ' ';
+						string[9] = 'N';
+						string[10] = 'e';
+						string[11] = 'o';
+						string[12] = '.';
+						string[13] = '\0';
+					}
 				}
 			}
 			case -32:
@@ -55,6 +72,7 @@ int main()
 					}
 					case del:          //Del
 					{
+						recent_del(&ariph_list, &plot_list, vars, Pointer_ariph);
 						//printf("DEL SUCCEDED!");
 						//M = 0;
 						continue;

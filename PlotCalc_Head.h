@@ -22,7 +22,7 @@
 #define width 800
 #define height 600
 #define ariph_height 7
-#define plot_height 1
+#define plot_height 11
 #define cell 50
 
 #define enter 13
@@ -153,6 +153,9 @@ Dbase* vars_init(Dbase* vr);
 
 //Recalculate plots
 plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right);
+
+//Delete all history
+int recent_del(List* ariph, List* plot, Dbase* var, Note* point);
 
 //
 ////Initialize allowed symbols

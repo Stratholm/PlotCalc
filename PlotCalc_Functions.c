@@ -179,6 +179,14 @@ plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, i
 	}
 }
 
+//Delete all history
+int recent_del(List* ariph, List* plot, Dbase* var, Note* point)
+{
+	queue_create(ariph);
+	queue_create(ariph);
+	var = NULL;
+	point = NULL;
+}
 
 //
 ////Initialize allowed symbols
