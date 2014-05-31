@@ -20,7 +20,7 @@ Dbase* database_func;
 Dbase* database_const;
 Dbase* vars;
 int sym_allow[sym_allow_quant];
-int var_amount = 2;
+int var_amount = 0;
 int coordinates[width];
 int push_right = 0;
 int push_up = 0;
