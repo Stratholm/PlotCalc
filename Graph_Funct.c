@@ -98,7 +98,7 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
     {
         sprintf(_strtmp,">%s",(char*)point->data);
         TextOutA(hdc,53,53,_strtmp,strlen(_strtmp));
-        sprintf(_strtmp,"Answer: %d",point->num);
+        sprintf(_strtmp,"Answer: %.2f",((Ariph*)(point->data))->ans);
         TextOutA(hdc,50,86,_strtmp,strlen(_strtmp));
     }
     MoveToEx(hdc,50,122,NULL);

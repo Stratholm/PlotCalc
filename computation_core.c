@@ -2,7 +2,7 @@
 
 /* Functions */
 //Input string to infix notation
-int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess)
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double resz)
 {
 	int symbol = 0;
 	int tmp = 0;
@@ -12,14 +12,14 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 	in_len = strlen(in);
 	if (mess == FUNC)
 		symbol = 2;
-    while (symbol < in_len) 
+    while (symbol < in_len)
 	{
 //////////////////////////////////////////////////////////////////
 		if (in[symbol] == ' ')				//Space
 		{
 			symbol++;
 			continue;
-		} 
+		}
 		if (in[symbol] == 'x')
 		{
 			queue_add_end(lt, element_create(X_VAR, 0));
@@ -259,7 +259,7 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 	unsigned int lex = 0;
 	unsigned int chr = 0;
 	unsigned int lex_len;
-	Element el; 
+	Element el;
 	el.key = 0;
 	while (lex < amount)		//element
 	{
@@ -300,7 +300,7 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 						}
 					}
 				}
-				else 
+				else
 				{
 					*smb = mother_mother - chr;
 					chr = 0;
