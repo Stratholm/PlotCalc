@@ -160,6 +160,7 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
         sprintf(_strtmp,"Answer: %.2f",((Ariph*)(tmp_ariph->data))->ans);
         TextOutA(hdc,53,150+48*_tmp_i+16,_strtmp,strlen(_strtmp));
     }
+    _tmp_i=0;
     if (tmp_plot!=NULL)
     {
     while (tmp_plot->next!=NULL)
@@ -169,10 +170,10 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
         {
             SetTextColor(hdc,tmp_cololr[tmp_plot->num-1]);
             sprintf(_strtmp,"%d.",tmp_plot->num);
-            TextOutA(hdc,403,116+32*_tmp_i,_strtmp,strlen(_strtmp));
+            TextOutA(hdc,403,150+32*_tmp_i,_strtmp,strlen(_strtmp));
             SetTextColor(hdc,RGB(0,0,0));
             sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
-            TextOutA(hdc,423,116+32*_tmp_i,_strtmp,strlen(_strtmp));
+            TextOutA(hdc,423,150+32*_tmp_i,_strtmp,strlen(_strtmp));
         }
         else
         {
@@ -181,20 +182,20 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
             ((Plot*)(tmp_plot->data))->string[25]='.';
             SetTextColor(hdc,tmp_cololr[tmp_plot->num-1]);
             sprintf(_strtmp,"%d.",tmp_plot->num);
-            TextOutA(hdc,403,116+32*_tmp_i,_strtmp,strlen(_strtmp));
+            TextOutA(hdc,403,150+32*_tmp_i,_strtmp,strlen(_strtmp));
             SetTextColor(hdc,RGB(0,0,0));
             sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
-            TextOutA(hdc,423,116+32*_tmp_i,_strtmp,26);
+            TextOutA(hdc,423,150+32*_tmp_i,_strtmp,26);
         }
         tmp_plot=tmp_plot->next;
         _tmp_i++;
     }
         SetTextColor(hdc,tmp_cololr[tmp_plot->num-1]);
         sprintf(_strtmp,"%d.",tmp_plot->num);
-        TextOutA(hdc,403,116+32*_tmp_i,_strtmp,strlen(_strtmp));
+        TextOutA(hdc,403,150+32*_tmp_i,_strtmp,strlen(_strtmp));
         SetTextColor(hdc,RGB(0,0,0));
         sprintf(_strtmp,"%s",((Plot*)(tmp_plot->data))->string);
-        TextOutA(hdc,423,116+32*_tmp_i,_strtmp,strlen(_strtmp));
+        TextOutA(hdc,423,150+32*_tmp_i,_strtmp,strlen(_strtmp));
     }
     _tmp_i=0;
     while (_tmp_i<var_amount)
