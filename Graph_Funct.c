@@ -96,7 +96,7 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
 	}
     if (point!=NULL)
     {
-        sprintf(_strtmp,">%s",(char*)point->data);
+        sprintf(_strtmp,">%s",(char*)((Ariph*)(point->data))->string);
         TextOutA(hdc,53,53,_strtmp,strlen(_strtmp));
         sprintf(_strtmp,"Answer: %.2f",((Ariph*)(point->data))->ans);
         TextOutA(hdc,50,86,_strtmp,strlen(_strtmp));

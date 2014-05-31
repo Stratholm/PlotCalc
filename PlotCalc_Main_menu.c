@@ -83,7 +83,10 @@ int main()
 									queue_el_del(&ariph_list, 1);
 									queue_renum(&ariph_list);
 								}
-								Pointer_ariph = ariph_list.tail; 
+								for (i=0; i<86; i++)
+								string[i]="\0";
+								i=0;
+								Pointer_ariph = ariph_list.tail;
 							}
 							else
 								message = ERR_BR;
@@ -125,7 +128,7 @@ int main()
 											while (Pointer_plots != NULL)
 											{
 												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next; 
+												Pointer_plots = Pointer_plots->next;
 											}
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
@@ -139,7 +142,7 @@ int main()
 											while (Pointer_plots != NULL)
 											{
 												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next; 
+												Pointer_plots = Pointer_plots->next;
 											}
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
@@ -153,7 +156,7 @@ int main()
 											while (Pointer_plots != NULL)
 											{
 												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next; 
+												Pointer_plots = Pointer_plots->next;
 											}
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
@@ -166,7 +169,7 @@ int main()
 											while (Pointer_plots != NULL)
 											{
 												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next; 
+												Pointer_plots = Pointer_plots->next;
 											}
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
@@ -179,7 +182,7 @@ int main()
 											while (Pointer_plots != NULL)
 											{
 												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next; 
+												Pointer_plots = Pointer_plots->next;
 											}
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
@@ -192,14 +195,14 @@ int main()
 											while (Pointer_plots != NULL)
 											{
 												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next; 
+												Pointer_plots = Pointer_plots->next;
 											}
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
 											continue;
 										}
 									}
-									
+
 								}
 							}
 							else
@@ -355,8 +358,8 @@ int main()
 			{
 				note->next->prev = note->prev;
 				note->prev->next = note->next;
-			}	
-        else 
+			}
+        else
 			{
 				note->next = NULL;
 				queu->tail = note->prev;
