@@ -20,8 +20,8 @@ Dbase* database_func;
 Dbase* database_const;
 Dbase* vars;
 int sym_allow[sym_allow_quant];
-int var_amount = 0;
-long long int coordinates[width];
+int var_amount = 2;
+int coordinates[width];
 int push_right = 0;
 int push_up = 0;
 double resize = 50;
@@ -165,6 +165,18 @@ Dbase* vars_init(Dbase* vr)
 	vr[1].name[0] = 'b';
 	vr[1].name[1] = '\0';
 	vr[1].data = 2;
+}
+
+//Recalculate plots
+plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right)
+{
+	Note* Pointer_plots = (Note*)malloc(sizeof(Note));
+	Pointer_plots = plot_list->head;
+	while (Pointer_plots != NULL)
+	{
+		post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, &message, resize, push_up, push_right);
+		Pointer_plots = Pointer_plots->next;
+	}
 }
 
 

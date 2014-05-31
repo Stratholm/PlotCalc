@@ -123,7 +123,7 @@ extern Dbase* database_const;
 extern Dbase* vars;
 extern int sym_allow[sym_allow_quant];
 extern int var_amount;
-extern long long int coordinates[width];
+extern int coordinates[width];
 extern int push_right;
 extern int push_up;
 extern double resize;
@@ -151,6 +151,8 @@ Dbase* const_init(Dbase* ct);
 //Initialise variables
 Dbase* vars_init(Dbase* vr);
 
+//Recalculate plots
+plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right);
 
 //
 ////Initialize allowed symbols

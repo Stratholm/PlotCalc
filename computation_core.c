@@ -167,7 +167,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 	Note* point = (Note*)malloc(sizeof(Note));
 	Note* point_save = (Note*)malloc(sizeof(Note));
 	post_save = queu_el_copy(post);
-	*point_save = *post_save->head;
+	point_save = post_save->head;
 	*ans = 0;
 	//point = post->head;
 	if (*mess == FUNC)
@@ -230,11 +230,11 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 				}
 				if ((((Element*)(point->data))->data == 6) && (((Element*)(point->data))->key == FUNC))			//^
 				{
-					if (((Element*)(point->prev->prev->data))->data < 0)
+					/*if (((Element*)(point->prev->prev->data))->data < 0)
 					{
 						*mess = ERR_NEG_DEG;
 						return 0;
-					}
+					}*/
 					((Element*)(point->prev->prev->data))->data = pow((((Element*)(point->prev->prev->data))->data),(((Element*)(point->prev->data))->data));
 					point = point->prev->prev;
 					queue_el_del(post, point->num + 2);
@@ -242,33 +242,33 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 				}
 				if ((((Element*)(point->data))->data == 7) && (((Element*)(point->data))->key == FUNC))			//ln
 				{
-					if (((Element*)(point->prev->data))->data <= 0)
+					/*if (((Element*)(point->prev->data))->data <= 0)
 					{
 						*mess = ERR_NEG_LN;
 						return 0;
-					}
+					}*/
 					((Element*)(point->prev->data))->data = log(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
 				}
 				if ((((Element*)(point->data))->data == 8) && (((Element*)(point->data))->key == FUNC))			//log
 				{
-					if (((Element*)(point->prev->data))->data <= 0)
+					/*if (((Element*)(point->prev->data))->data <= 0)
 					{
 						*mess = ERR_NEG_LN;
 						return 0;
-					}
+					}*/
 					((Element*)(point->prev->data))->data = log(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
 				}
 				if ((((Element*)(point->data))->data == 9) && (((Element*)(point->data))->key == FUNC))			//sqrt
 				{
-					if (((Element*)(point->prev->data))->data <= 0)
+					/*if (((Element*)(point->prev->data))->data <= 0)
 					{
 						*mess = ERR_NEG_ROOT;
 						return 0;
-					}
+					}*/
 					((Element*)(point->prev->data))->data = sqrt(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
@@ -381,7 +381,7 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 				else
 				{
 					*smb = mother_mother - chr;
-					mother_mother = 0;
+					mother_mother = *smb;
 					chr = 0;
 					break;
 				}

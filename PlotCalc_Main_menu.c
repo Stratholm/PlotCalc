@@ -15,7 +15,7 @@ int main()
 ///////////////////////////////////////////////////////////
 		while (i <= awruk_size)     //Input
 		{
-			interface_main(Pointer_ariph, string, M, &ariph_list, &plot, vars);
+			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars);
 			switch(c = getche())
 			{
 			case 0:
@@ -23,11 +23,11 @@ int main()
 				switch(c = getch())
 				{
 				case F1:
-				{
-					interface_help_main();
-					string[i - 1] = '\0';
-					continue;
-				}
+					{
+						interface_help_main();
+						string[i - 1] = '\0';
+						continue;
+					}
 				}
 			}
 			case -32:
@@ -77,10 +77,8 @@ int main()
 							{
 								message = ARIPH;
 								post_calc(postfix, &ans, coordinates, &message, resize, push_up, push_right);
-								if (message != 0)
-								{
+								if (message != ARIPH)
 									continue;
-								}
 								queue_add_end(&ariph_list, ariph_create(string, ans));
 								if (ariph_list.amount > ariph_height)
 								{
@@ -110,13 +108,18 @@ int main()
 							postfix = inf_to_post(&plot);
 							if (postfix != NULL)
 							{
-								post_calc(postfix, &ans, coordinates, FUNC, resize, push_up, push_right);
+								message = FUNC;
+								post_calc(postfix, &ans, coordinates, &message, resize, push_up, push_right);
 								queue_add_end(&plot_list, plot_create(string, postfix, coordinates));
 								if (plot_list.amount > plot_height)
 								{
 									queue_el_del(&plot_list, 1);
 									queue_renum(&plot_list);
 								}
+								for (i = 0; i < awruk_size; i++)
+									string[i] = '\0';
+								i = 0;
+								Pointer_ariph = ariph_list.tail;
 								graph_draw_asix(push_right, push_up);
 								graph_draw_graps(plot_list);
 								while ((c = getch()) != esc)
@@ -124,16 +127,17 @@ int main()
 									switch(c)
 									{
 									case esc:
-										break;
+										{
+											int j = 0;
+											Pointer_ariph = NULL;
+											for (j = 0; j <= awruk_size; j++)
+												string[j] = '\0';
+											break;
+										}
 									case arr_up:
 										{
 											push_up++;
-											Pointer_plots = plot_list.head;
-											while (Pointer_plots != NULL)
-											{
-												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next;
-											}
+											plots_recalc(&plot_list, &ans, coordinates, &message, resize, push_up, push_right);
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
 											continue;
@@ -142,12 +146,7 @@ int main()
 										{
 											system("cls");
 											push_up--;
-											Pointer_plots = plot_list.head;
-											while (Pointer_plots != NULL)
-											{
-												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next;
-											}
+											plots_recalc(&plot_list, &ans, coordinates, &message, resize, push_up, push_right);
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
 											continue;
@@ -156,12 +155,7 @@ int main()
 										{
 											system("cls");
 											push_right++;
-											Pointer_plots = plot_list.head;
-											while (Pointer_plots != NULL)
-											{
-												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next;
-											}
+											plots_recalc(&plot_list, &ans, coordinates, &message, resize, push_up, push_right);
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
 											continue;
@@ -169,12 +163,7 @@ int main()
 									case arr_left:
 										{
 											push_right--;
-											Pointer_plots = plot_list.head;
-											while (Pointer_plots != NULL)
-											{
-												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next;
-											}
+											plots_recalc(&plot_list, &ans, coordinates, &message, resize, push_up, push_right);
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
 											continue;
@@ -182,12 +171,7 @@ int main()
 									case '+':
 										{
 											resize *= 2;
-											Pointer_plots = plot_list.head;
-											while (Pointer_plots != NULL)
-											{
-												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next;
-											}
+											plots_recalc(&plot_list, &ans, coordinates, &message, resize, push_up, push_right);
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
 											continue;
@@ -195,12 +179,7 @@ int main()
 									case '-':
 										{
 											resize /= 2;
-											Pointer_plots = plot_list.head;
-											while (Pointer_plots != NULL)
-											{
-												post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, FUNC, resize, push_up, push_right);
-												Pointer_plots = Pointer_plots->next;
-											}
+											plots_recalc(&plot_list, &ans, coordinates, &message, resize, push_up, push_right);
 											graph_draw_asix(-push_right, -push_up);
 											graph_draw_graps(plot_list);
 											continue;
