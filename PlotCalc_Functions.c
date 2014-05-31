@@ -61,7 +61,7 @@ int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int 
 		{
 			while (i <= strlen(str))		//check alphabit
 			{
-				if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))
+				if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))	
 					return ERR_SPEC;
 				if ((i >= dbase_name_len) && (str[i] == 61))
 					return ERR_EQUAS;
