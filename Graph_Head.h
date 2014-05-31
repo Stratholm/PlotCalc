@@ -26,7 +26,7 @@ void screen_clear();
 void screen_frame_create();
 
 //Main console initialization
-void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars);
+void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars,int message);
 
 //Drawing asix
 void graph_draw_asix(int right, int up);
