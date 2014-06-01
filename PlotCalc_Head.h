@@ -63,6 +63,7 @@
 #define ERR_NEG_ROOT 20
 #define ERR_CTG 21
 #define ERR_TAN 22
+#define ERR_LONG_VAR 23
 
 /*Structures*/
 //Universal element
@@ -155,7 +156,7 @@ Dbase* vars_init(Dbase* vr);
 plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right);
 
 //Delete all history
-int recent_del(List* ariph, List* plot, Dbase* var, Note* point);
+int recent_del(List* ariph, List* plot, Dbase* var, Note* point, int* var_amount);
 
 //
 ////Initialize allowed symbols

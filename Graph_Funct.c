@@ -12,7 +12,7 @@ void screen_first_init()
 {
 	SMALL_RECT  DisplayArea;
 	COORD sz;
-    const int NotUsed = system( "color F0" );
+    //const int NotUsed = system( "color F0" );
     HWND hWnd = GetConsoleWindow();
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO structCursorInfo;
@@ -37,11 +37,7 @@ void screen_first_init()
 void screen_clear()
 {
     HBRUSH BrushClear = CreateSolidBrush(RGB(255,255,255));  //You are fucked, if you have error here. Include "gdi32" in builder.
-    RECT RectClear;
-    RectClear.top=0;
-    RectClear.left=0;
-    RectClear.bottom=600;
-    RectClear.right=800;
+	RECT RectClear = {0, 0, 800, 600};
     FillRect(hdc,&RectClear, BrushClear);
     SetPixel(hdc,-1,-1,0);
 }

@@ -2,7 +2,7 @@
 
 /* Functions */
 //Input string to infix notation
-int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double resz)
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double resz, double M)
 {
 	int symbol = 0;
 	int tmp = 0;
@@ -15,6 +15,12 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
     while (symbol < in_len)
 	{
 //////////////////////////////////////////////////////////////////
+		if (in[symbol] == 'M')
+		{
+			queue_add_end(lt, element_create(NUM, M));	
+			symbol++;
+			continue;
+		}
 		if (in[symbol] == ' ')				//Space
 		{
 			symbol++;

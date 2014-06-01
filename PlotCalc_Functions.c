@@ -74,6 +74,8 @@ int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int 
 				if ((i == 0) && (str[i] == 'y') && (str[i+1] == '='))
 					return FUNC;
 				i++;
+				if ((str[i] == '=') && (i != 1))
+					return VAR;
 			}
 			return ARIPH;
 		}
@@ -158,13 +160,7 @@ Dbase* const_init(Dbase* ct)
 //Initialise variables
 Dbase* vars_init(Dbase* vr)
 {
-	vr = (Dbase*)malloc(const_amount * sizeof(Dbase));
-	vr[0].name[0] = 'a';
-	vr[0].name[1] = '\0';
-	vr[0].data = 5;
-	vr[1].name[0] = 'b';
-	vr[1].name[1] = '\0';
-	vr[1].data = 2;
+	vr = (Dbase*)malloc(var_max_amount * sizeof(Dbase));
 }
 
 //Recalculate plots
@@ -180,11 +176,12 @@ plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, i
 }
 
 //Delete all history
-int recent_del(List* ariph, List* plot, Dbase* var, Note* point)
+int recent_del(List* ariph, List* plot, Dbase* var, Note* point, int* var_amount)
 {
 	queue_create(ariph);
-	queue_create(ariph);
-	var = NULL;
+	queue_create(plot);
+	//free(var);
+	//var_amount = 0;
 	point = NULL;
 }
 

@@ -15,7 +15,7 @@ int main()
 ///////////////////////////////////////////////////////////
 		while (i <= awruk_size)     //Input
 		{
-			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars);
+			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message);
 			switch(c = getche())
 			{
 			case 0:
@@ -65,6 +65,15 @@ int main()
 					{
 						int tmp_i = 0;
 						Note* tmp_R = plot.head;
+						if (Pointer_ariph == NULL)
+							if ((!str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH, M)) && (ariph.amount == 1))
+								M = ((Element*)(ariph.head->data))->data;
+							else
+								M = ((Element*)(ariph_list.tail->data))->data;
+						Pointer_ariph = NULL;
+						for (i = 0; i < awruk_size; i++)
+								string[i] = '\0';
+						i = 0;
 						//LineTo(hdc,tmp_i+2,(Plot*)(tmp_R->data)->coord[tmp_i+1]);
 						//printf("INSERT SUCCEDED!");
 						//M = ((Ariph*)(Pointer_ariph->data))->ans;
@@ -72,7 +81,7 @@ int main()
 					}
 					case del:          //Del
 					{
-						recent_del(&ariph_list, &plot_list, vars, Pointer_ariph);
+						recent_del(&ariph_list, &plot_list, vars, Pointer_ariph, &var_amount);
 						//printf("DEL SUCCEDED!");
 						//M = 0;
 						continue;
@@ -87,7 +96,7 @@ int main()
 					{
 						double ans = 0;
 						message = 0;
-						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH);
+						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH, M);
 						if (message == 0)
 						{
 							postfix = inf_to_post(&ariph);
@@ -119,7 +128,7 @@ int main()
 					{
 						double ans = 0;
 						message = 0;
-						message = str_to_inf(&plot, string, database_func, database_const, vars, var_amount, FUNC);
+						message = str_to_inf(&plot, string, database_func, database_const, vars, var_amount, FUNC, M);
 						if (message == 0)
 						{
 							postfix = (List*)malloc(sizeof(List));
@@ -213,7 +222,32 @@ int main()
 					}
 					case VAR:
 					{
-						//check -> add
+						int i = 0, j = 0, k = 0;
+						char* tmp;
+						int len = 0;
+						while (string[i] != '=')
+							i++;
+						if (i > dbase_name_len)
+						{
+							message = ERR_LONG_VAR;
+							continue;
+						}
+						else
+						{
+							len = strlen(string);
+							tmp = (char*)malloc((len - i - 1)*sizeof(char));
+							for (j = 0; j < i; j++)
+								vars[var_amount].name[j] = string[j]; 
+							vars[var_amount].name[j] = '\0';
+							for (j = i + 1; j <= len; j++)
+							{
+								tmp[k] = string[j]; 
+								k++;
+							}
+							if ((!str_to_inf(&ariph, tmp, database_func, database_const, vars, var_amount, ARIPH, M)) && (ariph.amount == 1))
+								vars[var_amount].data = ((Element*)(ariph.head->data))->data;
+							var_amount++;
+						}
 					}
 					case ERR_EMPTY:
 					{
@@ -248,6 +282,7 @@ int main()
 				}
 				case backspace:           //Backspace
 				{
+					message = 0;
 					if (Pointer_ariph == NULL)
 					{
 						if (i > 0)
