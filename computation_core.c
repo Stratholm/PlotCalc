@@ -2,53 +2,51 @@
 
 /* Functions */
 //Input string to infix notation
-int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double resz, double M)
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double resz, double M, int *symbol)
 {
-	int symbol = 0;
 	int tmp = 0;
 	unsigned int in_len;
 	Element el;
-	queue_create(lt);
-	in_len = strlen(in);
-	if (mess == FUNC)
-		symbol = 2;
-    while (symbol < in_len)
+	queue_create(lt);		//create list for infix
+	in_len = strlen(in); 
+	*symbol = 0;
+    while (*symbol < in_len)
 	{
 //////////////////////////////////////////////////////////////////
-		if (in[symbol] == 'M')
+		if (in[*symbol] == 'M')					//insert num from the M memory
 		{
 			queue_add_end(lt, element_create(NUM, M));	
-			symbol++;
+			*symbol++;
 			continue;
 		}
-		if (in[symbol] == ' ')				//Space
+		if (in[*symbol] == ' ')				//Space
 		{
-			symbol++;
+			*symbol++;
 			continue;
 		}
-		if (in[symbol] == 'x')
+		if (in[*symbol] == 'x')
 		{
 			queue_add_end(lt, element_create(X_VAR, 0));
-			symbol++;
+			*symbol++;
 			continue;
 		}
-		if (isdigit(in[symbol]))			//number
+		if (isdigit(in[*symbol]))			//number
 		{
 			double num = 0;
 			double count = 0;
 			int num_int_len = 0;
 			int num_frac_len = 0;
-			while ((isdigit(in[symbol])) || (in[symbol] == '.'))
+			while ((isdigit(in[*symbol])) || (in[*symbol] == '.'))
 			{
-				if (symbol == in_len)
+				if (*symbol == in_len)
 					break;
-				if (in[symbol] == '.')
+				if (in[*symbol] == '.')
 				{
 					count++;
 					if (count > 1)
 						return ERR_FRAC;
-					symbol++;
-					if (!isdigit(in[symbol]))
+					*symbol++;
+					if (!isdigit(in[*symbol]))
 						return ERR_FRAC;
 				}
 				else
@@ -56,14 +54,14 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 					if (count != 0)
 					{
 						num_frac_len++;
-						num = num + (in[symbol] - '0') * pow(10.0,(-num_frac_len));
+						num = num + (in[*symbol] - '0') * pow(10.0,(-num_frac_len));
 					}
 					else
 					{
 						num_int_len++;
-						num = num * 10 + (in[symbol]) - '0';
+						num = num * 10 + (in[*symbol]) - '0';
 					}
-					symbol++;
+					*symbol++;
 				}
 			}
 			/* Damn it
@@ -81,19 +79,19 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 			queue_add_end(lt, element_create(NUM, num));
 			continue;
         }
-		if (lexem_find(&symbol, in, lt, fc, func_amount, FUNC) == 1)
+		if (lexem_find(symbol, in, lt, fc, func_amount, FUNC) == 0)
 			continue;
-		if (lexem_find(&symbol, in, lt, ct, const_amount, CONS) == 1)
+		if (lexem_find(symbol, in, lt, ct, const_amount, CONS) == 0)
 			continue;
-		if (lexem_find(&symbol, in, lt, vr, var_amount, VAR) == 1)
+		if (lexem_find(symbol, in, lt, vr, var_amount, VAR) == 0)
 			continue;
-		return ERR;
+		return ERR_LEX;
 //////////////////////////////////////////////////////////////////
     }
-	if (symbol == in_len)
+	if (*symbol == in_len)
 		return 0;
 	else
-		return ERR;
+		return ERR_LEX;
 }
 
 //Queue to postfix
@@ -352,11 +350,11 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 			lex_len = strlen(db[lex].name);
 			while (chr < lex_len)		//charachter in an element
 			{
-				if (in[mother_mother] == db[lex].name[chr])	//equivalance
+				if (in[mother_mother] == db[lex].name[chr])	//equivalance of chars
 				{
 					chr++;
 					mother_mother++;
-					if (chr == lex_len)		//check
+					if (chr == lex_len)		//check if it is a lexem
 					{
 						if (mode == FUNC)
 						{
@@ -364,23 +362,23 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 							{
 								*smb = mother_mother;
 								queue_add_end(lt, element_create(LB, lex));
-								return 1;
+								return 0;
 							}
 							if (lex == 1)
 							{
 								*smb = mother_mother;
 								queue_add_end(lt, element_create(RB, lex));
-								return 1;
+								return 0;
 							}
 							*smb = mother_mother;
 							queue_add_end(lt, element_create(FUNC, lex));
-							return 1;
+							return 0;
 						}
 						if ((mode == CONS)||(mode == VAR))
 						{
 							*smb = mother_mother;
 							queue_add_end(lt, element_create(NUM, db[lex].data));
-							return 1;
+							return 0;
 						}
 					}
 				}
@@ -398,7 +396,7 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 		break;
 	}
 	if (el.key == 0)
-		return 0;
+		return -1;
 }
 
 //Create new Element

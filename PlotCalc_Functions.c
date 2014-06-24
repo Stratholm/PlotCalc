@@ -8,6 +8,7 @@ char c = ' ';
 int message = 0;
 char string[awruk_size] = {'\0'};
 int i = 0;
+int symbol = 0;
 List plot_list;
 List ariph;
 List plot;
@@ -51,37 +52,41 @@ int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int 
 {
 	int i = 0;
 	int amount = 0;
-	if (point == NULL)
+	int strl = strlen(str);
+	if (point == NULL)			//check if there is no output now
 	{
-		if (strlen(str) == 0)			//empty string
+		if (strlen == 0)			//empty string
 		{
 			return ERR_EMPTY;
 		}
 		else
 		{
-			while (i <= strlen(str))		//check alphabit
+			while (i < strl)		//check content of the string
 			{
-				if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))	
+				c = str[i];
+				if (c < 0)				//kirillic alphabit
 					return ERR_SPEC;
-				if ((i >= dbase_name_len) && (str[i] == 61))
-					return ERR_EQUAS;
-				if (str[i] == 61)
+				if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))	
+					return ERR_SPEC;		//not allowed symbols filter
+				if ((i > dbase_name_len) && (str[i] == '='))	//"=" in imossibru place
+					return ERR_EQUAS;			
+				if (str[i] == '=')			//muilty "="
 				{
+					amount++;		
 					if (amount > 1)
 						return ERR_EQUAS;
-					amount++;
 				}
-				if ((i == 0) && (str[i] == 'y') && (str[i+1] == '='))
+				if (c == 'x')						//function if content "x"
 					return FUNC;
-				i++;
-				if ((str[i] == '=') && (i != 1))
+				if ((i == strl - 1) && (amount == 1))	//variable if content single "="
 					return VAR;
+				i++;
 			}
-			return ARIPH;
+			return ARIPH;						//else ariphmetical
 		}
 	}
 	else
-	return NULL;
+	return NULL;					//else clean output
 }
 
 //Initialise functions database

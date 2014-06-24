@@ -53,7 +53,7 @@
 #define ERR_SPEC 10
 #define ERR_EQUAS 11
 #define VAR_RE 12
-#define ERR 13
+#define ERR_LEX 13
 #define ERR_FRAC 14
 #define ERR_BR 15
 #define X_VAR 16
@@ -111,6 +111,7 @@ extern char c;
 extern int message;
 extern char string[awruk_size];
 extern int i;
+extern int symbol;
 extern List plot_list;
 extern List ariph;
 extern List plot;

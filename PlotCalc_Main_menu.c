@@ -6,29 +6,30 @@
 
 int main()
 {
-    screen_first_init();
-	database_func = func_init(database_func);
-	database_const = const_init(database_const);
-	vars = vars_init(vars);
+	//&symbol = (int*)malloc(sizeof(int));
+    screen_first_init();					//first screen initialisation
+	database_func = func_init(database_func);		//
+	database_const = const_init(database_const);	//database loading
+	vars = vars_init(vars);							//
 	while (e == 0)
 	{
 ///////////////////////////////////////////////////////////
-		while (i <= awruk_size)     //Input
+		while (i <= awruk_size)     //Input cycle //check if string is short enough
 		{
-			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message);
-			switch(c = getche())
+			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message);	//output all the interface
+			switch(c = getche())		//read key
 			{
-			case 0:
+			case 0:					//system keys:
 			{
 				switch(c = getch())
 				{
-				case F1:
+				case F1:					//help
 					{
 						interface_help_main();
 						string[i - 1] = '\0';
 						continue;
 					}
-				case 60:
+				case 60:					//easter egg
 					{
 						string[0] = 'W';
 						string[1] = 'a';
@@ -44,6 +45,7 @@ int main()
 						string[11] = 'o';
 						string[12] = '.';
 						string[13] = '\0';
+						i = 14;
 					}
 				}
 			}
@@ -88,7 +90,7 @@ int main()
 					}
 					}
 				}
-				case enter:          //Enter
+				case enter:          //if string input finished and confirmed
 				{
 					switch(message = string_analyse(string, Pointer_ariph, database_func, database_const, vars, var_amount))
 					{
@@ -96,7 +98,7 @@ int main()
 					{
 						double ans = 0;
 						message = 0;
-						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH, M);
+						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH, M, &symbol);
 						if (message == 0)
 						{
 							postfix = inf_to_post(&ariph);
@@ -249,9 +251,9 @@ int main()
 							var_amount++;
 						}
 					}
-					case ERR_EMPTY:
+					case ERR_EMPTY:			//empty string
 					{
-						//print, mess = ERR_EMPTY
+						continue;
 					}
 					case ERR_SPEC:
 					{
@@ -261,7 +263,7 @@ int main()
 					{
 						//print, mess = ERR_EQUAS
 					}
-					case 0:
+					case 0:				//if message or answer wasn't empty
 					{
 						string[0] = '\0';
 						Pointer_ariph = NULL;
