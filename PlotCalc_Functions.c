@@ -4,7 +4,7 @@
 /*Main variables defenition*/
 int e = 0;
 double M = 0;
-char c = ' ';
+char c = 0;
 int message = 0;
 char string[awruk_size] = {'\0'};
 int i = 0;
@@ -55,7 +55,7 @@ int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int 
 	int strl = strlen(str);
 	if (point == NULL)			//check if there is no output now
 	{
-		if (strlen == 0)			//empty string
+		if (strl == 0)			//empty string
 		{
 			return ERR_EMPTY;
 		}

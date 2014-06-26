@@ -9,7 +9,7 @@
 #include "Queue_Head.h"
 
 #define awruk_size 86
-#define plot_amount 11
+#define plot_amount 9
 #define var_max_amount 7
 #define const_amount 2
 #define func_amount 14
@@ -18,7 +18,7 @@
 #define screen_width 800
 #define screen_height 600
 #define ariph_height 7
-#define plot_height 11
+#define plot_height 9
 #define cell 50
 
 #define enter 13
@@ -26,13 +26,15 @@
 #define esc 27
 #define space 32
 #define F1 58
+#define F2 -2
+#define F3 -3
 #define alt -30
 #define del 127
 #define tab 9
 #define arr_up 59
 #define arr_down 60
 #define arr_right 62
-#define arr_left 61
+#define arr_left 64
 #define insert 63
 
 #define NUM 1

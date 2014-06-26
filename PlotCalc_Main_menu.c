@@ -17,7 +17,7 @@ int main()
 		while (i <= awruk_size)     //Input cycle //check if string is short enough
 		{
 			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message);	//output all the interface
-			switch(c = SDL_getch)		//read key
+			switch(c = SDL_getch())		//read key
 			{
 				case F1:					//help
 					{
@@ -293,6 +293,15 @@ int main()
 						string[i] = 'M';
 						i++;
 					}
+					continue;
+				}
+				case F2:		  //F2
+				{
+					interface_list_plots(&plot_list);
+					continue;
+				}
+				case 0:		  //Non-allowed symbols
+				{
 					continue;
 				}
 				default:			//input
