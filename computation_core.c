@@ -168,7 +168,7 @@ List* inf_to_post(List* inf)
 }
 
 //Calculate postfix
-double post_calc(List* post, double* ans, int* coord, int* mess, double resz, int up, int right)
+double post_calc(List* post, double* ans, int* coord, int* mess, double resz, int up, int right) //89143682494
 {
 	int i = 0, max = 0;
 	List* post_save = (List*)malloc(sizeof(List));		//
@@ -182,71 +182,97 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 		max = width;
 	if (*mess == ARIPH)		//single computation for ariph
 		max = 1;
-	for (i = 0; i < max; i++)
+	while (i < max)
 	{
 		post = queu_el_copy(post_save);		//refresh postfix
 		point = post->head;					//
+		//while ((post->amount != 1) || (key(post->head) == X_VAR))		//the last element will be the answer !!!!!!!!!!!!
 		while (post->amount != 1)
 		{
-			//if (((Element*)(point->data))->key == NUM)
-			//{
-			//	/*if (point->next != NULL)
-			//		point = point->next;*/
-			//	//continue;
-			//}
-			if (((Element*)(point->data))->key == X_VAR)
+			if (key(point) == X_VAR)			//case "x" variable
 			{
-				((Element*)(point->data))->data = (i - 400 + cell*right)/resz;		//set value for "x"
-				/*if (point->next != NULL)
-					point = point->next;
-				continue;*/
+				ins_data(point, (i - 400 + cell*right)/resz);		//set value for "x"
 			}
-			if (((Element*)(point->data))->key == FUNC)					//for functions (list below)
-			{															//data(point) is an index of function in database
-				if (((Element*)(point->data))->data == 2)		//muiltiply "+"
+			if (key(point) == FUNC)					//for functions (list below)
+			{										//data(point) is an index of function in array database
+				if (data(point) == 2)		//sum - "+"
 				{
-					((Element*)(point->prev->prev->data))->data += ((Element*)(point->prev->data))->data;
+					((Element*)(point->prev->prev->data))->data += data(point->prev);	//sum two previous elements
 					point = point->prev->prev;
-					queue_el_del(post, point->num + 2);
-					queue_el_del(post, point->num + 1);
+					queue_el_del(post, point->num + 2);	//delete used
+					queue_el_del(post, point->num + 1);	//
+					if (point->next != NULL) point = point->next;	//next element
+					continue;
 				}
-				if ((((Element*)(point->data))->data == 3) && (((Element*)(point->data))->key == FUNC))			//-
+				if (data(point) == 3)		//subtraction - "-"
 				{
-					((Element*)(point->prev->prev->data))->data -= ((Element*)(point->prev->data))->data;
+					((Element*)(point->prev->prev->data))->data -= data(point->prev);	//substract two previous elements
 					point = point->prev->prev;
-					queue_el_del(post, point->num + 2);
-					queue_el_del(post, point->num + 1);
+					queue_el_del(post, point->num + 2);	//delete used
+					queue_el_del(post, point->num + 1);	//
+					if (point->next != NULL) point = point->next;
+					continue;
 				}
-				if ((((Element*)(point->data))->data == 4) && (((Element*)(point->data))->key == FUNC))			//*
+				if (data(point) == 4)	//muiltiply - "*"
 				{
-					((Element*)(point->prev->prev->data))->data *= ((Element*)(point->prev->data))->data;
+					((Element*)(point->prev->prev->data))->data *= data(point->prev);	//muiltiply two previous elements
 					point = point->prev->prev;
-					queue_el_del(post, point->num + 2);
-					queue_el_del(post, point->num + 1);
+					queue_el_del(post, point->num + 2);	//delete used
+					queue_el_del(post, point->num + 1);	//
+					if (point->next != NULL) point = point->next;	
+					continue;
 				}
-				if ((((Element*)(point->data))->data == 5) && (((Element*)(point->data))->key == FUNC))			//:
+				if (data(point) == 5)	//division - "/"
 				{
-					if ((((Element*)(point->prev->data))->data > -0.0000001) && (((Element*)(point->prev->data))->data < 0.0000001))
+					if (*mess == ERR) *mess = FUNC;					//restore message
+					if ((data(point->prev) > -0.0000001) && (data(point->prev) < 0.0000001))		//case close to Zero
 					{
-						*mess = ERR_ZERO_DIV;
-						return 0;
+						if (*mess == ARIPH)		//single computation for ariph
+						{
+							*mess = ERR_ZERO_DIV;
+							return;
+						}
+						if (*mess == FUNC)		//function case
+						{
+							*mess = ERR;
+							break;
+						}
 					}
-					((Element*)(point->prev->prev->data))->data /= ((Element*)(point->prev->data))->data;
+					((Element*)(point->prev->prev->data))->data /= data(point->prev);	//divide two previous elements
 					point = point->prev->prev;
-					queue_el_del(post, point->num + 2);
-					queue_el_del(post, point->num + 1);
+					queue_el_del(post, point->num + 2);	//delete used
+					queue_el_del(post, point->num + 1);	//
+					if (point->next != NULL) point = point->next;	
+					continue;
 				}
-				if ((((Element*)(point->data))->data == 6) && (((Element*)(point->data))->key == FUNC))			//^
+				if (data(point) == 6)			//degree - "^"
 				{
-					/*if (((Element*)(point->prev->prev->data))->data < 0)
+					if (*mess == ERR) *mess = FUNC;					//restore message
+					if ((data(point->prev) < 1) && (data(point->prev) > 0))		//case degree is not natural
 					{
-						*mess = ERR_NEG_DEG;
-						return 0;
-					}*/
-					((Element*)(point->prev->prev->data))->data = pow((((Element*)(point->prev->prev->data))->data),(((Element*)(point->prev->data))->data));
+						if (*mess == ARIPH)		//single computation for ariph
+						{
+							if (data(point->prev->prev) < 0)
+							{
+								*mess = ERR_NEG_DEG;
+								return;
+							}
+						}
+						if (*mess == FUNC)		//function case
+						{
+							if (data(point->prev->prev) < 0)
+								{
+									*mess = ERR;
+									break;
+								}
+						}
+					}
+					ins_data(point->prev->prev, pow(data(point->prev->prev), data(point->prev)));
 					point = point->prev->prev;
 					queue_el_del(post, point->num + 2);
 					queue_el_del(post, point->num + 1);
+					if (point->next != NULL) point = point->next;
+					continue;
 				}
 				if ((((Element*)(point->data))->data == 7) && (((Element*)(point->data))->key == FUNC))			//ln
 				{
@@ -258,6 +284,8 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = log(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
+					if (point->next != NULL) point = point->next;	
+					continue;
 				}
 				if ((((Element*)(point->data))->data == 8) && (((Element*)(point->data))->key == FUNC))			//log
 				{
@@ -269,6 +297,8 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = log(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
+					if (point->next != NULL) point = point->next;	
+					continue;
 				}
 				if ((((Element*)(point->data))->data == 9) && (((Element*)(point->data))->key == FUNC))			//sqrt
 				{
@@ -280,18 +310,24 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = sqrt(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
+					if (point->next != NULL) point = point->next;	
+					continue;
 				}
 				if ((((Element*)(point->data))->data == 10) && (((Element*)(point->data))->key == FUNC))			//cos
 				{
 					((Element*)(point->prev->data))->data = cos(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
+					if (point->next != NULL) point = point->next;	
+					continue;
 				}
 				if ((((Element*)(point->data))->data == 11) && (((Element*)(point->data))->key == FUNC))			//sin
 				{
 					((Element*)(point->prev->data))->data = sin(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
+					if (point->next != NULL) point = point->next;	
+					continue;
 				}
 				if ((((Element*)(point->data))->data == 12) && (((Element*)(point->data))->key == FUNC))			//tan
 				{
@@ -303,6 +339,8 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = tan(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
+					if (point->next != NULL) point = point->next;	
+					continue;
 				}
 				if ((((Element*)(point->data))->data == 13) && (((Element*)(point->data))->key == FUNC))			//ctg
 				{
@@ -314,6 +352,8 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = cos(((Element*)(point->prev->data))->data)/sin(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
+					if (point->next != NULL) point = point->next;	
+					continue;
 				}
 				if (point->next != NULL)
 					point = point->next;
@@ -323,10 +363,13 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 				point = point->next;
 			else break;
 		}
+		if (*mess == ERR)		//value doesn't exist in that point
+			coord[i] = -1;
 		if (*mess == FUNC)														//save coordinate
 			coord[i] = cell*up + 300 - (((Element*)(point->data))->data)*resz;
 		if (*mess == ARIPH)														//extract answer
-		*ans = ((Element*)(point->data))->data;
+			*ans = ((Element*)(point->data))->data;
+		i++;
 	}
 	//*mess = 0;
 	post = queu_el_copy(post_save);						//refresh postfix
@@ -463,4 +506,16 @@ char key(Note* el)
 double data(Note* el)
 {
 	return ((Element*)(el->data))->data;
+}
+
+//Rewrite element key
+void ins_key(Note* el, char in)
+{
+	((Element*)(el->data))->key = in;
+}
+
+//Rewrite element data
+void ins_data(Note* el, double in)
+{
+	((Element*)(el->data))->data = in;
 }

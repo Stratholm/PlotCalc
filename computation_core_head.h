@@ -38,3 +38,9 @@ char key(Note* el);
 
 //Extract element data
 double data(Note* el);
+
+//Rewrite element key
+void ins_key(Note** el, char in);
+
+//Rewrite element data
+void ins_data(Note** el, double in);

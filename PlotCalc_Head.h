@@ -64,6 +64,7 @@
 #define ERR_CTG 21
 #define ERR_TAN 22
 #define ERR_LONG_VAR 23
+#define ERR 24
 
 /*Structures*/
 //Universal element
