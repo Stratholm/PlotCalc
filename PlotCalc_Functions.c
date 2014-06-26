@@ -159,7 +159,10 @@ Dbase* const_init(Dbase* ct)
 	ct[0].name[0] = 'p';
 	ct[0].name[1] = 'i';
 	ct[0].name[2] = '\0';
-	ct[0].data = 3.1415926535;
+	ct[1].data = 3.1415926535;
+	ct[1].name[0] = 'e';
+	ct[1].name[1] = '\0';
+	ct[1].data = 2.7182818284;
 }
 
 //Initialise variables

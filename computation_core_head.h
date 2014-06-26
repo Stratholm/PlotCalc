@@ -7,7 +7,7 @@
 
 /* Functions */
 //Input string to infix notation
-int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double resz, double M, int *symbol);
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double M, int* symbol);
 
 //Queue to postfix
 List* inf_to_post(List* inf);
@@ -32,3 +32,9 @@ Plot* plot_create(char* string, List* post, int* coord);
 
 //Copies list of elements
 List* queu_el_copy(List* in);
+
+//Extract element key
+char key(Note* el);
+
+//Extract element data
+double data(Note* el);

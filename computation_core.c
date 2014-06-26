@@ -2,7 +2,7 @@
 
 /* Functions */
 //Input string to infix notation
-int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double resz, double M, int *symbol)
+int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount, int mess, double M, int* symbol)
 {
 	int tmp = 0;
 	unsigned int in_len;
@@ -16,18 +16,18 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 		if (in[*symbol] == 'M')					//insert num from the M memory
 		{
 			queue_add_end(lt, element_create(NUM, M));	
-			*symbol++;
+			(*symbol)++;
 			continue;
 		}
 		if (in[*symbol] == ' ')				//Space
 		{
-			*symbol++;
+			(*symbol)++;
 			continue;
 		}
 		if (in[*symbol] == 'x')
 		{
 			queue_add_end(lt, element_create(X_VAR, 0));
-			*symbol++;
+			(*symbol)++;
 			continue;
 		}
 		if (isdigit(in[*symbol]))			//number
@@ -45,7 +45,7 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 					count++;
 					if (count > 1)
 						return ERR_FRAC;
-					*symbol++;
+					(*symbol)++;
 					if (!isdigit(in[*symbol]))
 						return ERR_FRAC;
 				}
@@ -61,7 +61,7 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 						num_int_len++;
 						num = num * 10 + (in[*symbol]) - '0';
 					}
-					*symbol++;
+					(*symbol)++;
 				}
 			}
 			/* Damn it
@@ -97,67 +97,71 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 //Queue to postfix
 List* inf_to_post(List* inf)
 {
-	List* post = (List*)malloc(sizeof(List));
-	List* stack = (List*)malloc(sizeof(List));
-	Note* point = (Note*)malloc(sizeof(Note));
+	List* post = (List*)malloc(sizeof(List));			//
+	List* stack = (List*)malloc(sizeof(List));			//call memory
+	Note* point = (Note*)malloc(sizeof(Note));			//
 	queue_create(post);
 	queue_create(stack);
 	point = inf->head;
-	while (point != NULL)
+	while (point != NULL)				//till the end of the list
 	{
-		if (((Element*)(point->data))->key == NUM)
+		if (key(point) == NUM)					//add if number
 		{
-			queue_add_end(post, element_create(NUM, ((Element*)(point->data))->data));
+			queue_add_end(post, element_create(NUM, data(point)));
 			point = point->next;
 			continue;
 		}
-		if (((Element*)(point->data))->key == X_VAR)
+		if (key(point) == X_VAR)				//add if "x" variable
 		{
-			queue_add_end(post, element_create(X_VAR, ((Element*)(point->data))->data));
+			queue_add_end(post, element_create(X_VAR, data(point)));
 			point = point->next;
 			continue;
 		}
-		if (((Element*)(point->data))->key == LB)
+		if (key(point) == LB)					//save to stack if "("
 		{
-			queue_add_end(stack, element_create(LB, ((Element*)(point->data))->data));
+			queue_add_end(stack, element_create(LB, data(point)));
 			point = point->next;
 			continue;
 		}
-		if (((Element*)(point->data))->key == RB)
+		if (key(point) == RB)					//")"
 		{
-			while (((Element*)(stack->tail->data))->key != LB)
+			if (stack->amount == 0)
+				return 0;
+			while (key(stack->tail) != LB)				//send stack to out, while not a "("
 			{
-				queue_add_end(post, element_create(((Element*)(stack->tail->data))->key, ((Element*)(stack->tail->data))->data));
+				queue_add_end(post, element_create(key(stack->tail), data(stack->tail)));
 				queue_el_del(stack, stack->tail->num);
 				if (stack->tail->prev == NULL)
 					return NULL;
 			}
-			if (((Element*)(stack->tail->data))->key == LB)
+			if (key(stack->tail) == LB)					//del "("
 				queue_el_del(stack, stack->tail->num);
-			if (((Element*)(stack->tail->data))->key == FUNC)
+			if (key(stack->tail) == FUNC)				//add to out, if function
 			{
-				queue_add_end(post, element_create(((Element*)(stack->tail->data))->key, ((Element*)(stack->tail->data))->data));
+				queue_add_end(post, element_create(key(stack->tail), data(stack->tail)));
 				queue_el_del(stack, stack->tail->num);
 			}
 			point = point->next;
 			continue;
 		}
-		if (((Element*)(point->data))->key == FUNC)
+		if (key(point) == FUNC)					//case function
 		{
-			if (stack->amount != 0)
-			while ((((Element*)(point->data))->data > 0) ? (  abs( ((Element*)(point->data))->data ) <  abs( ((Element*)(stack->tail->data))->data )  ) : (  abs( ((Element*)(point->data))->data ) <= abs( ((Element*)(stack->tail->data))->data )  ))
+			if (stack->amount != 0)		//if data > 0 (while data < stack tail data) else (while data <= stack tail data)
+			while ((data(point) > 0) ? (abs(data(point)) < abs(data(stack->tail))) : (abs(data(point)) <= abs(data(stack->tail))))
 			{
-				queue_add_end(post, element_create(((Element*)(stack->tail->data))->key, ((Element*)(stack->tail->data))->data));
-				queue_el_del(stack, stack->tail->num);
+				queue_add_end(post, element_create(key(stack->tail), data(stack->tail)));	//add to out
+				queue_el_del(stack, stack->tail->num);					//del last in stack
 			}
-			queue_add_end(stack, element_create(FUNC, ((Element*)(point->data))->data));
+			queue_add_end(stack, element_create(FUNC, data(point)));		//add to stack end
 			point = point->next;
 			continue;
 		}
 	}
-	while (stack->tail != NULL)
+	while (stack->tail != NULL)				//push all from stack to out in the end
 	{
-		queue_add_end(post, element_create(((Element*)(stack->tail->data))->key, ((Element*)(stack->tail->data))->data));
+		if (key(stack->tail) != FUNC)		//check if correct bracket balance
+			return 0;
+		queue_add_end(post, element_create(key(stack->tail), data(stack->tail)));
 		queue_el_del(stack, stack->tail->num);
 	}
 	return post;
@@ -167,39 +171,39 @@ List* inf_to_post(List* inf)
 double post_calc(List* post, double* ans, int* coord, int* mess, double resz, int up, int right)
 {
 	int i = 0, max = 0;
-	List* post_save = (List*)malloc(sizeof(List));
-	Note* point = (Note*)malloc(sizeof(Note));
-	Note* point_save = (Note*)malloc(sizeof(Note));
-	post_save = queu_el_copy(post);
-	point_save = post_save->head;
+	List* post_save = (List*)malloc(sizeof(List));		//
+	Note* point = (Note*)malloc(sizeof(Note));			//
+	Note* point_save = (Note*)malloc(sizeof(Note));		//save existing postfix
+	post_save = queu_el_copy(post);						//
+	point_save = post_save->head;						//
 	*ans = 0;
 	//point = post->head;
-	if (*mess == FUNC)
+	if (*mess == FUNC)		//muilty computation for function
 		max = width;
-	if (*mess == ARIPH)
+	if (*mess == ARIPH)		//single computation for ariph
 		max = 1;
 	for (i = 0; i < max; i++)
 	{
-		post = queu_el_copy(post_save);
-		point = post->head;
+		post = queu_el_copy(post_save);		//refresh postfix
+		point = post->head;					//
 		while (post->amount != 1)
 		{
-			if (((Element*)(point->data))->key == NUM)
-			{
-				/*if (point->next != NULL)
-					point = point->next;*/
-				//continue;
-			}
+			//if (((Element*)(point->data))->key == NUM)
+			//{
+			//	/*if (point->next != NULL)
+			//		point = point->next;*/
+			//	//continue;
+			//}
 			if (((Element*)(point->data))->key == X_VAR)
 			{
-				((Element*)(point->data))->data = (i - 400 + cell*right)/resz;
+				((Element*)(point->data))->data = (i - 400 + cell*right)/resz;		//set value for "x"
 				/*if (point->next != NULL)
 					point = point->next;
 				continue;*/
 			}
-			if (((Element*)(point->data))->key == FUNC)
-			{
-				if ((((Element*)(point->data))->data == 2) && (((Element*)(point->data))->key == FUNC))			//+
+			if (((Element*)(point->data))->key == FUNC)					//for functions (list below)
+			{															//data(point) is an index of function in database
+				if (((Element*)(point->data))->data == 2)		//muiltiply "+"
 				{
 					((Element*)(point->prev->prev->data))->data += ((Element*)(point->prev->data))->data;
 					point = point->prev->prev;
@@ -315,17 +319,17 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					point = point->next;
 				continue;
 			}
-			if (point->next != NULL)
+			if (point->next != NULL)		//next element
 				point = point->next;
 			else break;
 		}
-		if (*mess == FUNC)
+		if (*mess == FUNC)														//save coordinate
 			coord[i] = cell*up + 300 - (((Element*)(point->data))->data)*resz;
-		if (*mess == ARIPH)
+		if (*mess == ARIPH)														//extract answer
 		*ans = ((Element*)(point->data))->data;
 	}
 	//*mess = 0;
-	post = queu_el_copy(post_save);
+	post = queu_el_copy(post_save);						//refresh postfix
 }
 
 //Transferes answer to the rational form
@@ -356,25 +360,25 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 					mother_mother++;
 					if (chr == lex_len)		//check if it is a lexem
 					{
-						if (mode == FUNC)
+						if (mode == FUNC)			//case function
 						{
-							if (lex == 0)
+							if (lex == 0)				//for left bracket
 							{
 								*smb = mother_mother;
 								queue_add_end(lt, element_create(LB, lex));
 								return 0;
 							}
-							if (lex == 1)
+							if (lex == 1)				//for right bracket
 							{
 								*smb = mother_mother;
 								queue_add_end(lt, element_create(RB, lex));
 								return 0;
 							}
-							*smb = mother_mother;
+							*smb = mother_mother;			//for default function
 							queue_add_end(lt, element_create(FUNC, lex));
 							return 0;
 						}
-						if ((mode == CONS)||(mode == VAR))
+						if ((mode == CONS)||(mode == VAR))	//for constants or variables
 						{
 							*smb = mother_mother;
 							queue_add_end(lt, element_create(NUM, db[lex].data));
@@ -382,7 +386,7 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 						}
 					}
 				}
-				else
+				else					//case lexems not found
 				{
 					*smb = mother_mother - chr;
 					mother_mother = *smb;
@@ -396,7 +400,7 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 		break;
 	}
 	if (el.key == 0)
-		return -1;
+		return 1;
 }
 
 //Create new Element
@@ -447,4 +451,16 @@ List* queu_el_copy(List* in)
 		point = point->next;
 	}
 	return copy;
+}
+
+//Extract element key
+char key(Note* el)
+{
+	return ((Element*)(el->data))->key;
+}
+
+//Extract element data
+double data(Note* el)
+{
+	return ((Element*)(el->data))->data;
 }

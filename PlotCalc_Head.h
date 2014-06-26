@@ -15,7 +15,7 @@
 #define awruk_size 86
 #define plot_amount 11
 #define var_max_amount 7
-#define const_amount 1
+#define const_amount 2
 #define func_amount 14
 #define sym_allow_quant 72
 #define dbase_name_len 8

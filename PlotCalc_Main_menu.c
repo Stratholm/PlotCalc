@@ -93,19 +93,19 @@ int main()
 				case enter:          //if string input finished and confirmed
 				{
 					switch(message = string_analyse(string, Pointer_ariph, database_func, database_const, vars, var_amount))
-					{
-					case ARIPH:
+					{					//choose working mode
+					case ARIPH:				//ariphmetical expr
 					{
 						double ans = 0;
 						message = 0;
-						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH, M, &symbol);
-						if (message == 0)
+						message = str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH, M, &symbol);		//sting to infix
+						if (message == 0)		//if there are no errors
 						{
-							postfix = inf_to_post(&ariph);
-							if (postfix != NULL)
+							postfix = inf_to_post(&ariph);		//infix to postfix
+							if (postfix != NULL)				//if correct bracket balance
 							{
 								message = ARIPH;
-								post_calc(postfix, &ans, coordinates, &message, resize, push_up, push_right);
+								post_calc(postfix, &ans, coordinates, &message, resize, push_up, push_right);	//calculate!
 								if (message != ARIPH)
 									continue;
 								queue_add_end(&ariph_list, ariph_create(string, ans));
@@ -130,7 +130,7 @@ int main()
 					{
 						double ans = 0;
 						message = 0;
-						message = str_to_inf(&plot, string, database_func, database_const, vars, var_amount, FUNC, M);
+						message = str_to_inf(&plot, string, database_func, database_const, vars, var_amount, FUNC, M, &symbol);
 						if (message == 0)
 						{
 							postfix = (List*)malloc(sizeof(List));
@@ -246,7 +246,7 @@ int main()
 								tmp[k] = string[j]; 
 								k++;
 							}
-							if ((!str_to_inf(&ariph, tmp, database_func, database_const, vars, var_amount, ARIPH, M)) && (ariph.amount == 1))
+							if ((!str_to_inf(&ariph, tmp, database_func, database_const, vars, var_amount, ARIPH, M, &symbol)) && (ariph.amount == 1))
 								vars[var_amount].data = ((Element*)(ariph.head->data))->data;
 							var_amount++;
 						}
