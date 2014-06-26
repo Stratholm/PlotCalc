@@ -78,8 +78,6 @@ int main()
 						//M = 0;
 						continue;
 					}
-					}
-				}
 				case enter:          //if string input finished and confirmed
 				{
 					switch(message = string_analyse(string, Pointer_ariph, database_func, database_const, vars, var_amount))
