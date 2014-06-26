@@ -19,10 +19,6 @@ int main()
 			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message);	//output all the interface
 			switch(c = getche())		//read key
 			{
-			case 0:					//system keys:
-			{
-				switch(c = getch())
-				{
 				case F1:					//help
 					{
 						interface_help_main();
@@ -47,12 +43,6 @@ int main()
 						string[13] = '\0';
 						i = 14;
 					}
-				}
-			}
-			case -32:
-				{
-					switch(c = getch())
-					{
 						case arr_up:            //Arrow up - previous
 					{
 						//Pointer_ariph = Pointer_ariph->prev;
