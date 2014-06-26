@@ -2,18 +2,19 @@
 
 /*Includes*/
 #pragma once
-#include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <SDL2/SDL.h>           //for graphics
+#include <SDL2/SDL_ttf.h>       //for text
 #include "PlotCalc_Head.h"
 
 
 /*Structures*/
-extern const int NotUsed; //default colors
-
-/*External Variables*/
-extern HDC hdc; //console
+extern SDL_Window *win;         //a window
+extern SDL_Renderer *ren;       //drawing in the window
+extern TTF_Font *font;          //fonts
+extern SDL_Color textColor;
 
 /*Functions*/
 //First Buffer Initialize
@@ -25,7 +26,10 @@ void screen_clear();
 //creates frame
 void screen_frame_create();
 
-//Main console initialization
+//print in sdl
+void print_graph(char* Str, int tmX, int tmY);
+
+//Main window initialization
 void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars,int message);
 
 //Drawing asix
@@ -42,6 +46,9 @@ void interface_help_main();
 
 //Plots screen help
 void interface_help_plots();
+
+//SDL turns off
+void graph_exit();
 
 //Variables list
 void interface_list_vars(Dbase* var);
