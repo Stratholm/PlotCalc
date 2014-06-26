@@ -17,31 +17,13 @@ int main()
 		while (i <= awruk_size)     //Input cycle //check if string is short enough
 		{
 			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message);	//output all the interface
-			switch(c = getche())		//read key
+			switch(c = SDL_getch)		//read key
 			{
 				case F1:					//help
 					{
 						interface_help_main();
 						string[i - 1] = '\0';
 						continue;
-					}
-				case 60:					//easter egg
-					{
-						string[0] = 'W';
-						string[1] = 'a';
-						string[2] = 'k';
-						string[3] = 'e';
-						string[4] = ' ';
-						string[5] = 'u';
-						string[6] = 'p';
-						string[7] = ',';
-						string[8] = ' ';
-						string[9] = 'N';
-						string[10] = 'e';
-						string[11] = 'o';
-						string[12] = '.';
-						string[13] = '\0';
-						i = 14;
 					}
 						case arr_up:            //Arrow up - previous
 					{
@@ -139,7 +121,7 @@ int main()
 								Pointer_ariph = ariph_list.tail;
 								graph_draw_asix(push_right, push_up);
 								graph_draw_graps(plot_list);
-								while ((c = getch()) != esc)
+								while ((c = SDL_getch()) != esc)
 								{
 									switch(c)
 									{
@@ -227,11 +209,11 @@ int main()
 							len = strlen(string);
 							tmp = (char*)malloc((len - i - 1)*sizeof(char));
 							for (j = 0; j < i; j++)
-								vars[var_amount].name[j] = string[j]; 
+								vars[var_amount].name[j] = string[j];
 							vars[var_amount].name[j] = '\0';
 							for (j = i + 1; j <= len; j++)
 							{
-								tmp[k] = string[j]; 
+								tmp[k] = string[j];
 								k++;
 							}
 							if ((!str_to_inf(&ariph, tmp, database_func, database_const, vars, var_amount, ARIPH, M, &symbol)) && (ariph.amount == 1))
@@ -294,7 +276,7 @@ int main()
 				case esc:          //Esc
 				{
 					interface_exit();
-					switch(getche())  //Check
+					switch(SDL_getch())  //Check
 					{
 						case enter:
 						{

@@ -20,6 +20,9 @@ extern SDL_Color textColor;
 //First Buffer Initialize
 void screen_first_init();
 
+//Getch alternative for SDL & Linux
+int SDL_getch();
+
 //Clear Screen
 void screen_clear();
 

@@ -22,7 +22,7 @@ Dbase* database_const;
 Dbase* vars;
 int sym_allow[sym_allow_quant];
 int var_amount = 0;
-int coordinates[width];
+int coordinates[screen_width];
 int push_right = 0;
 int push_up = 0;
 double resize = 50;
@@ -66,13 +66,13 @@ int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int 
 				c = str[i];
 				if (c < 0)				//kirillic alphabit
 					return ERR_SPEC;
-				if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))	
+				if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))
 					return ERR_SPEC;		//not allowed symbols filter
 				if ((i > dbase_name_len) && (str[i] == '='))	//"=" in imossibru place
-					return ERR_EQUAS;			
+					return ERR_EQUAS;
 				if (str[i] == '=')			//muilty "="
 				{
-					amount++;		
+					amount++;
 					if (amount > 1)
 						return ERR_EQUAS;
 				}

@@ -1,7 +1,6 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <math.h>
 #include "PlotCalc_Head.h"
 
@@ -40,7 +39,7 @@ char key(Note* el);
 double data(Note* el);
 
 //Rewrite element key
-void ins_key(Note** el, char in);
+void ins_key(Note* el, char in);
 
 //Rewrite element data
-void ins_data(Note** el, double in);
+void ins_data(Note* el, double in);

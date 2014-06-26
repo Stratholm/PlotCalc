@@ -8,14 +8,14 @@ int str_to_inf(List* lt, char* in, Dbase* fc, Dbase* ct, Dbase* vr, int var_amou
 	unsigned int in_len;
 	Element el;
 	queue_create(lt);		//create list for infix
-	in_len = strlen(in); 
+	in_len = strlen(in);
 	*symbol = 0;
     while (*symbol < in_len)
 	{
 //////////////////////////////////////////////////////////////////
 		if (in[*symbol] == 'M')					//insert num from the M memory
 		{
-			queue_add_end(lt, element_create(NUM, M));	
+			queue_add_end(lt, element_create(NUM, M));
 			(*symbol)++;
 			continue;
 		}
@@ -179,7 +179,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 	*ans = 0;
 	//point = post->head;
 	if (*mess == FUNC)		//muilty computation for function
-		max = width;
+		max = screen_width;
 	if (*mess == ARIPH)		//single computation for ariph
 		max = 1;
 	while (i < max)
@@ -219,7 +219,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					point = point->prev->prev;
 					queue_el_del(post, point->num + 2);	//delete used
 					queue_el_del(post, point->num + 1);	//
-					if (point->next != NULL) point = point->next;	
+					if (point->next != NULL) point = point->next;
 					continue;
 				}
 				if (data(point) == 5)	//division - "/"
@@ -242,7 +242,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					point = point->prev->prev;
 					queue_el_del(post, point->num + 2);	//delete used
 					queue_el_del(post, point->num + 1);	//
-					if (point->next != NULL) point = point->next;	
+					if (point->next != NULL) point = point->next;
 					continue;
 				}
 				if (data(point) == 6)			//degree - "^"
@@ -284,7 +284,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = log(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
-					if (point->next != NULL) point = point->next;	
+					if (point->next != NULL) point = point->next;
 					continue;
 				}
 				if ((((Element*)(point->data))->data == 8) && (((Element*)(point->data))->key == FUNC))			//log
@@ -297,7 +297,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = log(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
-					if (point->next != NULL) point = point->next;	
+					if (point->next != NULL) point = point->next;
 					continue;
 				}
 				if ((((Element*)(point->data))->data == 9) && (((Element*)(point->data))->key == FUNC))			//sqrt
@@ -310,7 +310,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = sqrt(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
-					if (point->next != NULL) point = point->next;	
+					if (point->next != NULL) point = point->next;
 					continue;
 				}
 				if ((((Element*)(point->data))->data == 10) && (((Element*)(point->data))->key == FUNC))			//cos
@@ -318,7 +318,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = cos(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
-					if (point->next != NULL) point = point->next;	
+					if (point->next != NULL) point = point->next;
 					continue;
 				}
 				if ((((Element*)(point->data))->data == 11) && (((Element*)(point->data))->key == FUNC))			//sin
@@ -326,7 +326,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = sin(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
-					if (point->next != NULL) point = point->next;	
+					if (point->next != NULL) point = point->next;
 					continue;
 				}
 				if ((((Element*)(point->data))->data == 12) && (((Element*)(point->data))->key == FUNC))			//tan
@@ -339,7 +339,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = tan(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
-					if (point->next != NULL) point = point->next;	
+					if (point->next != NULL) point = point->next;
 					continue;
 				}
 				if ((((Element*)(point->data))->data == 13) && (((Element*)(point->data))->key == FUNC))			//ctg
@@ -352,7 +352,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					((Element*)(point->prev->data))->data = cos(((Element*)(point->prev->data))->data)/sin(((Element*)(point->prev->data))->data);
 					point = point->prev;
 					queue_el_del(post, point->num + 1);
-					if (point->next != NULL) point = point->next;	
+					if (point->next != NULL) point = point->next;
 					continue;
 				}
 				if (point->next != NULL)
@@ -476,7 +476,7 @@ Plot* plot_create(char* string, List* post, int* coord)
 		pt->string[i] = string[i];
 	pt->string[i] = '\0';
 	pt->postfix = *post;
-	for (i = 0; i < width; i++)
+	for (i = 0; i < screen_width; i++)
 		pt->coord[i] = coord[i];
 	return pt;
 }

@@ -3,14 +3,10 @@
 /*Includes*/
 #include <stdlib.h>
 #include <stdio.h>
-#include <conio.h>
 #include <math.h>
 #include <ctype.h>
 #include <assert.h>
-#include <Windows.h>
 #include "Queue_Head.h"
-//#include "Graph_Head.h"
-//#include "computation_core_head.h"
 
 #define awruk_size 86
 #define plot_amount 11
@@ -19,8 +15,8 @@
 #define func_amount 14
 #define sym_allow_quant 72
 #define dbase_name_len 8
-#define width 800
-#define height 600
+#define screen_width 800
+#define screen_height 600
 #define ariph_height 7
 #define plot_height 11
 #define cell 50
@@ -29,17 +25,15 @@
 #define backspace 8
 #define esc 27
 #define space 32
-#define F1 59	//double with first 0
-#define alt 18	//OOO
-#define del 83	//double with first -32
+#define F1 58
+#define alt -30
+#define del 127
 #define tab 9
-#define arr_up 72	//double with first -32
-#define arr_down 80	//double with first -32
-#define arr_right 77	//double with first -32
-#define arr_left 75	//double with first -32
-#define shift 16	//OOO
-#define insert 82	//double with first -32
-#define switch_key 224
+#define arr_up 59
+#define arr_down 60
+#define arr_right 62
+#define arr_left 61
+#define insert 63
 
 #define NUM 1
 #define FUNC 2
@@ -79,7 +73,7 @@ typedef struct Plot
 {
 	char string[awruk_size];
 	List postfix;
-	int coord[width];
+	int coord[screen_width];
 } Plot;
 
 //Rational form
@@ -126,7 +120,7 @@ extern Dbase* database_const;
 extern Dbase* vars;
 extern int sym_allow[sym_allow_quant];
 extern int var_amount;
-extern int coordinates[width];
+extern int coordinates[screen_width];
 extern int push_right;
 extern int push_up;
 extern double resize;
@@ -155,7 +149,7 @@ Dbase* const_init(Dbase* ct);
 Dbase* vars_init(Dbase* vr);
 
 //Recalculate plots
-plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right);
+ plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right);
 
 //Delete all history
 int recent_del(List* ariph, List* plot, Dbase* var, Note* point, int* var_amount);
