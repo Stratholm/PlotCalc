@@ -35,7 +35,15 @@ int SDL_getch()
     {
     code=event.key.keysym.sym;
     while (event.type==SDL_KEYDOWN) SDL_PollEvent(&event);          //to prevent  crazy stuff with backspases and others
-    return code;
+    switch (code)
+    {
+        case SDLK_UP: return 59;
+        case SDLK_DOWN: return 60;
+        case SDLK_LEFT: return 61;
+        case SDLK_RIGHT: return 62;
+        case SDLK_INSERT: return 63;
+        default: return code;
+    }
     }
     if ((event.type==SDL_KEYDOWN)&&((event.key.keysym.sym==SDLK_LSHIFT)||(event.key.keysym.sym==SDLK_LSHIFT))) //if it were shifts
     while(1)                                                                                        //then do shift
