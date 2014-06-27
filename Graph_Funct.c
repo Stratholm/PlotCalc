@@ -145,7 +145,7 @@ void print_graph(char* Str, int tmX, int tmY)
 }
 
 //Main console initialization
-void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars, int message)   //Str - text, after ">"
+void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars, int message, int symbol)   //Str - text, after ">"
 {
 	char *_strtmp = (char*)malloc(100*sizeof(char));
 	int _tmp_i = 0;
@@ -191,7 +191,8 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
             }
         case 13:
             {
-            print_graph("Error!", 50, 86);
+			sprintf(_strtmp, "Error in lexem in %d letter", symbol + 1);         //print number, name and value
+			print_graph(_strtmp, 50, 86);
             break;
             }
         case 14:
@@ -201,7 +202,7 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
             }
         case 15:
             {
-            print_graph("Wrong bracket balance", 50, 86);
+            print_graph("Wrong bracket balance!", 50, 86);
             break;
             }
         case 17:
@@ -216,17 +217,32 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
             }
         case 20:
             {
-            print_graph("Negative Square root!", 50, 86);
+            print_graph("Negative square root!", 50, 86);
             break;
             }
         case 21:
             {
-            print_graph("Ctg Error!", 50, 86);
+            print_graph("Ctg error!", 50, 86);
             break;
             }
         case 22:
             {
             print_graph("Tan error!", 50, 86);
+            break;
+            }
+		case 23:
+            {
+            print_graph("Too long variable name!", 50, 86);
+            break;
+            }
+		case 25:
+            {
+            print_graph("Variable has been deleted!", 50, 86);
+            break;
+            }
+		case 26:
+            {
+            print_graph("Plot has been deleted!", 50, 86);
             break;
             }
         }
@@ -243,8 +259,8 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
     print_graph("Functions", 403, 127);
     print_graph("Variables", 623, 127);
     print_graph("Del - to clear", 53, 505);
-    print_graph("to edit", 403, 505);
-    print_graph("to edit", 623, 505);
+    print_graph("F2 to edit", 403, 505);
+    print_graph("F3 to edit", 623, 505);
     print_graph("Tab - switch to plots", 53, 530);
     print_graph("F1 - Help", 690, 530);
     if (tmp_ariph != NULL)                        //then printing previous calculations
@@ -441,43 +457,47 @@ void graph_exit()
 }
 
 //Variables list
-void interface_list_vars(Dbase* var)
+int interface_list_vars(Dbase* var)
 {
-	int _tmp_n;
-	char _tmp_c;
-	int _tmp_i=0;
-	char* _strtmp=(char*)calloc(100*sizeof(char),100*sizeof(char));
+	int _tmp_n = 0;
+	char _tmp_c = 0;
+	int _tmp_i = 0;
+	char* _strtmp = (char*)calloc(100*sizeof(char), 100*sizeof(char));
 	screen_clear();
     screen_frame_create();
-    print_graph("List of variables:",250,100);
-    if (var==NULL)                                      //then no variables
+    print_graph("List of variables:", 250, 100);
+    if (var_amount == 0)                                      //then no variables
     {
-        print_graph("There are no vars!",250,116);
+        print_graph("There are no variables!", 250, 116);
+		SDL_RenderPresent(ren);
         SDL_getch();
         return;
     }
-    while (_tmp_i<var_amount)
+    while (_tmp_i < var_amount)
     {
-        sprintf(_strtmp,"%d %s %f",_tmp_i+1,var[_tmp_i].name,var[_tmp_i].data);         //print number, name and value
-        print_graph(_strtmp,250,116+_tmp_i*16);
-        i++;
+        sprintf(_strtmp, "%d. %s = %.2f", _tmp_i + 1, var[_tmp_i].name, var[_tmp_i].data);         //print number, name and value
+        print_graph(_strtmp, 250, 116 + _tmp_i * 16);
+        _tmp_i++;
     }
-			
-            _tmp_c=SDL_getch();
-            if (_tmp_c==83)         //if del was pressed
-            {
-            print_graph("Please, enter the number of variable, that you want to delete:",250,116+_tmp_i*16);
-            _tmp_n=SDL_getch()-48;                //get the number of variable
-            if((_tmp_n>0)&&(_tmp_n<10))             //if it is actually a number
-            for (_tmp_i=_tmp_n;_tmp_i<var_amount;_tmp_i++)
-                var[_tmp_i-1]=var[_tmp_i];
-                var_amount++;
-            }
-        return;
+	SDL_RenderPresent(ren);
+    _tmp_c = SDL_getch();
+    if (_tmp_c == del)         //if del was pressed
+    {
+		print_graph("Please, enter the number of variable, that you want to delete:", 250, 132 + _tmp_i * 16);
+		SDL_RenderPresent(ren);
+		_tmp_n = SDL_getch() - 48;                //get the number of variable
+		if ((_tmp_n > 0) && (_tmp_n < var_max_amount))             //if it is actually a number
+			for (_tmp_i = _tmp_n; _tmp_i < var_amount; _tmp_i++)
+				var[_tmp_i - 1] = var[_tmp_i];
+		var_amount--;
+		return VAR_DEL;
+    }
+	SDL_getch();
+    return;
 }
 
 //Plots list
-void interface_list_plots(List* plot)
+int interface_list_plots(List* plot)
 {
 	int _tmp_n;
 	char _tmp_c;
@@ -513,10 +533,7 @@ void interface_list_plots(List* plot)
 			if ((_tmp_n > 0) && (_tmp_n < plot->amount + 1))                 //if it is actually a number
 			{
 				queue_el_del(plot, _tmp_n);
-				sprintf(_strtmp, "Function #%d was deleted!", _tmp_n); 
-				print_graph(_strtmp, 250, 164 + (provd->num) * 16);
-				SDL_RenderPresent(ren);
-				SDL_getch();
+				return PLOT_DEL;
 			}
         }
 		SDL_RenderPresent(ren);

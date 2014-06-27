@@ -61,6 +61,8 @@
 #define ERR_TAN 22
 #define ERR_LONG_VAR 23
 #define ERR 24
+#define VAR_DEL 25
+#define PLOT_DEL 26
 
 /*Structures*/
 //Universal element

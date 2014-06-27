@@ -16,23 +16,13 @@ int main()
 ///////////////////////////////////////////////////////////
 		while (i <= awruk_size)     //Input cycle //check if string is short enough
 		{
-			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message);	//output all the interface
+			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message, symbol);	//output all the interface
 			switch(c = SDL_getch())		//read key
 			{
 				case F1:					//help
 					{
 						interface_help_main();
 						string[i - 1] = '\0';
-						continue;
-					}
-						case arr_up:            //Arrow up - previous
-					{
-						//Pointer_ariph = Pointer_ariph->prev;
-						continue;
-					}
-					case arr_down:           //Arrow down - next
-					{
-						//Pointer_ariph = Pointer_ariph->next;
 						continue;
 					}
 					case insert:          //insert
@@ -62,6 +52,14 @@ int main()
 					}
 				case enter:          //if string input finished and confirmed
 				{
+					if (message != 0)
+					{
+						for (i = 0; i < awruk_size; i++)
+							string[i] = '\0';
+						i = 0;
+						message = 0;
+						continue;
+					}
 					switch(message = string_analyse(string, Pointer_ariph, database_func, database_const, vars, var_amount))
 					{					//choose working mode
 					case ARIPH:				//ariphmetical expr
@@ -227,11 +225,11 @@ int main()
 					}
 					case ERR_SPEC:
 					{
-						//print, mess = ERR_SPEC
+						continue;
 					}
 					case ERR_EQUAS:
 					{
-						//print, mess = ERR_EQUAS
+						continue;
 					}
 					case 0:				//if message or answer wasn't empty
 					{
@@ -269,6 +267,7 @@ int main()
 						Pointer_ariph = NULL;
 						for (j = 0; j <= awruk_size; j++)
 							string[j] = '\0';
+						message = 0;
 					}
 					//lol = 0
 					continue;
@@ -297,7 +296,12 @@ int main()
 				}
 				case F2:		  //F2
 				{
-					interface_list_plots(&plot_list);
+					message = interface_list_plots(&plot_list);
+					continue;
+				}
+				case F3:		  //F3
+				{
+					message = interface_list_vars(vars);
 					continue;
 				}
 				case 0:		  //Non-allowed symbols

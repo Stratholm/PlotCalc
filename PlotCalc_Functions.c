@@ -172,7 +172,7 @@ Dbase* vars_init(Dbase* vr)
 }
 
 //Recalculate plots
-plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right)
+int plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right)
 {
 	Note* Pointer_plots = (Note*)malloc(sizeof(Note));
 	Pointer_plots = plot_list->head;

@@ -33,7 +33,7 @@ void screen_frame_create();
 void print_graph(char* Str, int tmX, int tmY);
 
 //Main window initialization
-void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars,int message);
+void interface_main(Note* point, char *str, double M, List* ariph, List* plots, Dbase* vars, int message, int symbol);
 
 //Drawing asix
 void graph_draw_asix(int right, int up);
@@ -54,8 +54,8 @@ void interface_help_plots();
 void graph_exit();
 
 //Variables list
-void interface_list_vars(Dbase* var);
+int interface_list_vars(Dbase* var);
 
 //Plots list
-void interface_list_plots(List* plot);
+int interface_list_plots(List* plot);
 
