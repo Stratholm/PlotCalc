@@ -65,11 +65,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="computation_core.c" />
-    <ClCompile Include="Graph_Funct.c" />
-    <ClCompile Include="PlotCalc_Functions.c" />
-    <ClCompile Include="PlotCalc_Main_menu.c" />
-    <ClCompile Include="Queue_Func.c" />
+    <ClCompile Include="computation_core.cpp" />
+    <ClCompile Include="Graph_Funct.cpp" />
+    <ClCompile Include="PlotCalc_Functions.cpp" />
+    <ClCompile Include="PlotCalc_Main_menu.cpp" />
+    <ClCompile Include="Queue_Func.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="computation_core_head.h" />

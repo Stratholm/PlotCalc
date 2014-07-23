@@ -2,15 +2,17 @@
 /*Programm calculates arithmetical equasions, bulds plots*/
 
 #include "PlotCalc_Head.h"
+#include "computation_core_head.h"
 #include "Graph_Head.h"
 
-int main()
+
+int main(int argc, char *argv[])
 {
 	//&symbol = (int*)malloc(sizeof(int));
     screen_first_init();					//first screen initialisation
 	database_func = func_init(database_func);		//
 	database_const = const_init(database_const);	//database loading
-	vars = vars_init(vars);							//
+	vars_init(vars);							//
 	while (e == 0)
 	{
 ///////////////////////////////////////////////////////////
@@ -33,7 +35,7 @@ int main()
 						int tmp_i = 0;
 						Note* tmp_R = plot.head;
 						if (Pointer_ariph == NULL)
-							if ((!str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH, M)) && (ariph.amount == 1))
+							if ((!str_to_inf(&ariph, string, database_func, database_const, vars, var_amount, ARIPH, M, &symbol)) && (ariph.amount == 1))
 								M = ((Element*)(ariph.head->data))->data;
 							else
 								M = ((Element*)(ariph_list.tail->data))->data;

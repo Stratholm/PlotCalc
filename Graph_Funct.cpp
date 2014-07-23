@@ -3,6 +3,7 @@
 /*Includes*/
 #include "Graph_Head.h"
 
+
 SDL_Window *win;
 SDL_Renderer *ren;
 TTF_Font *font;
@@ -486,7 +487,7 @@ int interface_list_vars(Dbase* var)
         print_graph("There are no variables!", 250, 116);
 		SDL_RenderPresent(ren);
         SDL_getch();
-        return;
+        return 0;
     }
     while (_tmp_i < var_amount)
     {
@@ -508,7 +509,7 @@ int interface_list_vars(Dbase* var)
 		return VAR_DEL;
     }
 	SDL_getch();
-    return;
+    return 0;
 }
 
 //Plots list
@@ -528,7 +529,7 @@ int interface_list_plots(List* plot)
             print_graph("There are no plots!", 250, 132);
 			SDL_RenderPresent(ren);
             SDL_getch();
-            return;
+            return 0;
     }
     while (provd != plot->tail)
     {
@@ -552,5 +553,5 @@ int interface_list_plots(List* plot)
 			}
         }
 		SDL_RenderPresent(ren);
-        return;
+        return 0;
 }

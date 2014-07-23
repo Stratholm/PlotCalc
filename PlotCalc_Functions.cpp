@@ -1,5 +1,6 @@
 /*Includes*/
 #include "PlotCalc_Head.h"
+#include "computation_core_head.h"
 
 /*Main variables defenition*/
 int e = 0;
@@ -34,18 +35,20 @@ double resize = cell;
 int session_open()
 {
 	/*opens files*/
+	return 1;
 }
 
 //Save plot
 int plot_save(Note* point)
 {
-
+	return 1;
 }
 
 //Close session of storage
 int session_close(List* ariph, List* var)
 {
 	/*saves the rest*/
+	return 1;
 }
 
 //Analyse string and calculate/save/build
@@ -164,10 +167,11 @@ Dbase* const_init(Dbase* ct)
 	ct[1].name[0] = 'e';
 	ct[1].name[1] = '\0';
 	ct[1].data = 2.7182818284;
+	return 0;
 }
 
 //Initialise variables
-Dbase* vars_init(Dbase* vr)
+void vars_init(Dbase* vr)
 {
 	vr = (Dbase*)malloc(var_max_amount * sizeof(Dbase));
 }
@@ -179,9 +183,10 @@ int plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double res
 	Pointer_plots = plot_list->head;
 	while (Pointer_plots != NULL)
 	{
-		post_calc(&(((Plot*)(Pointer_plots->data))->postfix), &ans, ((Plot*)(Pointer_plots->data))->coord, &message, resize, push_up, push_right);
+		post_calc(&(((Plot*)(Pointer_plots->data))->postfix), ans, ((Plot*)(Pointer_plots->data))->coord, &message, resize, push_up, push_right);
 		Pointer_plots = Pointer_plots->next;
 	}
+	return 1;
 }
 
 //Delete all history
@@ -192,6 +197,7 @@ int recent_del(List* ariph, List* plot, Dbase* var, Note* point, int* var_amount
 	free(var);
 	*var_amount = 0;
 	point = NULL;
+	return 1;
 }
 
 //

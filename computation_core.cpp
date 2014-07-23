@@ -224,7 +224,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 						if (*mess == ARIPH)		//single computation for ariph
 						{
 							*mess = ERR_ZERO_DIV;
-							return;
+							return 0;
 						}
 						if (*mess == FUNC)		//function case
 						{
@@ -249,7 +249,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 							if (data(point->prev->prev) < 0)
 							{
 								*mess = ERR_NEG_DEG;
-								return;
+								return 0;
 							}
 						}
 						if (*mess == FUNC)		//function case
@@ -276,7 +276,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 						if (*mess == ARIPH)		//single computation for ariph
 						{
 							*mess = ERR_NEG_LN;
-							return;
+							return 0;
 						}
 						if (*mess == FUNC)		//function case
 						{
@@ -298,7 +298,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 						if (*mess == ARIPH)		//single computation for ariph
 						{
 							*mess = ERR_NEG_LN;
-							return;
+							return 0;
 						}
 						if (*mess == FUNC)		//function case
 						{
@@ -320,7 +320,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 						if (*mess == ARIPH)		//single computation for ariph
 						{
 							*mess = ERR_NEG_ROOT;
-							return;
+							return 0;
 						}
 						if (*mess == FUNC)		//function case
 						{
@@ -362,7 +362,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 						if (*mess == ARIPH)		//single computation for ariph
 						{
 							*mess = ERR_TAN;
-							return;
+							return 0;
 						}
 						if (*mess == FUNC)		//function case
 						{
@@ -386,7 +386,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 						if (*mess == ARIPH)		//single computation for ariph
 						{
 							*mess = ERR_CTG;
-							return;
+							return 0;
 						}
 						if (*mess == FUNC)		//function case
 						{
@@ -424,6 +424,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 Rat_num* ans_to_rat(double ans)
 {
 	/*Used inside string_analyse by ariph*/
+	return 0;
 }
 
 //Finds closest lexems

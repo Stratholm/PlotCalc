@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "SDL.h"           //for graphics
+#include <SDL.h>           //for graphics
 #include "SDL_ttf.h"       //for text
 #include "PlotCalc_Head.h"
 

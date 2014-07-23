@@ -7,6 +7,8 @@
 #include <ctype.h>
 #include <assert.h>
 #include "Queue_Head.h"
+#include <string.h>
+
 
 #define awruk_size 86
 #define plot_amount 9
@@ -154,10 +156,10 @@ Dbase* func_init(Dbase* fc);
 Dbase* const_init(Dbase* ct);
 
 //Initialise variables
-Dbase* vars_init(Dbase* vr);
+void vars_init(Dbase* vr);
 
 //Recalculate plots
- plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right);
+int plots_recalc(List* plot_list, double* ans, int* coord, int* mess, double resz, int up, int right);
 
 //Delete all history
 int recent_del(List* ariph, List* plot, Dbase* var, Note* point, int* var_amount);
