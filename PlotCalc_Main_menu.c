@@ -16,6 +16,9 @@ int main()
 ///////////////////////////////////////////////////////////
 		while (i <= awruk_size)     //Input cycle //check if string is short enough
 		{
+			int p = 0, j = 0, k = 0;
+			char* tmp;
+			int len = 0;
 			interface_main(Pointer_ariph, string, M, &ariph_list, &plot_list, vars, message, symbol);	//output all the interface
 			switch(c = SDL_getch())		//read key
 			{
@@ -96,7 +99,11 @@ int main()
 					}
 					case FUNC:
 					{
-						double ans = 0;
+						double ans = 0;						//restore defaults
+						push_right = 0;
+						push_up = 0;
+						resize = cell;
+						plots_recalc(&plot_list, &ans, coordinates, &message, resize, push_up, push_right);
 						message = 0;
 						message = str_to_inf(&plot, string, database_func, database_const, vars, var_amount, FUNC, M, &symbol);
 						if (message == 0)
@@ -192,12 +199,11 @@ int main()
 					}
 					case VAR:
 					{
-						int i = 0, j = 0, k = 0;
-						char* tmp;
-						int len = 0;
-						while (string[i] != '=')
-							i++;
-						if (i > dbase_name_len)
+						//int p = 0, j = 0, k = 0;
+						
+						while (string[p] != '=')
+							p++;
+						if (p > dbase_name_len)
 						{
 							message = ERR_LONG_VAR;
 							continue;
@@ -205,18 +211,77 @@ int main()
 						else
 						{
 							len = strlen(string);
-							tmp = (char*)malloc((len - i - 1)*sizeof(char));
-							for (j = 0; j < i; j++)
-								vars[var_amount].name[j] = string[j];
-							vars[var_amount].name[j] = '\0';
-							for (j = i + 1; j <= len; j++)
+							message = 0;
+							tmp = (char*)malloc((len)*sizeof(char));
+							for (j = 0; j < p; j++)
 							{
-								tmp[k] = string[j];
-								k++;
+								tmp[j] = string[j];
+								if (isdigit(tmp[j]))
+								{
+									message = DIGIT_VAR;
+									break;;
+								}
 							}
+							tmp[j] = '\0';
+								//vars[var_amount].name[j] = string[j];
+							for (j = 0; j < p; j++)
+							{
+								if ((message = lexem_find(&j, tmp, &empty, vars, var_amount, VAR_SEARCH)) < 10)
+										continue;
+								else
+								{
+									if (message >= 10)
+									{
+
+										i = 0;
+										for (k = p + 1; k < len; k++)
+										{
+											if (!isdigit(string[k]))
+											{
+												message = CHAR_VAR;
+												break;
+											}
+											tmp[i] = string[k];
+											i++;
+										}
+										if ((!str_to_inf(&ariph, tmp, database_func, database_const, vars, var_amount, ARIPH, M, &symbol)) && (ariph.amount == 1))
+										{
+											vars[message - 10].data = ((Element*)(ariph.head->data))->data;
+											var_amount--;
+										}
+									}
+								}
+							}
+							if (message != DIGIT_VAR)
+							{
+								p = strlen(tmp);
+								for (j = 0; j < p; j++)
+								{
+									vars[var_amount].name[j] = tmp[j];
+
+								}
+								vars[var_amount].name[j] = '\0';
+								for (j = p + 1; j < len; j++)
+								{
+									if (!isdigit(string[j]))
+									{
+										message = CHAR_VAR;
+										break;
+									}
+									tmp[k] = string[j];
+									k++;
+								}
+								tmp[k] = '\0';
+							}
+							if ((message == CHAR_VAR) || (message == DIGIT_VAR))
+								continue;
 							if ((!str_to_inf(&ariph, tmp, database_func, database_const, vars, var_amount, ARIPH, M, &symbol)) && (ariph.amount == 1))
+							{
 								vars[var_amount].data = ((Element*)(ariph.head->data))->data;
+							}
 							var_amount++;
+							message = X_VAR;
+							continue;
 						}
 					}
 					case ERR_EMPTY:			//empty string
@@ -228,6 +293,10 @@ int main()
 						continue;
 					}
 					case ERR_EQUAS:
+					{
+						continue;
+					}
+					case ERR_LONG_VAR:
 					{
 						continue;
 					}

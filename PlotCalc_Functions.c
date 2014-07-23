@@ -14,6 +14,7 @@ List ariph;
 List plot;
 List* postfix;
 List ariph_list;
+List empty;
 Note* Pointer_plots;
 Note* Pointer_ariph = NULL;
 Note* Pointer_vars;
@@ -25,7 +26,7 @@ int var_amount = 0;
 int coordinates[screen_width];
 int push_right = 0;
 int push_up = 0;
-double resize = 50;
+double resize = cell;
 
 
 /*Functions*/
@@ -69,7 +70,7 @@ int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int 
 				if ((((c >= 34) && (c <= 39)) || (c == 44)) || (((c >= 58) && (c <= 64)) && (c != 61)) || (((c >= 91) && (c <= 96)) && (c != 94)))
 					return ERR_SPEC;		//not allowed symbols filter
 				if ((i > dbase_name_len) && (str[i] == '='))	//"=" in imossibru place
-					return ERR_EQUAS;
+					return ERR_LONG_VAR;
 				if (str[i] == '=')			//muilty "="
 				{
 					amount++;
@@ -159,7 +160,7 @@ Dbase* const_init(Dbase* ct)
 	ct[0].name[0] = 'p';
 	ct[0].name[1] = 'i';
 	ct[0].name[2] = '\0';
-	ct[1].data = 3.1415926535;
+	ct[0].data = 3.1415926535;
 	ct[1].name[0] = 'e';
 	ct[1].name[1] = '\0';
 	ct[1].data = 2.7182818284;
@@ -188,8 +189,8 @@ int recent_del(List* ariph, List* plot, Dbase* var, Note* point, int* var_amount
 {
 	queue_create(ariph);
 	queue_create(plot);
-	//free(var);
-	//var_amount = 0;
+	free(var);
+	*var_amount = 0;
 	point = NULL;
 }
 

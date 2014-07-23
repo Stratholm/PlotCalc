@@ -205,6 +205,11 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
             print_graph("Wrong bracket balance!", 50, 86);
             break;
             }
+		case 16:
+            {
+            print_graph("Variable has been added!", 50, 86);
+            break;
+            }
         case 17:
             {
             print_graph("Division by Zero!", 50, 86);
@@ -245,6 +250,16 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
             print_graph("Plot has been deleted!", 50, 86);
             break;
             }
+		case 27:
+            {
+            print_graph("There should be no digits in var's name!", 50, 86);
+            break;
+            }
+		case 28:
+            {
+            print_graph("There should be no chars in var's value!", 50, 86);
+            break;
+            }
         }
 
     }
@@ -258,7 +273,7 @@ void interface_main(Note* point, char *str, double M, List* ariph, List* plots, 
     print_graph("Previous calculations:", 53, 127);
     print_graph("Functions", 403, 127);
     print_graph("Variables", 623, 127);
-    print_graph("Del - to clear", 53, 505);
+    print_graph("Del - to clear all", 53, 505);
     print_graph("F2 to edit", 403, 505);
     print_graph("F3 to edit", 623, 505);
     print_graph("Tab - switch to plots", 53, 530);

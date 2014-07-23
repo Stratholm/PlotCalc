@@ -63,6 +63,9 @@
 #define ERR 24
 #define VAR_DEL 25
 #define PLOT_DEL 26
+#define DIGIT_VAR 27
+#define CHAR_VAR 28
+#define VAR_SEARCH 29
 
 /*Structures*/
 //Universal element
@@ -116,6 +119,7 @@ extern List ariph;
 extern List plot;
 extern List* postfix;
 extern List ariph_list;
+extern List empty;
 extern Note* Pointer_plots;
 extern Note* Pointer_ariph;
 extern Note* Pointer_vars;

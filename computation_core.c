@@ -290,7 +290,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					if (point->next != NULL) point = point->next;
 					continue;
 				}
-				if ((((Element*)(point->data))->data == 8) && (((Element*)(point->data))->key == FUNC))		//natural logariphm - "log"
+				if (data(point) == 8)	//natural logariphm - "log"
 				{
 					if (*mess == ERR) *mess = FUNC;					//restore message
 					if (data(point->prev) < 0)		//case less than Zero
@@ -312,7 +312,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					if (point->next != NULL) point = point->next;
 					continue;
 				}
-				if ((((Element*)(point->data))->data == 9) && (((Element*)(point->data))->key == FUNC))			//square root - "sqrt"
+				if (data(point) == 9)		//square root - "sqrt"
 				{
 					if (*mess == ERR) *mess = FUNC;					//restore message
 					if (data(point->prev) < 0)		//case less than Zero
@@ -334,7 +334,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					if (point->next != NULL) point = point->next;
 					continue;
 				}
-				if ((((Element*)(point->data))->data == 10) && (((Element*)(point->data))->key == FUNC))			//cosinus - "cos"
+				if (data(point) == 10)			//cosinus - "cos"
 				{
 					if (*mess == ERR) *mess = FUNC;					//restore message
 					ins_data(point->prev, cos(data(point->prev)));		//cosinus of previous element
@@ -343,7 +343,7 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					if (point->next != NULL) point = point->next;
 					continue;
 				}
-				if ((((Element*)(point->data))->data == 11) && (((Element*)(point->data))->key == FUNC))			//sinus - "sin"
+				if (data(point) == 11)			//sinus - "sin"
 				{
 					if (*mess == ERR) *mess = FUNC;					//restore message
 					ins_data(point->prev, sin(data(point->prev)));		//sinus of previous element
@@ -352,39 +352,51 @@ double post_calc(List* post, double* ans, int* coord, int* mess, double resz, in
 					if (point->next != NULL) point = point->next;
 					continue;
 				}
-				if ((((Element*)(point->data))->data == 12) && (((Element*)(point->data))->key == FUNC))			//tanget - "tan"
+				if (data(point) == 12)			//tanget - "tan"
 				{
+					double tmp, piz = 3.1415926535;
+					tmp = data(point->prev) - ((int) (data(point->prev)/piz)) * piz - piz/2.0;
 					if (*mess == ERR) *mess = FUNC;					//restore message
-					//if ((double)data(point->prev)  (double)3.14)		//case close to Zero
-					//{
-					//	if (*mess == ARIPH)		//single computation for ariph
-					//	{
-					//		*mess = ERR_ZERO_DIV;
-					//		return;
-					//	}
-					//	if (*mess == FUNC)		//function case
-					//	{
-					//		*mess = ERR;
-					//		break;
-					//	}
-					//}
-					((Element*)(point->prev->prev->data))->data /= data(point->prev);	//divide two previous elements
-					point = point->prev->prev;
-					queue_el_del(post, point->num + 2);	//delete used
-					queue_el_del(post, point->num + 1);	//
+					if ((tmp > -0.00001) && (tmp < 0.00001))		//case close to Zero
+					{
+						if (*mess == ARIPH)		//single computation for ariph
+						{
+							*mess = ERR_TAN;
+							return;
+						}
+						if (*mess == FUNC)		//function case
+						{
+							*mess = ERR;
+							break;
+						}
+					}
+					ins_data(point->prev, tan(data(point->prev)));		//tanget of previous element
+					point = point->prev;
+					queue_el_del(post, point->num + 1);	//delete used
 					if (point->next != NULL) point = point->next;
 					continue;
 				}
-				if ((((Element*)(point->data))->data == 13) && (((Element*)(point->data))->key == FUNC))			//ctg
+				if (data(point) == 13)			//cotanget - "ctg"
 				{
-					if ((sin(((Element*)(point->prev->data))->data) > -0.0000001) && (sin(((Element*)(point->prev->data))->data) < 0.0000001))
+					double tmp, piz = 3.1415926535;
+					tmp = data(point->prev) - ((int) ((data(point->prev))/piz)) * piz;
+					if (*mess == ERR) *mess = FUNC;					//restore message
+					if ((tmp > -0.00001) && (tmp < 0.00001))		//case close to Zero
 					{
-						*mess = ERR_CTG;
-						return 0;
+						if (*mess == ARIPH)		//single computation for ariph
+						{
+							*mess = ERR_CTG;
+							return;
+						}
+						if (*mess == FUNC)		//function case
+						{
+							*mess = ERR;
+							break;
+						}
 					}
-					((Element*)(point->prev->data))->data = cos(((Element*)(point->prev->data))->data)/sin(((Element*)(point->prev->data))->data);
+					ins_data(point->prev, ctg(data(point->prev)));		//cotanget of previous element
 					point = point->prev;
-					queue_el_del(post, point->num + 1);
+					queue_el_del(post, point->num + 1);	//delete used
 					if (point->next != NULL) point = point->next;
 					continue;
 				}
@@ -422,6 +434,11 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 	unsigned int chr = 0;
 	unsigned int lex_len;
 	Element el;
+	if (mode == VAR)
+		if (isdigit(string[*smb]))
+		{
+			return DIGIT_VAR;
+		}
 	el.key = 0;
 	while (lex < amount)		//element
 	{
@@ -460,6 +477,8 @@ int lexem_find(int* smb, char* in, List* lt, Dbase* db, int amount, int mode)
 							queue_add_end(lt, element_create(NUM, db[lex].data));
 							return 0;
 						}
+						if (mode == VAR_SEARCH)
+							return (10 + lex);
 					}
 				}
 				else					//case lexems not found
@@ -551,4 +570,10 @@ void ins_key(Note* el, char in)
 void ins_data(Note* el, double in)
 {
 	((Element*)(el->data))->data = in;
+}
+
+//ctg
+double ctg(double in)
+{
+	return (cos(in)/sin(in));
 }
