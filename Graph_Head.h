@@ -5,7 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+<<<<<<< HEAD
+#include <SDL2/SDL.h> //for graphics
+=======
 #include <SDL2/SDL.h>           //for graphics
+>>>>>>> branch 'master' of https://github.com/Stratholm/PlotCalc.git
 #include "SDL2/SDL_ttf.h"       //for text
 #include "PlotCalc_Head.h"
 
@@ -21,7 +25,7 @@ extern SDL_Color textColor;
 void screen_first_init();
 
 //Getch alternative for SDL & Linux
-int SDL_getch();
+SDL_Keycode SDL_getch();
 
 //Clear Screen
 void screen_clear();

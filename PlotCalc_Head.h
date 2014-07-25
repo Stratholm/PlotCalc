@@ -8,6 +8,7 @@
 #include <assert.h>
 #include "Queue_Head.h"
 #include <string.h>
+#include "SDL2/SDL.h"
 
 
 #define awruk_size 86
@@ -111,7 +112,7 @@ typedef struct Dbase
 extern int e;
 extern double ans;
 extern double M;
-extern char c;
+extern SDL_Keycode c;
 extern int message;
 extern char string[awruk_size];
 extern int i;
@@ -145,6 +146,9 @@ int plot_save(Note* point);
 
 //Close session of storage
 int session_close(List* ariph, List* var);
+
+//recombination of getch and main
+void interface_read();
 
 //Analise string and calculate/save/build
 int string_analyse(char* str, Note* point, Dbase* fc, Dbase* ct, Dbase* vr, int var_amount);

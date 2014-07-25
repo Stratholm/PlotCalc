@@ -26,25 +26,21 @@ void screen_first_init()
 }
 
 //Getch alternative for SDL & Linux
-int SDL_getch()
+SDL_Keycode SDL_getch()
 {
     SDL_Keycode code;
     while (1)
     {
-    SDL_PollEvent(&event);              //Something happened in the program
-    if ((event.type==SDL_KEYDOWN)&&!((event.key.keysym.sym==SDLK_LSHIFT)||(event.key.keysym.sym==SDLK_RSHIFT))) //if it was pressing the button, but not Shifts
-    {
+        SDL_PollEvent(&event);              //Something happened in the program
+        if (event.type!=SDL_KEYDOWN) continue;
 		code = event.key.keysym.sym;
-		while (event.type == SDL_KEYDOWN) SDL_PollEvent(&event);          //to prevent  crazy stuff with backspases and others
-		switch (code)
+		if ((code!=SDLK_LSHIFT)&&(code!=SDLK_RSHIFT))
 		{
-			case SDLK_UP: return arr_up;
-			case SDLK_DOWN: return arr_down;
-			case SDLK_LEFT: return arr_left;
-			case SDLK_RIGHT: return arr_right;
-			case SDLK_INSERT: return insert;
-			case SDLK_LALT: return 0;
-			case SDLK_RALT: return 0;
+            while (event.type == SDL_KEYDOWN) SDL_PollEvent(&event);          //to prevent  crazy stuff with backspases and others
+            switch(code)
+            {
+            case SDLK_LALT: return 1;
+			case SDLK_RALT: return 1;
 			case SDLK_KP_1: return SDLK_1;
 			case SDLK_KP_2: return SDLK_2;
 			case SDLK_KP_3: return SDLK_3;
@@ -61,47 +57,45 @@ int SDL_getch()
 			case SDLK_KP_MINUS: return SDLK_MINUS;
 			case SDLK_KP_MULTIPLY: return SDLK_ASTERISK;
 			case SDLK_KP_DIVIDE: return SDLK_SLASH;
-			case SDLK_F2: return F2;
-			case SDLK_F3: return F3;
-			case SDLK_NUMLOCKCLEAR: return 0;
-			default: return code;
-		}
-    }
-    if ((event.type==SDL_KEYDOWN)&&((event.key.keysym.sym==SDLK_LSHIFT)||(event.key.keysym.sym==SDLK_RSHIFT))) //if it were shifts
-		while(1)                                                                                        //then do shift
-		{
-			SDL_PollEvent(&event);
-			if (event.type==SDL_KEYDOWN)
-			{
-				if ((((int)event.key.keysym.sym)>96)&&(((int)event.key.keysym.sym)<123)) return ((int)event.key.keysym.sym)-32; //for letters
-				switch(event.key.keysym.sym)                                //for others
-				{
-					case SDLK_LSHIFT: continue;
-					case SDLK_RSHIFT: continue;
-					case SDLK_1: return SDLK_EXCLAIM;
-					case SDLK_2: return SDLK_AT;
-					case SDLK_3: return SDLK_HASH;
-					case SDLK_4: return SDLK_DOLLAR;
-					case SDLK_5: return SDLK_PERCENT;
-					case SDLK_6: return SDLK_CARET;
-					case SDLK_7: return SDLK_AMPERSAND;
-					case SDLK_8: return SDLK_ASTERISK;
-					case SDLK_9: return 40;
-					case SDLK_0: return 41;
-					case SDLK_MINUS: return SDLK_UNDERSCORE;
-					case SDLK_EQUALS: return SDLK_PLUS;
-					case SDLK_QUOTE: return SDLK_QUOTEDBL;
-					case SDLK_SEMICOLON: return SDLK_COLON;
-					case SDLK_COMMA: return SDLK_LESS;
-					case SDLK_PERIOD: return SDLK_GREATER;
-					case SDLK_SLASH: return SDLK_QUESTION;
-					case SDLK_LALT: return 0;
-					case SDLK_RALT: return 0;
-					default: return event.key.keysym.sym;
-				}
-			}
-		}
+			case SDLK_NUMLOCKCLEAR: return 1;
+            default: return code;
+            }
+        }
+        if ((code==SDLK_LSHIFT)||(code==SDLK_RSHIFT))
+        {
+        while (1)
+        {
+            SDL_PollEvent(&event);
+            if (event.type!=SDL_KEYDOWN) continue;
+            if (((event.key.keysym.sym)>=SDLK_a)&&((event.key.keysym.sym)<=SDLK_z)) return (event.key.keysym.sym)-32; //for letters
+            switch(event.key.keysym.sym)
+            {
+                case SDLK_LSHIFT: continue;
+                case SDLK_RSHIFT: continue;
+                case SDLK_1: return SDLK_EXCLAIM;
+                case SDLK_2: return SDLK_AT;
+                case SDLK_3: return SDLK_HASH;
+                case SDLK_4: return SDLK_DOLLAR;
+				case SDLK_5: return SDLK_PERCENT;
+				case SDLK_6: return SDLK_CARET;
+				case SDLK_7: return SDLK_AMPERSAND;
+				case SDLK_8: return SDLK_ASTERISK;
+				case SDLK_9: return SDLK_LEFTPAREN;
+				case SDLK_0: return SDLK_RIGHTPAREN;
+				case SDLK_MINUS: return SDLK_UNDERSCORE;
+				case SDLK_EQUALS: return SDLK_PLUS;
+				case SDLK_QUOTE: return SDLK_QUOTEDBL;
+				case SDLK_SEMICOLON: return SDLK_COLON;
+				case SDLK_COMMA: return SDLK_LESS;
+				case SDLK_PERIOD: return SDLK_GREATER;
+				case SDLK_SLASH: return SDLK_QUESTION;
+				case SDLK_LALT: return 0;
+				case SDLK_RALT: return 0;
+				default: return event.key.keysym.sym;
+            }
 
+        }
+        }
     }
 }
 
